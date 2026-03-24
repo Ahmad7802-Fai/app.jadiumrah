@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* =====================================================
+   U M R A H  -  C O R E   D E S I G N  S Y S T E M
+===================================================== */
+@layer components {
+
+    /* =====================================================
+       BASE LAYOUT
+    ===================================================== */
+
+    .page-container {
+        @apply max-w-7xl mx-auto px-8 py-8;
+    }
+
+    .section-title {
+        @apply text-lg font-semibold text-gray-800 tracking-tight;
+    }
+
+    .section-subtitle {
+        @apply text-sm text-gray-500;
+    }
+
+
+
+    /* =====================================================
+       BUTTON SYSTEM (PRO)
+    ===================================================== */
+
+    .btn {
+        @apply inline-flex items-center justify-center 
+               px-5 py-2.5 rounded-xl 
+               text-sm font-medium 
+               transition duration-200 ease-in-out
+               focus:outline-none focus:ring-2 focus:ring-offset-2;
+    }
+
+    .btn-primary {
+        @apply btn bg-primary text-white 
+               shadow-sm hover:shadow-md
+               hover:-translate-y-[1px]
+               focus:ring-primary;
+    }
+
+    .btn-outline {
+        @apply btn border border-primary text-primary 
+               hover:bg-primary hover:text-white;
+    }
+
+    .btn-secondary {
+        @apply btn bg-gray-100 text-gray-700 
+               hover:bg-gray-200;
+    }
+
+    .btn-danger {
+        @apply btn bg-red-600 text-white 
+               hover:bg-red-700 shadow-sm;
+    }
+
+    .btn-xs {
+        @apply px-3 py-1 text-xs rounded-lg;
+    }
+
+
+
+    /* =====================================================
+       BADGE SYSTEM
+    ===================================================== */
+
+    .badge {
+        @apply inline-flex items-center 
+               px-2.5 py-1 
+               rounded-full text-xs font-medium;
+    }
+
+    .badge-primary {
+        @apply badge bg-primary text-white;
+    }
+
+    .badge-success {
+        @apply badge bg-green-100 text-green-700;
+    }
+
+    .badge-warning {
+        @apply badge bg-yellow-100 text-yellow-700;
+    }
+
+    .badge-danger {
+        @apply badge bg-red-100 text-red-700;
+    }
+
+    .badge-neutral {
+        @apply badge bg-gray-100 text-gray-600;
+    }
+
+
+
+    /* =====================================================
+       CARD SYSTEM (SAAS STYLE)
+    ===================================================== */
+
+    .card {
+        @apply bg-white 
+               rounded-3xl 
+               border border-gray-200 
+               p-6 
+               shadow-sm 
+               transition duration-300;
+    }
+
+    .card:hover {
+        @apply shadow-md;
+    }
+
+    .card-elevated {
+        @apply bg-white rounded-3xl p-6 
+               shadow-lg border border-gray-100;
+    }
+
+    .card-compact {
+        @apply bg-white rounded-2xl p-4 
+               border border-gray-200 shadow-sm;
+    }
+
+
+
+    /* =====================================================
+       STAT CARD (Dashboard Summary)
+    ===================================================== */
+
+    .stat-card {
+        @apply bg-gradient-to-br from-white to-gray-50
+               rounded-3xl p-6 
+               border border-gray-200
+               shadow-sm transition duration-300;
+    }
+
+    .stat-card:hover {
+        @apply shadow-md;
+    }
+
+    .stat-label {
+        @apply text-xs uppercase tracking-wide text-gray-400;
+    }
+
+    .stat-number {
+        @apply text-3xl font-bold tracking-tight text-gray-900;
+    }
+
+
+
+    /* =====================================================
+       ROOM CARD SYSTEM
+    ===================================================== */
+
+    .room-card {
+        @apply bg-white rounded-3xl p-6 
+               border border-gray-200 
+               shadow-sm 
+               hover:shadow-lg 
+               transition duration-300;
+    }
+
+    .room-header {
+        @apply flex justify-between items-start mb-4;
+    }
+
+    .room-title {
+        @apply text-sm font-semibold text-gray-800;
+    }
+
+    .room-meta {
+        @apply text-xs text-gray-400;
+    }
+
+    .room-occupancy {
+        @apply text-xs font-medium text-gray-600;
+    }
+
+    .room-progress {
+        @apply w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-4;
+    }
+
+    .room-progress-bar {
+        @apply h-2 rounded-full transition-all duration-500;
+    }
+
+
+
+    /* =====================================================
+       MEMBER CARD
+    ===================================================== */
+
+    .member-card {
+        @apply bg-gray-50 border border-gray-200 
+               rounded-xl p-3 text-sm 
+               transition duration-200;
+    }
+
+    .member-card:hover {
+        @apply bg-gray-100;
+    }
+
+    .member-name {
+        @apply font-medium text-gray-800;
+    }
+
+    .member-meta {
+        @apply text-xs text-gray-400;
+    }
+
+
+
+    /* =====================================================
+       FORM SYSTEM
+    ===================================================== */
+
+    .label {
+        @apply block mb-1 text-xs font-medium text-gray-500;
+    }
+
+    .input {
+        @apply w-full px-4 py-2.5 
+               rounded-xl border border-gray-300 
+               text-sm
+               focus:outline-none 
+               focus:ring-2 focus:ring-primary 
+               focus:border-primary
+               transition;
+    }
+
+    .select {
+        @apply input appearance-none bg-white;
+    }
+
+
+
+    /* =====================================================
+       TABLE SYSTEM
+    ===================================================== */
+
+    .table-wrapper {
+        @apply overflow-x-auto rounded-2xl border border-gray-200;
+    }
+
+    .table {
+        @apply min-w-full text-sm text-left text-gray-600;
+    }
+
+    .table th {
+        @apply px-4 py-3 bg-gray-50 text-gray-600 font-medium;
+    }
+
+    .table td {
+        @apply px-4 py-3 border-t border-gray-100;
+    }
+
+
+
+    /* =====================================================
+       ALERT SYSTEM
+    ===================================================== */
+
+    .alert {
+        @apply px-4 py-3 rounded-2xl text-sm;
+    }
+
+    .alert-success {
+        @apply alert bg-green-50 text-green-700;
+    }
+
+    .alert-danger {
+        @apply alert bg-red-50 text-red-700;
+    }
+
+    .alert-warning {
+        @apply alert bg-yellow-50 text-yellow-700;
+    }
+
+}
