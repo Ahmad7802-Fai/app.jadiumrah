@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PaketQueryService
 {
+
 public function publicList(array $filters = []): LengthAwarePaginator
 {
     $perPage = min((int) ($filters['per_page'] ?? 12), 100);
@@ -66,6 +67,16 @@ public function publicList(array $filters = []): LengthAwarePaginator
                     ->whereRaw('COALESCE(pd.quota,0) > COALESCE(pd.booked,0)')
                     ->selectRaw('MIN(pdp.price)')
             ])
+
+            ->addSelect([
+                'available_seats' => \DB::table('paket_departures as pd')
+                    ->whereColumn('pd.paket_id', 'pakets.id')
+                    ->where('pd.is_active', 1)
+                    ->where('pd.is_closed', 0)
+                    ->whereDate('pd.departure_date', '>=', $today)
+                    ->selectRaw('COALESCE(SUM(GREATEST(pd.quota - pd.booked, 0)),0)')
+            ])
+
 
             ->withCount('bookings')
             ->latest()
