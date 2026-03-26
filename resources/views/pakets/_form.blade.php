@@ -21,7 +21,6 @@ $isEdit = isset($paket) && $paket?->exists;
                     ['departure_city','Kota Keberangkatan'],
                     ['airline','Maskapai'],
                     ['duration_days','Durasi (Hari)','number'],
-                    ['quota','Quota Default','number'],
                 ] as $f)
                 <div>
                     <label class="label">{{ $f[1] }}</label>
@@ -33,8 +32,13 @@ $isEdit = isset($paket) && $paket?->exists;
                 @endforeach
             </div>
 
-            <textarea name="short_description" class="input mt-4">{{ old('short_description', $paket->short_description ?? '') }}</textarea>
-            <textarea name="description" class="input mt-3">{{ old('description', $paket->description ?? '') }}</textarea>
+            <textarea name="short_description" class="input mt-4">
+{{ old('short_description', $paket->short_description ?? '') }}
+            </textarea>
+
+            <textarea name="description" class="input mt-3">
+{{ old('description', $paket->description ?? '') }}
+            </textarea>
         </div>
     </div>
 
@@ -45,6 +49,7 @@ $isEdit = isset($paket) && $paket?->exists;
         <div class="card">
             <h3 class="title">Media</h3>
 
+            {{-- THUMBNAIL --}}
             @if($isEdit && $paket?->thumbnail)
                 <img src="{{ asset('storage/'.$paket->thumbnail) }}"
                      class="w-full h-40 object-cover rounded mb-3">
@@ -52,7 +57,26 @@ $isEdit = isset($paket) && $paket?->exists;
 
             <input type="file" name="thumbnail" class="input">
 
-            {{-- MULTI GALLERY --}}
+            {{-- ================= GALLERY EXISTING ================= --}}
+            @if($isEdit && $paket->gallery)
+                <div class="grid grid-cols-3 gap-2 mt-3">
+                    @foreach($paket->gallery as $img)
+                        <div class="relative">
+
+                            <img src="{{ asset('storage/'.$img) }}"
+                                 class="h-24 w-full object-cover rounded">
+
+                            <label class="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 rounded cursor-pointer">
+                                <input type="checkbox" name="remove_gallery[]" value="{{ $img }}">
+                                ✕
+                            </label>
+
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            {{-- MULTI UPLOAD --}}
             <input type="file" name="gallery[]" multiple class="input mt-3" id="galleryInput">
 
             <div id="galleryPreview" class="grid grid-cols-3 gap-2 mt-3"></div>
@@ -181,13 +205,19 @@ document.addEventListener('DOMContentLoaded', () => {
        🚀 GALLERY PRO MAX
     ========================================================= */
 
-    let files = []
     const input = qs('#galleryInput')
     const preview = qs('#galleryPreview')
-    const form = document.querySelector('form')
+
+    /* ================= INPUT SELECT ================= */
+    if(input){
+        input.addEventListener('change', () => {
+            renderGallery()
+        })
+    }
 
     /* ================= DRAG DROP ================= */
     if(preview){
+
         preview.addEventListener('dragover', e=>{
             e.preventDefault()
             preview.classList.add('ring-2','ring-green-400')
@@ -201,69 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault()
             preview.classList.remove('ring-2','ring-green-400')
 
-            const dropped = Array.from(e.dataTransfer.files)
-            dropped.forEach(f => addFile(f))
-        })
-    }
+            const dt = new DataTransfer()
 
-    /* ================= INPUT SELECT ================= */
-    if(input){
-        input.addEventListener('change', e=>{
-            Array.from(e.target.files).forEach(f => addFile(f))
-            input.value = ''
-        })
-    }
+            // ambil existing file
+            Array.from(input.files).forEach(f => dt.items.add(f))
 
-    /* ================= ADD FILE ================= */
-    function addFile(file){
-        if(!file.type.startsWith('image/')) return
-
-        compressImage(file).then(compressed=>{
-            files.push(compressed)
-            renderGallery()
-        })
-    }
-
-    /* ================= COMPRESS IMAGE ================= */
-    function compressImage(file){
-        return new Promise(resolve=>{
-            const img = new Image()
-            const reader = new FileReader()
-
-            reader.onload = e => {
-                img.src = e.target.result
-            }
-
-            img.onload = () => {
-                const canvas = document.createElement('canvas')
-                const ctx = canvas.getContext('2d')
-
-                const MAX = 1200
-                let w = img.width
-                let h = img.height
-
-                if(w > h && w > MAX){
-                    h *= MAX / w
-                    w = MAX
-                }else if(h > MAX){
-                    w *= MAX / h
-                    h = MAX
+            // tambah dropped file
+            Array.from(e.dataTransfer.files).forEach(f=>{
+                if(f.type.startsWith('image/')){
+                    dt.items.add(f)
                 }
+            })
 
-                canvas.width = w
-                canvas.height = h
+            input.files = dt.files
 
-                ctx.drawImage(img,0,0,w,h)
-
-                canvas.toBlob(blob=>{
-                    const newFile = new File([blob], file.name, {
-                        type: 'image/jpeg'
-                    })
-                    resolve(newFile)
-                }, 'image/jpeg', 0.8)
-            }
-
-            reader.readAsDataURL(file)
+            renderGallery()
         })
     }
 
@@ -271,12 +253,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderGallery(){
         preview.innerHTML = ''
 
-        files.forEach((file,index)=>{
+        Array.from(input.files).forEach((file,index)=>{
             const reader = new FileReader()
 
             reader.onload = e=>{
                 preview.insertAdjacentHTML('beforeend', `
-                    <div class="relative group cursor-move" draggable="true" data-index="${index}">
+                    <div class="relative">
 
                         <img src="${e.target.result}" class="h-24 w-full object-cover rounded">
 
@@ -285,10 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             data-index="${index}">
                             ×
                         </button>
-
-                        <div class="absolute bottom-0 left-0 w-full bg-black/50 text-white text-[10px] text-center">
-                            ${Math.round(file.size/1024)} KB
-                        </div>
 
                     </div>
                 `)
@@ -301,48 +279,19 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ================= REMOVE ================= */
     document.addEventListener('click', e=>{
         if(e.target.classList.contains('remove-gallery')){
-            const i = parseInt(e.target.dataset.index)
-            files.splice(i,1)
+
+            const index = parseInt(e.target.dataset.index)
+            const dt = new DataTransfer()
+
+            Array.from(input.files)
+                .filter((_,i)=>i!==index)
+                .forEach(f=>dt.items.add(f))
+
+            input.files = dt.files
+
             renderGallery()
         }
     })
-
-    /* ================= REORDER (DRAG SORT) ================= */
-    let dragIndex = null
-
-    preview?.addEventListener('dragstart', e=>{
-        dragIndex = e.target.closest('[data-index]')?.dataset.index
-    })
-
-    preview?.addEventListener('drop', e=>{
-        const target = e.target.closest('[data-index]')
-        if(!target) return
-
-        const targetIndex = target.dataset.index
-
-        const temp = files[dragIndex]
-        files.splice(dragIndex,1)
-        files.splice(targetIndex,0,temp)
-
-        renderGallery()
-    })
-
-    /* ================= SUBMIT (SET FILES) ================= */
-    if(form){
-        form.addEventListener('submit', e=>{
-
-            /* progress UI */
-            const btn = form.querySelector('button')
-            if(btn){
-                btn.innerText = 'Uploading...'
-                btn.disabled = true
-            }
-
-            const dt = new DataTransfer()
-            files.forEach(f => dt.items.add(f))
-            input.files = dt.files
-        })
-    }
 
     /* =========================================================
        📦 FORM DYNAMIC (FIX NO OPTIONAL CHAINING)

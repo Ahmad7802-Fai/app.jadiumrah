@@ -8,6 +8,7 @@ use App\Models\Destination;
 use App\Services\Pakets\PaketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class PaketController extends Controller
 {
@@ -23,54 +24,67 @@ class PaketController extends Controller
     | INDEX
     |--------------------------------------------------------------------------
     */
+
     public function index()
     {
         $this->authorize('viewAny', Paket::class);
 
-        $pakets = Paket::query()
-            ->withCount('departures')
-            ->with(['departures' => fn($q) => $q->orderBy('departure_date')->limit(1)])
+        $page = request('page', 1);
 
-            ->leftJoin('paket_departures', 'pakets.id', '=', 'paket_departures.paket_id')
-            ->leftJoin('paket_departure_prices', 'paket_departures.id', '=', 'paket_departure_prices.paket_departure_id')
+        $pakets = Cache::remember("pakets.page.$page", 60, function () {
 
-            ->select(
-                'pakets.*',
+            $data = Paket::query()
+                ->withCount('departures')
+                ->with([
+                    'departures' => function ($q) {
+                        $q->orderBy('departure_date')
+                        ->with('prices')
+                        ->limit(1);
+                    }
+                ])
+                ->latest('created_at')
+                ->paginate(15);
 
-                DB::raw('
-                    MIN(
-                        CASE
-                            WHEN paket_departure_prices.promo_type = "percent"
-                                AND (
-                                    paket_departure_prices.promo_expires_at IS NULL
-                                    OR paket_departure_prices.promo_expires_at > NOW()
-                                )
-                            THEN paket_departure_prices.price
-                                - (paket_departure_prices.price * paket_departure_prices.promo_value / 100)
+            // 🔥 HITUNG HARGA DI PHP (BUKAN SQL)
+            $data->getCollection()->transform(function ($paket) {
 
-                            WHEN paket_departure_prices.promo_type = "fixed"
-                                AND (
-                                    paket_departure_prices.promo_expires_at IS NULL
-                                    OR paket_departure_prices.promo_expires_at > NOW()
-                                )
-                            THEN paket_departure_prices.price
-                                - paket_departure_prices.promo_value
+                $departure = $paket->departures->first();
 
-                            ELSE paket_departure_prices.price
-                        END
-                    ) as base_price
-                '),
+                if (!$departure || $departure->prices->isEmpty()) {
+                    $paket->base_price = null;
+                    $paket->original_price = null;
+                    return $paket;
+                }
 
-                DB::raw('MIN(paket_departure_prices.price) as original_price')
-            )
+                $prices = $departure->prices;
 
-            ->groupBy('pakets.id')
-            ->latest('pakets.created_at')
-            ->paginate(15);
+                $original = $prices->min('price');
+
+                $final = $prices->map(function ($p) {
+
+                    if ($p->promo_type === 'percent') {
+                        return $p->price - ($p->price * $p->promo_value / 100);
+                    }
+
+                    if ($p->promo_type === 'fixed') {
+                        return $p->price - $p->promo_value;
+                    }
+
+                    return $p->price;
+
+                })->min();
+
+                $paket->original_price = $original;
+                $paket->base_price = $final;
+
+                return $paket;
+            });
+
+            return $data;
+        });
 
         return view('pakets.index', compact('pakets'));
     }
-
     /*
     |--------------------------------------------------------------------------
     | CREATE
@@ -98,6 +112,8 @@ class PaketController extends Controller
     */
     public function store(Request $request)
     {
+        dd($request->file('gallery'));
+
         $this->authorize('create', Paket::class);
 
         $validated = $this->validateData($request);
@@ -166,6 +182,7 @@ class PaketController extends Controller
     */
     public function update(Request $request, Paket $paket)
     {
+
         $this->authorize('update', $paket);
 
         $validated = $this->validateData($request);
