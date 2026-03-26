@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Jamaah;
+namespace App\Http\Requests\Api\V1\Jamaah;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
