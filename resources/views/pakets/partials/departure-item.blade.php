@@ -10,11 +10,6 @@ if (is_array($dep)) {
     $rawReturn    = $dep->return_date ?? null;
 }
 
-/*
-|--------------------------------------------------------------------------
-| FORMAT DATE
-|--------------------------------------------------------------------------
-*/
 $departureDate = old(
     "departures.$index.departure_date",
     $rawDeparture ? \Carbon\Carbon::parse($rawDeparture)->format('Y-m-d') : null
@@ -33,19 +28,21 @@ $quota = old(
 @endphp
 
 
-<div class="border rounded-xl p-5 space-y-5 departure-item bg-gray-50">
+<div class="departure-item border rounded-xl p-5 space-y-5 bg-gray-50">
 
     {{-- ================= HEADER ================= --}}
     <div class="flex justify-between items-center">
-        <h4 class="font-semibold text-gray-700 text-sm">
-            Departure #{{ $index + 1 }}
+
+        {{-- AUTO LABEL --}}
+        <h4 class="font-semibold text-gray-700 text-sm departure-label">
+            Departure
         </h4>
 
         <button type="button"
-                onclick="this.closest('.departure-item').remove()"
-                class="text-red-500 text-xs">
+                class="text-red-500 text-xs btn-remove-departure">
             Hapus
         </button>
+
     </div>
 
 

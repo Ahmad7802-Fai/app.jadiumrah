@@ -1,48 +1,60 @@
 @php
     $city = old("hotels.$index.city",
-        $hotel->city ?? null);
+        is_array($hotel) ? ($hotel['city'] ?? null) : ($hotel->city ?? null)
+    );
 
     $hotelName = old("hotels.$index.hotel_name",
-        $hotel->hotel_name ?? null);
+        is_array($hotel) ? ($hotel['hotel_name'] ?? null) : ($hotel->hotel_name ?? null)
+    );
 
     $rating = old("hotels.$index.rating",
-        $hotel->rating ?? null);
+        is_array($hotel) ? ($hotel['rating'] ?? null) : ($hotel->rating ?? null)
+    );
 
     $distance = old("hotels.$index.distance_to_haram",
-        $hotel->distance_to_haram ?? null);
+        is_array($hotel) ? ($hotel['distance_to_haram'] ?? null) : ($hotel->distance_to_haram ?? null)
+    );
 @endphp
 
-<div class="hotel-item border rounded-xl p-4 bg-gray-50">
+<div class="hotel-item border rounded-xl p-4 bg-gray-50 relative">
 
+    {{-- ================= HEADER ================= --}}
     <div class="flex justify-between items-center mb-3">
-        <h4 class="font-semibold">Hotel {{ $index + 1 }}</h4>
+
+        {{-- AUTO LABEL (DIISI JS) --}}
+        <h4 class="font-semibold hotel-label text-gray-700">
+            Hotel
+        </h4>
 
         <button type="button"
-                onclick="this.closest('.hotel-item').remove()"
-                class="btn btn-danger btn-sm">
+                class="btn btn-danger btn-sm btn-remove-hotel">
             Hapus
         </button>
+
     </div>
 
+    {{-- ================= FORM ================= --}}
     <div class="grid md:grid-cols-4 gap-4">
 
+        {{-- KOTA --}}
         <div>
             <label class="label">Kota *</label>
             <select name="hotels[{{ $index }}][city]"
                     class="input"
                     required>
                 <option value="">-- Pilih Kota --</option>
-                <option value="mekkah"
-                    {{ $city=='mekkah'?'selected':'' }}>
+
+                <option value="mekkah" @selected($city=='mekkah')>
                     Mekkah
                 </option>
-                <option value="madinah"
-                    {{ $city=='madinah'?'selected':'' }}>
+
+                <option value="madinah" @selected($city=='madinah')>
                     Madinah
                 </option>
             </select>
         </div>
 
+        {{-- NAMA HOTEL --}}
         <div>
             <label class="label">Nama Hotel *</label>
             <input type="text"
@@ -52,6 +64,7 @@
                    required>
         </div>
 
+        {{-- RATING --}}
         <div>
             <label class="label">Rating</label>
             <input type="number"
@@ -62,6 +75,7 @@
                    class="input">
         </div>
 
+        {{-- JARAK --}}
         <div>
             <label class="label">Jarak ke Haram</label>
             <input type="text"
