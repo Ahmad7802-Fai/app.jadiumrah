@@ -11,9 +11,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PaketQueryService
 {
-    public function publicList(array $filters = []): LengthAwarePaginator
-    {
-        $perPage = min((int) ($filters['per_page'] ?? 12), 100);
+public function publicList(array $filters = []): LengthAwarePaginator
+{
+    $perPage = min((int) ($filters['per_page'] ?? 12), 100);
+
+    $cacheKey = 'pakets:list:' . md5(json_encode($filters) . $perPage);
+
+    return cache()->remember($cacheKey, 60, function () use ($filters, $perPage) {
+
         $today = now()->toDateString();
 
         return Paket::query()
@@ -32,11 +37,6 @@ class PaketQueryService
             ->where('is_active', true)
             ->where('is_published', true)
 
-            /*
-            |--------------------------------------------------------------------------
-            | 🔥 PRICE (SUBQUERY, NO JOIN)
-            |--------------------------------------------------------------------------
-            */
             ->addSelect([
                 'base_price' => \DB::table('paket_departures as pd')
                     ->join('paket_departure_prices as pdp', 'pd.id', '=', 'pdp.paket_departure_id')
@@ -68,11 +68,11 @@ class PaketQueryService
             ])
 
             ->withCount('bookings')
-
             ->latest()
             ->paginate($perPage);
-    }
 
+    });
+}
     // public function publicList(array $filters = []): LengthAwarePaginator
     // {
     //     $perPage = (int) ($filters['per_page'] ?? 12);
@@ -209,18 +209,15 @@ class PaketQueryService
     */
 
     public function publicDetail(string $slug): Paket
-    {
+{
+    return cache()->remember("paket:detail:$slug", 60, function () use ($slug) {
+
         $today = now()->startOfDay();
 
         return Paket::query()
             ->select([
                 'pakets.*',
 
-                /*
-                |--------------------------------------------------------------------------
-                | 🔥 BASE PRICE (FINAL PRICE)
-                |--------------------------------------------------------------------------
-                */
                 \DB::raw('(
                     SELECT MIN(
                         CASE
@@ -249,14 +246,8 @@ class PaketQueryService
                     AND pd.is_closed = 0
                     AND pd.departure_date >= NOW()
                     AND COALESCE(pd.quota,0) > COALESCE(pd.booked,0)
-                ) as base_price
-                '),
+                ) as base_price'),
 
-                /*
-                |--------------------------------------------------------------------------
-                | 🔥 ORIGINAL PRICE
-                |--------------------------------------------------------------------------
-                */
                 \DB::raw('(
                     SELECT MIN(pdp.price)
                     FROM paket_departures pd
@@ -267,8 +258,7 @@ class PaketQueryService
                     AND pd.is_closed = 0
                     AND pd.departure_date >= NOW()
                     AND COALESCE(pd.quota,0) > COALESCE(pd.booked,0)
-                ) as original_price
-                ')
+                ) as original_price')
             ])
 
             ->where('slug', $slug)
@@ -283,7 +273,6 @@ class PaketQueryService
                     ->orderBy('day_order'),
 
                 'departures' => function ($query) use ($today) {
-
                     $this->applyAvailableDepartureScope($query, $today);
 
                     $query->with([
@@ -309,7 +298,112 @@ class PaketQueryService
             ])
 
             ->firstOrFail();
-    }
+
+    });
+}
+
+    // public function publicDetail(string $slug): Paket
+    // {
+    //     $today = now()->startOfDay();
+
+    //     return Paket::query()
+    //         ->select([
+    //             'pakets.*',
+
+    //             /*
+    //             |--------------------------------------------------------------------------
+    //             | 🔥 BASE PRICE (FINAL PRICE)
+    //             |--------------------------------------------------------------------------
+    //             */
+    //             \DB::raw('(
+    //                 SELECT MIN(
+    //                     CASE
+    //                         WHEN pdp.promo_type = "percent"
+    //                             AND (
+    //                                 pdp.promo_expires_at IS NULL
+    //                                 OR pdp.promo_expires_at > NOW()
+    //                             )
+    //                         THEN pdp.price - (pdp.price * pdp.promo_value / 100)
+
+    //                         WHEN pdp.promo_type = "fixed"
+    //                             AND (
+    //                                 pdp.promo_expires_at IS NULL
+    //                                 OR pdp.promo_expires_at > NOW()
+    //                             )
+    //                         THEN pdp.price - pdp.promo_value
+
+    //                         ELSE pdp.price
+    //                     END
+    //                 )
+    //                 FROM paket_departures pd
+    //                 JOIN paket_departure_prices pdp
+    //                     ON pd.id = pdp.paket_departure_id
+    //                 WHERE pd.paket_id = pakets.id
+    //                 AND pd.is_active = 1
+    //                 AND pd.is_closed = 0
+    //                 AND pd.departure_date >= NOW()
+    //                 AND COALESCE(pd.quota,0) > COALESCE(pd.booked,0)
+    //             ) as base_price
+    //             '),
+
+    //             /*
+    //             |--------------------------------------------------------------------------
+    //             | 🔥 ORIGINAL PRICE
+    //             |--------------------------------------------------------------------------
+    //             */
+    //             \DB::raw('(
+    //                 SELECT MIN(pdp.price)
+    //                 FROM paket_departures pd
+    //                 JOIN paket_departure_prices pdp
+    //                     ON pd.id = pdp.paket_departure_id
+    //                 WHERE pd.paket_id = pakets.id
+    //                 AND pd.is_active = 1
+    //                 AND pd.is_closed = 0
+    //                 AND pd.departure_date >= NOW()
+    //                 AND COALESCE(pd.quota,0) > COALESCE(pd.booked,0)
+    //             ) as original_price
+    //             ')
+    //         ])
+
+    //         ->where('slug', $slug)
+    //         ->where('is_active', true)
+    //         ->where('is_published', true)
+
+    //         ->with([
+    //             'hotels' => fn ($q) => $q->orderBy('id'),
+
+    //             'itinerary' => fn ($q) => $q
+    //                 ->with('destination')
+    //                 ->orderBy('day_order'),
+
+    //             'departures' => function ($query) use ($today) {
+
+    //                 $this->applyAvailableDepartureScope($query, $today);
+
+    //                 $query->with([
+    //                     'prices' => fn ($q) => $q
+    //                         ->orderByRaw("
+    //                             CASE room_type
+    //                                 WHEN 'double' THEN 1
+    //                                 WHEN 'triple' THEN 2
+    //                                 WHEN 'quad' THEN 3
+    //                                 ELSE 4
+    //                             END
+    //                         ")
+    //                         ->orderBy('price'),
+    //                 ]);
+    //             },
+    //         ])
+
+    //         ->withCount([
+    //             'departures as departures_count' => function (Builder $query) use ($today) {
+    //                 $this->applyAvailableDepartureScope($query, $today);
+    //             },
+    //             'bookings',
+    //         ])
+
+    //         ->firstOrFail();
+    // }
 
     /*
     |--------------------------------------------------------------------------
