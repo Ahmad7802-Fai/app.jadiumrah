@@ -57,19 +57,16 @@ class PaketResource extends JsonResource
 
             'discount_percent' => $this->calculateDiscount($original, $base),
 
-            'saving_amount' => $original > $base ? ($original - $base) : 0,
-            'saving_label' => $original > $base
-                ? 'Hemat Rp' . number_format($original - $base, 0, ',', '.')
-                : null,
-            /*
-            |--------------------------------------------------------------------------
-            | PROMO LABEL (🔥 MARKETING)
-            |--------------------------------------------------------------------------
-            */
             'promo_label' => $this->promo_label,
 
             'discount_label' => $this->promo_label
                 ?? ($original > $base ? '-' . $this->calculateDiscount($original, $base) . '%' : null),
+
+            'saving_amount' => $original > $base ? ($original - $base) : 0,
+
+            'saving_label' => $original > $base
+                ? 'Hemat Rp' . number_format($original - $base, 0, ',', '.')
+                : null,
                 
             /*
             |--------------------------------------------------------------------------
