@@ -183,6 +183,8 @@ $isEdit = isset($paket) && $paket->exists;
 
 </div>
 
+
+{{-- ================= ENGGINE SCRIPT ================= --}}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -193,9 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================= HELPER ================= */
-
-    const $ = (selector) => document.querySelector(selector)
-    const $$ = (selector) => document.querySelectorAll(selector)
+    const $  = (s) => document.querySelector(s)
+    const $$ = (s) => document.querySelectorAll(s)
 
     function renderTemplate(id, index){
         const tpl = document.getElementById(id)
@@ -207,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================= GALLERY PREVIEW ================= */
-
     const galleryInput   = $('#galleryInput')
     const galleryPreview = $('#galleryPreview')
 
@@ -217,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryPreview.innerHTML = ''
 
             Array.from(e.target.files).forEach(file => {
-
                 const reader = new FileReader()
 
                 reader.onload = (ev) => {
@@ -228,8 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 reader.readAsDataURL(file)
-
             })
+
         })
     }
 
@@ -237,46 +236,36 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ================= ADD ================= */
 
     $('#btnAddHotel')?.addEventListener('click', () => {
-
         const html = renderTemplate('hotelTemplate', hotelIndex)
         if(!html) return
 
         $('#hotelWrapper')?.insertAdjacentHTML('beforeend', html)
-
         hotelIndex++
         updateHotelOrder()
-
     })
 
 
     $('#btnAddItinerary')?.addEventListener('click', () => {
-
         const html = renderTemplate('itineraryTemplate', itineraryIndex)
         if(!html) return
 
         $('#itineraryWrapper')?.insertAdjacentHTML('beforeend', html)
-
         itineraryIndex++
         updateDayOrder()
-
     })
 
 
     $('#btnAddDeparture')?.addEventListener('click', () => {
-
         const html = renderTemplate('departureTemplate', departureIndex)
         if(!html) return
 
         $('#departureWrapper')?.insertAdjacentHTML('beforeend', html)
-
         departureIndex++
         updateDepartureOrder()
-
     })
 
 
     /* ================= REMOVE ================= */
-
     document.addEventListener('click', function(e){
 
         if(e.target.closest('.btn-remove-hotel')){
@@ -292,6 +281,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if(e.target.closest('.btn-remove-departure')){
             e.target.closest('.departure-item')?.remove()
             updateDepartureOrder()
+        }
+
+    })
+
+
+    /* ================= DESTINATION HANDLER ================= */
+    document.addEventListener('change', function(e){
+
+        if(e.target.classList.contains('destination-select')){
+
+            const wrapper = e.target.closest('.itinerary-item')
+            const manualInput = wrapper?.querySelector('.manual-destination')
+
+            if(!manualInput) return
+
+            if(e.target.value === '__new__'){
+                manualInput.classList.remove('hidden')
+                manualInput.required = true
+            }else{
+                manualInput.classList.add('hidden')
+                manualInput.required = false
+                manualInput.value = ''
+            }
+
         }
 
     })
@@ -329,6 +342,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateHotelOrder()
     updateDayOrder()
     updateDepartureOrder()
+
+    /* INIT DESTINATION STATE (EDIT MODE FIX) */
+    $$('.destination-select').forEach(el=>{
+        el.dispatchEvent(new Event('change'))
+    })
 
 })
 </script>
