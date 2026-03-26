@@ -1,24 +1,93 @@
-*.log
-.DS_Store
-.env
-.env.backup
-.env.production
-.phpactor.json
-.phpunit.result.cache
-/.fleet
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
-/auth.json
+# =========================
+# Laravel Core
+# =========================
+/vendor
 /node_modules
 /public/build
 /public/hot
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
+/bootstrap/cache/*.php
+/bootstrap/cache/*.json
+
+# =========================
+# Environment (WAJIB DIHIDE)
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+*.log
+storage/logs/*.log
+
+# =========================
+# Cache & Testing
+# =========================
+.phpunit.result.cache
+.phpunit.cache
+.phpactor.json
+coverage/
+.php-cs-fixer.cache
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode
+.idea
+.fleet
+.zed
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Composer
+# =========================
+/composer.phar
+/auth.json
+
+# =========================
+# NPM / Yarn
+# =========================
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# =========================
+# Homestead / Local Dev
+# =========================
 Homestead.json
 Homestead.yaml
-Thumbs.db
+
+# =========================
+# Archives / Backup (PENTING 🔥)
+# =========================
+*.zip
+*.tar
+*.gz
+*.rar
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# Misc
+# =========================
+/.nova
+/.cache
+/.history
+
+# =========================
+# VS Code Remote
+# =========================
+.vscode-server
