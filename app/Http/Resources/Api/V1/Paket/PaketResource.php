@@ -72,6 +72,21 @@ class PaketResource extends JsonResource
 
             /*
             |--------------------------------------------------------------------------
+            | SEAT INFO (🔥 OTA STYLE)
+            |--------------------------------------------------------------------------
+            */
+            'available_seats' => (int) ($this->available_seats ?? 0),
+
+            'seat_label' => match(true) {
+                ($this->available_seats ?? 0) <= 0 => 'Sold Out',
+                ($this->available_seats ?? 0) <= 5 => '🔥 Sisa ' . $this->available_seats . ' kursi',
+                default => 'Tersedia',
+            },
+
+            'is_sold_out' => ($this->available_seats ?? 0) <= 0,
+
+            /*
+            |--------------------------------------------------------------------------
             | DEPARTURE
             |--------------------------------------------------------------------------
             */
