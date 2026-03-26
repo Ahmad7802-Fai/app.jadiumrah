@@ -263,29 +263,50 @@ class PaketService
 
     private function syncItinerary(Paket $paket, array $items): void
     {
+        // reset
         $paket->destinations()->delete();
 
         foreach ($items as $index => $item) {
 
             $destinationId = $item['destination_id'] ?? null;
+            $destinationName = trim($item['destination_name'] ?? '');
 
-            if (!$destinationId && !empty($item['destination_name'])) {
+            /* =====================================================
+            🔥 FIX UTAMA: HANDLE "__new__"
+            ===================================================== */
+            if ($destinationId === '__new__') {
+                $destinationId = null;
+            }
+
+            /* =====================================================
+            🔥 CREATE DESTINATION BARU
+            ===================================================== */
+            if (!$destinationId && $destinationName !== '') {
 
                 $destination = Destination::firstOrCreate(
-                    ['city' => $item['destination_name']],
-                    ['country' => 'Saudi Arabia', 'type' => 'tour']
+                    ['city' => $destinationName],
+                    [
+                        'country' => 'Saudi Arabia',
+                        'type' => 'tour'
+                    ]
                 );
 
                 $destinationId = $destination->id;
             }
 
+            /* =====================================================
+            ⛔ SKIP JIKA MASIH TIDAK ADA
+            ===================================================== */
             if (!$destinationId) continue;
 
+            /* =====================================================
+            ✅ INSERT
+            ===================================================== */
             PaketDestination::create([
-                'paket_id' => $paket->id,
+                'paket_id'       => $paket->id,
                 'destination_id' => $destinationId,
-                'day_order' => $item['day_order'] ?? ($index + 1),
-                'note' => $item['note'] ?? null,
+                'day_order'      => $item['day_order'] ?? ($index + 1),
+                'note'           => $item['note'] ?? null,
             ]);
         }
     }

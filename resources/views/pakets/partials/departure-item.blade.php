@@ -1,39 +1,51 @@
 @php
+    use Carbon\Carbon;
 
-$roomTypes = ['double','triple','quad'];
+    $roomTypes = ['double','triple','quad'];
 
-if (is_array($dep)) {
-    $rawDeparture = $dep['departure_date'] ?? null;
-    $rawReturn    = $dep['return_date'] ?? null;
-} else {
-    $rawDeparture = $dep->departure_date ?? null;
-    $rawReturn    = $dep->return_date ?? null;
-}
+    // helper universal (array / object)
+    $get = fn($key) => is_array($dep)
+        ? ($dep[$key] ?? null)
+        : ($dep->$key ?? null);
 
-$departureDate = old(
-    "departures.$index.departure_date",
-    $rawDeparture ? \Carbon\Carbon::parse($rawDeparture)->format('Y-m-d') : null
-);
+    // DATE FORMAT
+    $departureDate = old(
+        "departures.$index.departure_date",
+        $get('departure_date')
+            ? Carbon::parse($get('departure_date'))->format('Y-m-d')
+            : null
+    );
 
-$returnDate = old(
-    "departures.$index.return_date",
-    $rawReturn ? \Carbon\Carbon::parse($rawReturn)->format('Y-m-d') : null
-);
+    $returnDate = old(
+        "departures.$index.return_date",
+        $get('return_date')
+            ? Carbon::parse($get('return_date'))->format('Y-m-d')
+            : null
+    );
 
-$quota = old(
-    "departures.$index.quota",
-    is_array($dep) ? ($dep['quota'] ?? null) : ($dep->quota ?? null)
-);
+    $quota = old("departures.$index.quota", $get('quota'));
 
+    // PRICE HELPER (clean ambil data relasi / array)
+    $getPrice = function($room, $i, $field) use ($dep, $index) {
+
+        $model = is_array($dep)
+            ? ($dep['prices'][$i] ?? [])
+            : optional($dep->prices->firstWhere('room_type',$room));
+
+        return old(
+            "departures.$index.prices.$i.$field",
+            is_array($model)
+                ? ($model[$field] ?? null)
+                : ($model->$field ?? null)
+        );
+    };
 @endphp
 
 
 <div class="departure-item border rounded-xl p-5 space-y-5 bg-gray-50">
 
-    {{-- ================= HEADER ================= --}}
+    {{-- HEADER --}}
     <div class="flex justify-between items-center">
-
-        {{-- AUTO LABEL --}}
         <h4 class="font-semibold text-gray-700 text-sm departure-label">
             Departure
         </h4>
@@ -42,11 +54,10 @@ $quota = old(
                 class="text-red-500 text-xs btn-remove-departure">
             Hapus
         </button>
-
     </div>
 
 
-    {{-- ================= BASIC ================= --}}
+    {{-- BASIC --}}
     <div class="grid md:grid-cols-3 gap-3">
 
         <input type="date"
@@ -71,7 +82,7 @@ $quota = old(
     </div>
 
 
-    {{-- ================= ROOM PRICING ================= --}}
+    {{-- ROOM PRICING --}}
     <div class="space-y-3">
 
         <div class="text-xs font-semibold text-gray-500">
@@ -81,14 +92,10 @@ $quota = old(
         @foreach($roomTypes as $i => $room)
 
             @php
-                $model = is_array($dep)
-                    ? ($dep['prices'][$i] ?? [])
-                    : optional($dep->prices->firstWhere('room_type',$room));
-
-                $price = old("departures.$index.prices.$i.price", $model['price'] ?? $model->price ?? null);
-                $promoType = old("departures.$index.prices.$i.promo_type", $model['promo_type'] ?? $model->promo_type ?? null);
-                $promoValue = old("departures.$index.prices.$i.promo_value", $model['promo_value'] ?? $model->promo_value ?? null);
-                $promoLabel = old("departures.$index.prices.$i.promo_label", $model['promo_label'] ?? $model->promo_label ?? null);
+                $price      = $getPrice($room,$i,'price');
+                $promoType  = $getPrice($room,$i,'promo_type');
+                $promoValue = $getPrice($room,$i,'promo_value');
+                $promoLabel = $getPrice($room,$i,'promo_label');
             @endphp
 
             <div class="grid grid-cols-12 gap-2 items-center">
@@ -98,7 +105,7 @@ $quota = old(
                     {{ $room }}
                 </div>
 
-                {{-- ROOM TYPE --}}
+                {{-- TYPE --}}
                 <input type="hidden"
                        name="departures[{{ $index }}][prices][{{ $i }}][room_type]"
                        value="{{ $room }}">
@@ -111,17 +118,16 @@ $quota = old(
                        placeholder="Harga">
 
                 {{-- PROMO TYPE --}}
-                <select
-                    name="departures[{{ $index }}][prices][{{ $i }}][promo_type]"
-                    class="input col-span-2 text-xs">
+                <select name="departures[{{ $index }}][prices][{{ $i }}][promo_type]"
+                        class="input col-span-2 text-xs">
 
                     <option value="">-</option>
-                    <option value="percent" @selected($promoType=='percent')>%</option>
-                    <option value="fixed" @selected($promoType=='fixed')>Rp</option>
+                    <option value="percent" @selected($promoType==='percent')>%</option>
+                    <option value="fixed"   @selected($promoType==='fixed')>Rp</option>
 
                 </select>
 
-                {{-- PROMO VALUE --}}
+                {{-- VALUE --}}
                 <input type="number"
                        name="departures[{{ $index }}][prices][{{ $i }}][promo_value]"
                        value="{{ $promoValue }}"
