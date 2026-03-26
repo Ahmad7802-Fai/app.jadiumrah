@@ -61,7 +61,16 @@ class PaketResource extends JsonResource
             'saving_label' => $original > $base
                 ? 'Hemat Rp' . number_format($original - $base, 0, ',', '.')
                 : null,
+            /*
+            |--------------------------------------------------------------------------
+            | PROMO LABEL (🔥 MARKETING)
+            |--------------------------------------------------------------------------
+            */
+            'promo_label' => $this->promo_label,
 
+            'discount_label' => $this->promo_label
+                ?? ($original > $base ? '-' . $this->calculateDiscount($original, $base) . '%' : null),
+                
             /*
             |--------------------------------------------------------------------------
             | STATUS

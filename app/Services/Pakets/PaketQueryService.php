@@ -67,6 +67,26 @@ public function publicList(array $filters = []): LengthAwarePaginator
                     ->whereRaw('COALESCE(pd.quota,0) > COALESCE(pd.booked,0)')
                     ->selectRaw('MIN(pdp.price)')
             ])
+            ->addSelect([
+                'promo_label' => \DB::table('paket_departures as pd')
+                    ->join('paket_departure_prices as pdp', 'pd.id', '=', 'pdp.paket_departure_id')
+                    ->whereColumn('pd.paket_id', 'pakets.id')
+                    ->where('pd.is_active', 1)
+                    ->where('pd.is_closed', 0)
+                    ->where('pd.departure_date', '>=', $today)
+                    ->whereRaw('COALESCE(pd.quota,0) > COALESCE(pd.booked,0)')
+                    ->orderByRaw('
+                        CASE
+                            WHEN pdp.promo_type = "percent"
+                                THEN pdp.price - (pdp.price * pdp.promo_value / 100)
+                            WHEN pdp.promo_type = "fixed"
+                                THEN pdp.price - pdp.promo_value
+                            ELSE pdp.price
+                        END ASC
+                    ')
+                    ->limit(1)
+                    ->select('pdp.promo_label')
+            ])
 
             ->addSelect([
                 'available_seats' => \DB::table('paket_departures as pd')
