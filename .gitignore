@@ -1,45 +1,38 @@
 # =========================
-# Laravel Core
+# Laravel
 # =========================
 /vendor
 /node_modules
-/public/build
-/public/hot
 /public/storage
 /storage/*.key
-/storage/pail
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
 /bootstrap/cache/*.php
-/bootstrap/cache/*.json
 
 # =========================
-# Environment (WAJIB DIHIDE)
+# Environment
 # =========================
 .env
 .env.*
 !.env.example
 
 # =========================
-# Logs
+# Composer
 # =========================
-*.log
-storage/logs/*.log
+composer.lock
 
 # =========================
-# Cache & Testing
+# NPM / Frontend
 # =========================
-.phpunit.result.cache
-.phpunit.cache
-.phpactor.json
-coverage/
-.php-cs-fixer.cache
-
-# =========================
-# IDE / Editor
-# =========================
-.vscode
-.idea
-.fleet
-.zed
+node_modules
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.next
+dist
+build
 
 # =========================
 # OS Files
@@ -48,26 +41,33 @@ coverage/
 Thumbs.db
 
 # =========================
-# Composer
+# IDE / Editor
 # =========================
-/composer.phar
-/auth.json
+.vscode
+.idea
+*.swp
+*.swo
+*.bak
 
 # =========================
-# NPM / Yarn
+# Logs
 # =========================
-npm-debug.log
-yarn-error.log
-pnpm-debug.log
+*.log
 
 # =========================
-# Homestead / Local Dev
+# Cache / Temp
 # =========================
-Homestead.json
-Homestead.yaml
+.cache
+.tmp
+.temp
 
 # =========================
-# Archives / Backup (PENTING 🔥)
+# Testing
+# =========================
+/phpunit.result.cache
+
+# =========================
+# Backup / Archive
 # =========================
 *.zip
 *.tar
@@ -75,19 +75,24 @@ Homestead.yaml
 *.rar
 
 # =========================
-# Temporary Files
-# =========================
-*.tmp
-*.temp
-
-# =========================
 # Misc
 # =========================
-/.nova
-/.cache
-/.history
+.env.backup
+.env.local
+.env.production
+.env.testing
 
 # =========================
-# VS Code Remote
+# Docker (optional)
 # =========================
-.vscode-server
+docker-compose.override.yml
+
+# =========================
+# Laravel Debugbar (optional)
+# =========================
+/storage/debugbar
+
+# =========================
+# Coverage
+# =========================
+coverage/
