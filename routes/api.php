@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->name('api.')->group(function () {
+    require __DIR__ . '/api/v1/config.php';
     require __DIR__ . '/api/v1/paket.php';
     require __DIR__ . '/api/v1/auth.php';
     require __DIR__ . '/api/v1/booking.php';
