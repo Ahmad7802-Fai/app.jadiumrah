@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 /*
@@ -53,5 +54,48 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, 'id_ID.UTF-8', 'id_ID', 'Indonesian');
 
         Booking::observe(BookingObserver::class);
+
+        /*
+        |--------------------------------------------------------------------------
+        | 🔥 PROTECTION MODE (ONLY WEB, NOT ARTISAN)
+        |--------------------------------------------------------------------------
+        */
+        if (
+            app()->environment('local') &&
+            env('DB_READONLY') &&
+            !app()->runningInConsole() // 🔥 INI KUNCI
+        ) {
+
+            DB::listen(function ($query) {
+                $sql = strtolower($query->sql);
+
+                if (
+                    str_starts_with($sql, 'insert') ||
+                    str_starts_with($sql, 'update') ||
+                    str_starts_with($sql, 'delete') ||
+                    str_starts_with($sql, 'truncate') ||
+                    str_starts_with($sql, 'drop') ||
+                    str_starts_with($sql, 'alter')
+                ) {
+                    throw new \Exception("🔥 READ ONLY MODE AKTIF - QUERY DIBLOK!");
+                }
+            });
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | 🚫 BLOCK MIGRATION (TETAP AKTIF)
+        |--------------------------------------------------------------------------
+        */
+        if (app()->environment('local') && env('DB_READONLY')) {
+            if (app()->runningInConsole()) {
+                $command = implode(' ', $_SERVER['argv'] ?? []);
+
+                if (str_contains($command, 'migrate')) {
+                    die("🔥 MIGRATION DIBLOK (LOCAL → PRODUCTION DB)");
+                }
+            }
+        }
     }
+
 }
