@@ -23,18 +23,33 @@ class AuthController extends Controller
     // ===============================
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($request->validated())) {
+        $user = User::where('email', $request->email)->first();
+
+        // ❌ USER TIDAK ADA
+        if (!$user) {
             return response()->json([
                 'message' => 'Email atau password salah'
             ], 401);
         }
 
-        $user = Auth::user();
+        // ❌ PASSWORD SALAH
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Email atau password salah'
+            ], 401);
+        }
 
-        $user->load(['branch','agentProfile','jamaahProfile']);
+        // 🔥 LOAD RELATION AMAN
+        $user->loadMissing([
+            'branch',
+            'agentProfile',
+            'jamaahProfile'
+        ]);
 
+        // 🔥 HAPUS TOKEN LAMA (optional)
         $user->tokens()->delete();
 
+        // 🔥 CREATE TOKEN
         $token = $user->createToken('auth')->plainTextToken;
 
         return response()
@@ -42,7 +57,17 @@ class AuthController extends Controller
                 'success' => true,
                 'data' => new UserResource($user)
             ])
-            ->cookie('token', $token, 60 * 24, '/', null, false, true, false, 'Lax');
+            ->cookie(
+                'token',
+                $token,
+                60 * 24,
+                '/',
+                null,
+                true,   // HTTPS
+                true,
+                false,
+                'Lax'
+            );
     }
 
     // ===============================
