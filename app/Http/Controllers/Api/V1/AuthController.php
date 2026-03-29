@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Models\Jamaah;
+use App\Helpers\AuthHelper;
 
 use App\Http\Requests\Api\V1\User\LoginRequest;
 use App\Http\Requests\Api\V1\User\RegisterRequest;
@@ -31,36 +32,21 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // 🔥 load relation aman
         $user->loadMissing([
             'branch',
             'agentProfile',
             'jamaahProfile'
         ]);
 
-        // 🔥 hapus token lama (optional)
         $user->tokens()->delete();
 
-        // 🔥 buat token baru
         $token = $user->createToken('auth')->plainTextToken;
 
-        return response()
-            ->json([
-                'success' => true,
-                'message' => 'Login berhasil',
-                'data' => new UserResource($user)
-            ])
-            ->cookie(
-                'token',
-                $token,
-                60 * 24, // 1 hari
-                '/',
-                null,
-                true,   // 🔥 HTTPS WAJIB
-                true,   // httpOnly
-                false,
-                'Lax'
-            );
+        return response()->json([
+            'success' => true,
+            'message' => 'Login berhasil',
+            'data' => new UserResource($user)
+        ])->cookie(AuthHelper::make($token));
     }
 
     // ===============================
@@ -90,7 +76,6 @@ class AuthController extends Controller
             return $user;
         });
 
-        // 🔥 load relation biar langsung siap frontend
         $user->loadMissing([
             'branch',
             'agentProfile',
@@ -99,23 +84,11 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth')->plainTextToken;
 
-        return response()
-            ->json([
-                'success' => true,
-                'message' => 'Register berhasil',
-                'data' => new UserResource($user)
-            ])
-            ->cookie(
-                'token',
-                $token,
-                60 * 24,
-                '/',
-                null,
-                true,
-                true,
-                false,
-                'Lax'
-            );
+        return response()->json([
+            'success' => true,
+            'message' => 'Register berhasil',
+            'data' => new UserResource($user)
+        ])->cookie(AuthHelper::make($token));
     }
 
     // ===============================
@@ -129,7 +102,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'data' => null
-            ]);
+            ], 401);
         }
 
         $user->loadMissing([
@@ -173,21 +146,9 @@ class AuthController extends Controller
     {
         request()->user()?->currentAccessToken()?->delete();
 
-        return response()
-            ->json([
-                'success' => true,
-                'message' => 'Logout berhasil'
-            ])
-            ->cookie(
-                'token',
-                '',
-                -1,
-                '/',
-                null,
-                true,
-                true,
-                false,
-                'Lax'
-            );
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout berhasil'
+        ])->cookie(AuthHelper::forget());
     }
 }
