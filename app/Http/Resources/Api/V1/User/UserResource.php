@@ -2,32 +2,66 @@
 
 namespace App\Http\Resources\Api\V1\User;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Support\UserRoleResolver;
 
 class UserResource extends JsonResource
 {
-    public function toArray($request): array
+    public function toArray($request)
     {
-        $role = UserRoleResolver::resolve($this);
-
         return [
+            // ===============================
+            // BASIC
+            // ===============================
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
 
-            'role' => $role,
-            'roles' => $this->getRoleNames()->values(),
+            // 🔥 ROLE (WAJIB ADA)
+            'role' => $this->getRoleNames()->first(),
 
-            'branch' => $this->branch?->only(['id','name']),
+            // ===============================
+            // BRANCH
+            // ===============================
+            'branch' => $this->branch ? [
+                'id' => $this->branch->id,
+                'name' => $this->branch->name,
+            ] : null,
 
-            'agent' => $role === 'agent'
-                ? new AgentResource($this->agentProfile)
-                : null,
+            // ===============================
+            // AGENT PROFILE
+            // ===============================
+            'agent' => $this->agentProfile ? [
+                'id' => $this->agentProfile->id,
+                'nama' => $this->agentProfile->nama,
+                'kode_agent' => $this->agentProfile->kode_agent,
+                'phone' => $this->agentProfile->phone,
+                'is_active' => (bool) $this->agentProfile->is_active,
+            ] : null,
 
-            'jamaah' => $role === 'jamaah'
-                ? new JamaahResource($this->jamaahProfile)
-                : null,
+            // ===============================
+            // JAMAAH PROFILE
+            // ===============================
+            'jamaah' => $this->jamaahProfile ? [
+                'id' => $this->jamaahProfile->id,
+                'jamaah_code' => $this->jamaahProfile->jamaah_code,
+                'nama_lengkap' => $this->jamaahProfile->nama_lengkap,
+                'phone' => $this->jamaahProfile->phone,
+                'city' => $this->jamaahProfile->city,
+                'province' => $this->jamaahProfile->province,
+                'is_active' => (bool) $this->jamaahProfile->is_active,
+            ] : null,
+
+            // ===============================
+            // FLAGS (SUPER IMPORTANT FRONTEND)
+            // ===============================
+            'is_agent' => $this->agentProfile !== null,
+            'is_jamaah' => $this->jamaahProfile !== null,
+
+            // ===============================
+            // META
+            // ===============================
+            'created_at' => $this->created_at,
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,46 +24,40 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        // ❌ USER TIDAK ADA
-        if (!$user) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
+                'success' => false,
                 'message' => 'Email atau password salah'
             ], 401);
         }
 
-        // ❌ PASSWORD SALAH
-        if (!Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Email atau password salah'
-            ], 401);
-        }
-
-        // 🔥 LOAD RELATION AMAN
+        // 🔥 load relation aman
         $user->loadMissing([
             'branch',
             'agentProfile',
             'jamaahProfile'
         ]);
 
-        // 🔥 HAPUS TOKEN LAMA (optional)
+        // 🔥 hapus token lama (optional)
         $user->tokens()->delete();
 
-        // 🔥 CREATE TOKEN
+        // 🔥 buat token baru
         $token = $user->createToken('auth')->plainTextToken;
 
         return response()
             ->json([
                 'success' => true,
+                'message' => 'Login berhasil',
                 'data' => new UserResource($user)
             ])
             ->cookie(
                 'token',
                 $token,
-                60 * 24,
+                60 * 24, // 1 hari
                 '/',
                 null,
-                true,   // HTTPS
-                true,
+                true,   // 🔥 HTTPS WAJIB
+                true,   // httpOnly
                 false,
                 'Lax'
             );
@@ -88,7 +81,7 @@ class AuthController extends Controller
             $user->assignRole('JAMAAH');
 
             Jamaah::create([
-                'jamaah_code' => 'JMH-'.date('Ymd').'-'.rand(1000,9999),
+                'jamaah_code' => 'JMH-' . date('Ymd') . '-' . rand(1000,9999),
                 'user_id' => $user->id,
                 'nama_lengkap' => $data['name'],
                 'phone' => $data['phone'] ?? null,
@@ -97,14 +90,32 @@ class AuthController extends Controller
             return $user;
         });
 
+        // 🔥 load relation biar langsung siap frontend
+        $user->loadMissing([
+            'branch',
+            'agentProfile',
+            'jamaahProfile'
+        ]);
+
         $token = $user->createToken('auth')->plainTextToken;
 
         return response()
             ->json([
                 'success' => true,
+                'message' => 'Register berhasil',
                 'data' => new UserResource($user)
             ])
-            ->cookie('token', $token, 60 * 24, '/', null, false, true, false, 'Lax');
+            ->cookie(
+                'token',
+                $token,
+                60 * 24,
+                '/',
+                null,
+                true,
+                true,
+                false,
+                'Lax'
+            );
     }
 
     // ===============================
@@ -121,7 +132,11 @@ class AuthController extends Controller
             ]);
         }
 
-        $user->load(['branch','agentProfile','jamaahProfile']);
+        $user->loadMissing([
+            'branch',
+            'agentProfile',
+            'jamaahProfile'
+        ]);
 
         return response()->json([
             'success' => true,
@@ -138,8 +153,15 @@ class AuthController extends Controller
 
         $user->update($request->validated());
 
+        $user->loadMissing([
+            'branch',
+            'agentProfile',
+            'jamaahProfile'
+        ]);
+
         return response()->json([
             'success' => true,
+            'message' => 'Profile berhasil diupdate',
             'data' => new UserResource($user)
         ]);
     }
@@ -156,6 +178,16 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'Logout berhasil'
             ])
-            ->cookie('token', '', -1);
+            ->cookie(
+                'token',
+                '',
+                -1,
+                '/',
+                null,
+                true,
+                true,
+                false,
+                'Lax'
+            );
     }
 }
