@@ -144,7 +144,9 @@ class AuthController extends Controller
     // ===============================
     public function logout()
     {
-        request()->user()?->currentAccessToken()?->delete();
+        if (request()->user()) {
+            request()->user()->currentAccessToken()?->delete();
+        }
 
         return response()->json([
             'success' => true,
