@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'branch_id',
+        'email_verified_at', // 🔥 WAJIB
     ];
 
     /*
@@ -39,6 +40,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at' => 'datetime'
     ];
 
     /*
