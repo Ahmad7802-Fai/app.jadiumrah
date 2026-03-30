@@ -161,8 +161,9 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true
-        ])->cookie(AuthHelper::forget());
+        ]);
     }
+
 }
 
 // namespace App\Http\Controllers\Api\V1;
