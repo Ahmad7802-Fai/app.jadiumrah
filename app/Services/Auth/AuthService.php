@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 
-use Illuminate\Auth\Events\Registered as RegisteredEvent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -59,8 +58,27 @@ class AuthService
                 'source'        => 'website',
             ]);
 
-            // ================= 🔥 EMAIL VERIFICATION (WAJIB)
-            event(new RegisteredEvent($user));
+            // ================= 🔥 CUSTOM EMAIL VERIFICATION
+            $token = Str::random(64);
+
+            EmailVerification::create([
+                'email'      => $user->email,
+                'token'      => $token,
+                'expired_at' => now()->addMinutes(30),
+            ]);
+
+            // ================= 🔥 KIRIM EMAIL
+            \Mail::raw(
+                "Assalamu'alaikum {$user->name},\n\n" .
+                "Klik link berikut untuk verifikasi akun:\n\n" .
+                env('FRONTEND_URL') .
+                "/verify?email={$user->email}&token={$token}\n\n" .
+                "Link berlaku 30 menit.",
+                function ($msg) use ($user) {
+                    $msg->to($user->email)
+                        ->subject('Verifikasi Email JadiUmrah');
+                }
+            );
 
             return $user;
         });
