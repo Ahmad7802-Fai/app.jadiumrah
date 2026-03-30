@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\HasRoleHelpers;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasRoleHelpers;
+    use MustVerifyEmail, HasApiTokens, HasFactory, Notifiable, HasRoles, HasRoleHelpers;
 
     // Spatie Permission guard
     protected $guard_name = 'web';
@@ -28,7 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'branch_id',
-        'email_verified_at', // 🔥 WAJIB
+        
     ];
 
     /*
@@ -40,7 +41,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'email_verified_at' => 'datetime'
     ];
 
     /*

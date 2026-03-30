@@ -2,13 +2,14 @@
 
 namespace App\Services\Auth;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Jamaah;
 use App\Models\EmailVerification;
 use App\Services\CodeGeneratorService;
-
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -41,6 +42,7 @@ class AuthService
                 'password' => Hash::make($data['password']),
             ]);
 
+            // ================= ROLE
             $user->assignRole('JAMAAH');
 
             // ================= CODE
@@ -58,16 +60,13 @@ class AuthService
                 'source'        => 'website',
             ]);
 
-            // ================= EMAIL VERIFY
-            EmailVerification::create([
-                'email'      => $user->email,
-                'token'      => Str::random(64),
-                'expired_at' => now()->addMinutes(30),
-            ]);
+            // ================= 🔥 EMAIL VERIFICATION (WAJIB)
+            event(new Registered($user));
 
             return $user;
         });
     }
+
 
     // ===============================
     // ✅ VERIFY EMAIL
