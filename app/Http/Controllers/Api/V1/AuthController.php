@@ -134,6 +134,24 @@ class AuthController extends Controller
         ]);
     }
 
+    // ================= ME (GET USER LOGIN)
+    public function me()
+    {
+        $user = request()->user();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => new UserResource($user)
+        ]);
+    }
+
     // ================= LOGOUT
     public function logout()
     {
