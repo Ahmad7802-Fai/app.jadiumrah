@@ -4,15 +4,21 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Root
 |--------------------------------------------------------------------------
 */
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+Route::get('/email/verify/{id}/{hash}', function ($id, $hash) {
 
-    $user = \App\Models\User::findOrFail($request->route('id'));
+    $user = User::findOrFail($id);
+
+    // optional: validasi hash
+    if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        abort(403);
+    }
 
     if (! $user->hasVerifiedEmail()) {
         $user->markEmailAsVerified();
