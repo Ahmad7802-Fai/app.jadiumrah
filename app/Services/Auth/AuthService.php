@@ -2,14 +2,13 @@
 
 namespace App\Services\Auth;
 
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Registered as RegisteredEvent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Jamaah;
 use App\Models\EmailVerification;
 use App\Services\CodeGeneratorService;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -61,7 +60,7 @@ class AuthService
             ]);
 
             // ================= 🔥 EMAIL VERIFICATION (WAJIB)
-            event(new Registered($user));
+            event(new RegisteredEvent($user));
 
             return $user;
         });
