@@ -78,12 +78,14 @@ class AuthController extends Controller
         }
 
         $user->tokens()->delete();
+
         $token = $user->createToken('auth')->plainTextToken;
 
         return response()->json([
             'success' => true,
+            'token' => $token, // 🔥 INI KUNCI
             'data' => new UserResource($user)
-        ])->cookie(AuthHelper::make($token));
+        ]);
     }
 
     // ================= GOOGLE
