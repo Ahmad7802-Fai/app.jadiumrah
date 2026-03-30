@@ -39,7 +39,10 @@ return Application::configure(basePath: dirname(__DIR__))
         | Token mode → tidak pakai EnsureFrontendRequestsAreStateful
         |--------------------------------------------------------------------------
         */
-        $middleware->api();
+        $middleware->api([
+            \App\Http\Middleware\InjectSanctumToken::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
 
         /*
         |--------------------------------------------------------------------------
