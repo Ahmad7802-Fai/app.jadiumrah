@@ -9,16 +9,18 @@ class AuthHelper
     // ===============================
     public static function make(string $token)
     {
+        $isLocal = app()->environment('local');
+
         return cookie(
             'token',
             $token,
             60 * 24,
             '/',
-            config('session.domain', '.jadiumrah.cloud'),
-            true,
+            $isLocal ? null : '.jadiumrah.cloud',
+            !$isLocal, // secure hanya production
             true,
             false,
-            'None'
+            $isLocal ? 'Lax' : 'None'
         );
     }
 
@@ -27,16 +29,19 @@ class AuthHelper
     // ===============================
     public static function forget()
     {
+        $isLocal = app()->environment('local');
+
         return cookie(
             'token',
             '',
             -1,
             '/',
-            config('session.domain', '.jadiumrah.cloud'),
-            true,
+            $isLocal ? null : '.jadiumrah.cloud',
+            !$isLocal,
             true,
             false,
-            'None'
+            $isLocal ? 'Lax' : 'None'
         );
     }
+
 }
