@@ -4,12 +4,13 @@ namespace App\Services\Auth;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Jamaah;
 use App\Models\EmailVerification;
 use App\Services\CodeGeneratorService;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 class AuthService
 {
@@ -20,18 +21,18 @@ class AuthService
         $this->code = $code;
     }
 
-    // 🔥 TAMBAH INI
     public function register(array $data): User
     {
         return $this->registerJamaah($data);
     }
 
     // ===============================
-    // 📝 REGISTER EMAIL
+    // 📝 REGISTER JAMAAH (FINAL FIX)
     // ===============================
     public function registerJamaah(array $data): User
     {
-        return DB::transaction(function () use ($data) {
+        // 🔥 STEP 1: TRANSACTION (DB ONLY)
+        [$user, $token] = DB::transaction(function () use ($data) {
 
             // ================= USER
             $user = User::create([
@@ -44,10 +45,7 @@ class AuthService
             $user->assignRole('JAMAAH');
 
             // ================= CODE
-            $jamaahCode = $this->code->generate(
-                'JMH',
-                'jamaah'
-            );
+            $jamaahCode = $this->code->generate('JMH', 'jamaah');
 
             // ================= JAMAAH
             Jamaah::create([
@@ -58,7 +56,7 @@ class AuthService
                 'source'        => 'website',
             ]);
 
-            // ================= 🔥 CUSTOM EMAIL VERIFICATION
+            // ================= TOKEN VERIFICATION
             $token = Str::random(64);
 
             EmailVerification::create([
@@ -67,8 +65,12 @@ class AuthService
                 'expired_at' => now()->addMinutes(30),
             ]);
 
-            // ================= 🔥 KIRIM EMAIL
-            \Mail::raw(
+            return [$user, $token];
+        });
+
+        // 🔥 STEP 2: KIRIM EMAIL (DI LUAR TRANSACTION)
+        try {
+            Mail::raw(
                 "Assalamu'alaikum {$user->name},\n\n" .
                 "Klik link berikut untuk verifikasi akun:\n\n" .
                 env('FRONTEND_URL') .
@@ -79,9 +81,12 @@ class AuthService
                         ->subject('Verifikasi Email JadiUmrah');
                 }
             );
+        } catch (\Throwable $e) {
+            // 🔥 JANGAN GAGALKAN REGISTER KARENA EMAIL
+            Log::error('MAIL ERROR: ' . $e->getMessage());
+        }
 
-            return $user;
-        });
+        return $user;
     }
 
 

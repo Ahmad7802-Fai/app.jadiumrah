@@ -4,9 +4,13 @@ namespace App\Http\Requests\Api\V1\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class RegisterRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        return true; // 🔥 WAJIB
+    }
+
     public function rules(): array
     {
         return [

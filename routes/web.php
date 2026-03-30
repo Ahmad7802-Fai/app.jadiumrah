@@ -2,32 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Root
 |--------------------------------------------------------------------------
 */
-
-Route::get('/email/verify/{id}/{hash}', function ($id, $hash) {
-
-    $user = User::findOrFail($id);
-
-    // optional: validasi hash
-    if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
-        abort(403);
-    }
-
-    if (! $user->hasVerifiedEmail()) {
-        $user->markEmailAsVerified();
-        event(new Verified($user));
-    }
-
-    return redirect('https://jadiumrah.cloud/verify-success');
-
-})->middleware(['signed'])->name('verification.verify');
 
 Route::get('/', function () {
     return auth()->check()

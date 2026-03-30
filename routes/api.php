@@ -2,17 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->name('api.')->group(function () {
-    require __DIR__ . '/api/v1/config.php';
-    require __DIR__ . '/api/v1/paket.php';
-    require __DIR__ . '/api/v1/auth.php';
-    require __DIR__ . '/api/v1/booking.php';
-    require __DIR__ . '/api/v1/agent.php';
-    require __DIR__ . '/api/v1/visa.php';
-    require __DIR__ . '/api/v1/payment.php';
-    require __DIR__ . '/api/v1/jamaah.php';
-});
+Route::prefix('v1')
+    ->name('api.v1.')
+    ->group(function () {
 
+        require base_path('routes/api/v1/auth.php');
+        require base_path('routes/api/v1/config.php');
+        require base_path('routes/api/v1/paket.php');
+        require base_path('routes/api/v1/booking.php');
+        require base_path('routes/api/v1/agent.php');
+        require base_path('routes/api/v1/visa.php');
+        require base_path('routes/api/v1/payment.php');
+        require base_path('routes/api/v1/jamaah.php');
+
+    });
+    
 // use Illuminate\Support\Facades\Route;
 
 // use App\Http\Controllers\Api\AuthController;
