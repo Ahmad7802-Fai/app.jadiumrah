@@ -29,6 +29,7 @@ class AuthController extends Controller
     // ================= REGISTER
     public function register(RegisterRequest $request)
     {
+        dd($request->all());
         $this->service->register($request->validated());
 
         return response()->json([
