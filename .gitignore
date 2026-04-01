@@ -1,98 +1,10 @@
-# =========================
-# Laravel
-# =========================
 /vendor
 /node_modules
-/public/storage
+/public/build
+/public/hot
 /storage/*.key
 /storage/logs/*
-/storage/framework/cache/*
-/storage/framework/sessions/*
-/storage/framework/views/*
-/bootstrap/cache/*.php
-
-# =========================
-# Environment
-# =========================
 .env
 .env.*
-!.env.example
-
-# =========================
-# Composer
-# =========================
-composer.lock
-
-# =========================
-# NPM / Frontend
-# =========================
-node_modules
-npm-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.next
-dist
-build
-
-# =========================
-# OS Files
-# =========================
+.phpunit.result.cache
 .DS_Store
-Thumbs.db
-
-# =========================
-# IDE / Editor
-# =========================
-.vscode
-.idea
-*.swp
-*.swo
-*.bak
-
-# =========================
-# Logs
-# =========================
-*.log
-
-# =========================
-# Cache / Temp
-# =========================
-.cache
-.tmp
-.temp
-
-# =========================
-# Testing
-# =========================
-/phpunit.result.cache
-
-# =========================
-# Backup / Archive
-# =========================
-*.zip
-*.tar
-*.gz
-*.rar
-
-# =========================
-# Misc
-# =========================
-.env.backup
-.env.local
-.env.production
-.env.testing
-
-# =========================
-# Docker (optional)
-# =========================
-docker-compose.override.yml
-
-# =========================
-# Laravel Debugbar (optional)
-# =========================
-/storage/debugbar
-
-# =========================
-# Coverage
-# =========================
-coverage/
