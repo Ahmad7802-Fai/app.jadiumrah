@@ -35,3 +35,4 @@ Route::middleware('auth:sanctum')->prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class,'logout']);
 
 });
+
