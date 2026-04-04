@@ -112,8 +112,6 @@ class PaketController extends Controller
     */
     public function store(Request $request)
     {
-        dd($request->file('gallery'));
-
         $this->authorize('create', Paket::class);
 
         $validated = $this->validateData($request);
