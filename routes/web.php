@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Root
@@ -15,6 +15,21 @@ Route::get('/', function () {
         : redirect()->route('login');
 });
 
+Route::get('/health', function () {
+    try {
+        DB::connection()->getPdo();
+
+        return response()->json([
+            'status' => 'ok',
+            'time' => now(),
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+});
 /*
 |--------------------------------------------------------------------------
 | Redirect After Login
