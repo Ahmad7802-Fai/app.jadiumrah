@@ -114,18 +114,43 @@ class PaketController extends Controller
     {
         $this->authorize('create', Paket::class);
 
+        $request->merge([
+            'is_active' => $request->boolean('is_active'),
+            'is_published' => $request->boolean('is_published'),
+        ]);
+
         $validated = $this->validateData($request);
 
-        // 🔥 WAJIB: ambil file manual
-        $validated['thumbnail'] = $request->file('thumbnail');
-        $validated['gallery']   = $request->file('gallery');
+        /*
+        |--------------------------------------------------------------------------
+        | 🔥 BASE64 MEDIA (WAJIB)
+        |--------------------------------------------------------------------------
+        */
+        $validated['thumbnail_base64'] = $request->input('thumbnail_base64');
+        $validated['gallery_base64'] = $request->input('gallery_base64', []);
+        $validated['remove_gallery'] = $request->input('remove_gallery', []);
+
+        /*
+        |--------------------------------------------------------------------------
+        | FILE FALLBACK (optional)
+        |--------------------------------------------------------------------------
+        */
+        if ($request->hasFile('thumbnail')) {
+            $validated['thumbnail'] = $request->file('thumbnail');
+        }
+
+        if ($request->hasFile('gallery')) {
+            $validated['gallery'] = $request->file('gallery');
+        }
 
         try {
             $this->service->create($validated);
 
+            Cache::flush();
+
             return redirect()
                 ->route('pakets.index')
-                ->with('success','Paket berhasil dibuat.');
+                ->with('success', 'Paket berhasil dibuat.');
 
         } catch (\Throwable $e) {
 
@@ -134,7 +159,6 @@ class PaketController extends Controller
                 ->with('error', $e->getMessage());
         }
     }
-
     /*
     |--------------------------------------------------------------------------
     | SHOW
@@ -180,15 +204,33 @@ class PaketController extends Controller
     */
     public function update(Request $request, Paket $paket)
     {
-
         $this->authorize('update', $paket);
+
+        $request->merge([
+            'is_active' => $request->boolean('is_active'),
+            'is_published' => $request->boolean('is_published'),
+        ]);
 
         $validated = $this->validateData($request);
 
-        // 🔥 WAJIB: ambil file manual
-        $validated['thumbnail'] = $request->file('thumbnail');
+        /*
+        |--------------------------------------------------------------------------
+        | 🔥 BASE64 MEDIA
+        |--------------------------------------------------------------------------
+        */
+        $validated['thumbnail_base64'] = $request->input('thumbnail_base64');
+        $validated['gallery_base64'] = $request->input('gallery_base64', []);
+        $validated['remove_gallery'] = $request->input('remove_gallery', []);
 
-        // 🔥 JANGAN override kalau kosong
+        /*
+        |--------------------------------------------------------------------------
+        | FILE FALLBACK
+        |--------------------------------------------------------------------------
+        */
+        if ($request->hasFile('thumbnail')) {
+            $validated['thumbnail'] = $request->file('thumbnail');
+        }
+
         if ($request->hasFile('gallery')) {
             $validated['gallery'] = $request->file('gallery');
         }
@@ -196,9 +238,11 @@ class PaketController extends Controller
         try {
             $this->service->update($paket, $validated);
 
+            Cache::flush();
+
             return redirect()
                 ->route('pakets.index')
-                ->with('success','Paket berhasil diperbarui.');
+                ->with('success', 'Paket berhasil diperbarui.');
 
         } catch (\Throwable $e) {
 
@@ -257,11 +301,14 @@ class PaketController extends Controller
             'is_published' => 'boolean',
 
             /*
-            | MEDIA
+            |--------------------------------------------------------------------------
+            | BASE64 MEDIA
+            |--------------------------------------------------------------------------
             */
-            'thumbnail' => 'nullable|image|max:2048',
-            'gallery'   => 'nullable|array',
-            'gallery.*' => 'image|max:4096',
+            'thumbnail_base64' => 'nullable|string',
+            'gallery_base64' => 'nullable|array',
+            'gallery_base64.*' => 'nullable|string',
+            'remove_gallery' => 'nullable|array',
 
             /*
             | RELATIONS (dipersingkat)

@@ -3,12 +3,10 @@
 
     $roomTypes = ['double','triple','quad'];
 
-    // helper universal (array / object)
     $get = fn($key) => is_array($dep)
         ? ($dep[$key] ?? null)
         : ($dep->$key ?? null);
 
-    // DATE FORMAT
     $departureDate = old(
         "departures.$index.departure_date",
         $get('departure_date')
@@ -25,7 +23,6 @@
 
     $quota = old("departures.$index.quota", $get('quota'));
 
-    // PRICE HELPER (clean ambil data relasi / array)
     $getPrice = function($room, $i, $field) use ($dep, $index) {
 
         $model = is_array($dep)
@@ -42,52 +39,48 @@
 @endphp
 
 
-<div class="departure-item border rounded-xl p-5 space-y-5 bg-gray-50">
+<div class="departure-item border rounded-lg p-3 bg-gray-50 text-xs space-y-3">
 
     {{-- HEADER --}}
     <div class="flex justify-between items-center">
-        <h4 class="font-semibold text-gray-700 text-sm departure-label">
+        <h4 class="text-[11px] font-semibold text-gray-600 departure-label">
             Departure
         </h4>
 
         <button type="button"
-                class="text-red-500 text-xs btn-remove-departure">
-            Hapus
+            class="text-red-500 px-2 py-0.5 rounded hover:bg-red-50 btn-remove-departure">
+            ✕
         </button>
     </div>
 
 
     {{-- BASIC --}}
-    <div class="grid md:grid-cols-3 gap-3">
+    <div class="grid grid-cols-3 gap-2">
 
         <input type="date"
-               name="departures[{{ $index }}][departure_date]"
-               value="{{ $departureDate }}"
-               class="input text-sm"
-               required>
+            name="departures[{{ $index }}][departure_date]"
+            value="{{ $departureDate }}"
+            class="w-full px-2 py-1.5 text-xs rounded-md border border-gray-300 focus:ring-1 focus:ring-primary"
+            required>
 
         <input type="date"
-               name="departures[{{ $index }}][return_date]"
-               value="{{ $returnDate }}"
-               class="input text-sm">
+            name="departures[{{ $index }}][return_date]"
+            value="{{ $returnDate }}"
+            class="w-full px-2 py-1.5 text-xs rounded-md border border-gray-300 focus:ring-1 focus:ring-primary">
 
         <input type="number"
-               name="departures[{{ $index }}][quota]"
-               value="{{ $quota }}"
-               class="input text-sm"
-               placeholder="Quota"
-               min="1"
-               required>
+            name="departures[{{ $index }}][quota]"
+            value="{{ $quota }}"
+            class="w-full px-2 py-1.5 text-xs rounded-md border border-gray-300 focus:ring-1 focus:ring-primary"
+            placeholder="Q"
+            min="1"
+            required>
 
     </div>
 
 
-    {{-- ROOM PRICING --}}
-    <div class="space-y-3">
-
-        <div class="text-xs font-semibold text-gray-500">
-            Harga & Promo per Room
-        </div>
+    {{-- ROOM --}}
+    <div class="space-y-2">
 
         @foreach($roomTypes as $i => $room)
 
@@ -98,48 +91,47 @@
                 $promoLabel = $getPrice($room,$i,'promo_label');
             @endphp
 
-            <div class="grid grid-cols-12 gap-2 items-center">
+            <div class="grid grid-cols-12 gap-1 items-center">
 
                 {{-- ROOM --}}
-                <div class="col-span-2 text-[11px] font-semibold uppercase">
-                    {{ $room }}
+                <div class="col-span-2 text-[10px] font-semibold uppercase text-gray-500">
+                    {{ substr($room,0,3) }}
                 </div>
 
-                {{-- TYPE --}}
                 <input type="hidden"
-                       name="departures[{{ $index }}][prices][{{ $i }}][room_type]"
-                       value="{{ $room }}">
+                    name="departures[{{ $index }}][prices][{{ $i }}][room_type]"
+                    value="{{ $room }}">
 
                 {{-- PRICE --}}
                 <input type="number"
-                       name="departures[{{ $index }}][prices][{{ $i }}][price]"
-                       value="{{ $price }}"
-                       class="input col-span-2 text-xs"
-                       placeholder="Harga">
+                    name="departures[{{ $index }}][prices][{{ $i }}][price]"
+                    value="{{ $price }}"
+                    class="col-span-2 px-2 py-1 text-xs rounded border border-gray-300 focus:ring-1 focus:ring-primary"
+                    placeholder="Harga">
 
-                {{-- PROMO TYPE --}}
+                {{-- TYPE --}}
                 <select name="departures[{{ $index }}][prices][{{ $i }}][promo_type]"
-                        class="input col-span-2 text-xs">
+                    class="col-span-2 px-1 py-1 text-xs rounded border border-gray-300">
 
                     <option value="">-</option>
                     <option value="percent" @selected($promoType==='percent')>%</option>
-                    <option value="fixed"   @selected($promoType==='fixed')>Rp</option>
+                    <option value="fixed" @selected($promoType==='fixed')>Rp</option>
 
                 </select>
 
                 {{-- VALUE --}}
                 <input type="number"
-                       name="departures[{{ $index }}][prices][{{ $i }}][promo_value]"
-                       value="{{ $promoValue }}"
-                       class="input col-span-2 text-xs"
-                       placeholder="Diskon">
+                    name="departures[{{ $index }}][prices][{{ $i }}][promo_value]"
+                    value="{{ $promoValue }}"
+                    class="col-span-2 px-2 py-1 text-xs rounded border border-gray-300"
+                    placeholder="Disc">
 
                 {{-- LABEL --}}
                 <input type="text"
-                       name="departures[{{ $index }}][prices][{{ $i }}][promo_label]"
-                       value="{{ $promoLabel }}"
-                       class="input col-span-4 text-xs"
-                       placeholder="Label">
+                    name="departures[{{ $index }}][prices][{{ $i }}][promo_label]"
+                    value="{{ $promoLabel }}"
+                    class="col-span-4 px-2 py-1 text-xs rounded border border-gray-300"
+                    placeholder="Label">
 
             </div>
 

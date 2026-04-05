@@ -4,186 +4,177 @@
 $isEdit = isset($paket) && $paket?->exists;
 @endphp
 
-<div class="max-w-7xl mx-auto space-y-8">
+<div class="max-w-6xl mx-auto flex flex-col min-h-[70vh]">
 
-{{-- ================= BASIC + MEDIA ================= --}}
-<div class="grid lg:grid-cols-3 gap-6">
+    <div class="space-y-5 flex-1">
 
-    {{-- LEFT --}}
-    <div class="lg:col-span-2 space-y-6">
-        <div class="card">
-            <h3 class="title">Informasi Paket</h3>
+        {{-- ================= BASIC + MEDIA ================= --}}
+        <div class="grid lg:grid-cols-3 gap-4">
 
-            <div class="grid md:grid-cols-2 gap-4">
-                @foreach([
-                    ['name','Nama Paket'],
-                    ['code','Kode Paket'],
-                    ['departure_city','Kota Keberangkatan'],
-                    ['airline','Maskapai'],
-                    ['duration_days','Durasi (Hari)','number'],
-                ] as $f)
-                <div>
-                    <label class="label">{{ $f[1] }}</label>
-                    <input type="{{ $f[2] ?? 'text' }}"
-                           name="{{ $f[0] }}"
-                           value="{{ old($f[0], $paket->{$f[0]} ?? '') }}"
-                           class="input">
+            {{-- LEFT --}}
+            <div class="lg:col-span-2 space-y-4">
+
+                <div class="card-compact space-y-4">
+                    <h3 class="text-sm font-semibold text-gray-700">Informasi Paket</h3>
+
+                    <div class="grid md:grid-cols-2 gap-3">
+
+                        @foreach([
+                            ['name','Nama Paket'],
+                            ['code','Kode'],
+                            ['departure_city','Kota'],
+                            ['airline','Maskapai'],
+                            ['duration_days','Durasi','number'],
+                        ] as $f)
+
+                        <div class="space-y-1">
+                            <label class="text-[11px] text-gray-500">{{ $f[1] }}</label>
+
+                            <input type="{{ $f[2] ?? 'text' }}"
+                                name="{{ $f[0] }}"
+                                value="{{ old($f[0], $paket->{$f[0]} ?? '') }}"
+                                class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-primary">
+                        </div>
+
+                        @endforeach
+
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[11px] text-gray-500">Short Description</label>
+                        <textarea name="short_description"
+                            rows="2"
+                            class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-primary resize-none">{{ old('short_description', $paket->short_description ?? '') }}</textarea>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[11px] text-gray-500">Description</label>
+                        <textarea name="description"
+                            rows="3"
+                            class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-primary resize-none">{{ old('description', $paket->description ?? '') }}</textarea>
+                    </div>
+
                 </div>
+
+            </div>
+
+            {{-- RIGHT --}}
+            <div class="space-y-4">
+
+                <div class="card-compact p-3">
+                    @include('pakets.partials.media', [
+                        'paket' => $paket ?? null
+                    ])
+                </div>
+
+                <div class="card-compact p-3 space-y-2 text-sm">
+
+                    <label class="flex items-center gap-2">
+                        <input type="hidden" name="is_active" value="0">
+                        <input type="checkbox" name="is_active" value="1"
+                            @checked(old('is_active', $paket->is_active ?? 1))>
+                        <span>Aktif</span>
+                    </label>
+
+                    <label class="flex items-center gap-2">
+                        <input type="hidden" name="is_published" value="0">
+                        <input type="checkbox" name="is_published" value="1"
+                            @checked(old('is_published', $paket->is_published ?? 0))>
+                        <span>Publish</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {{-- ================= HOTEL ================= --}}
+        <div class="card-compact space-y-3">
+            <div class="flex justify-between items-center">
+                <h3 class="text-sm font-semibold text-gray-700">Hotel</h3>
+                <button type="button" id="btnAddHotel" class="btn btn-xs">+ Hotel</button>
+            </div>
+
+            <div id="hotelWrapper" class="space-y-3">
+                @foreach(old('hotels', $paket->hotels ?? []) as $i=>$hotel)
+                    @include('pakets.partials.hotel-item', [
+                        'index' => $i,
+                        'hotel' => $hotel
+                    ])
                 @endforeach
             </div>
 
-            <textarea name="short_description" class="input mt-4">
-{{ old('short_description', $paket->short_description ?? '') }}
-            </textarea>
-
-            <textarea name="description" class="input mt-3">
-{{ old('description', $paket->description ?? '') }}
-            </textarea>
-        </div>
-    </div>
-
-    {{-- RIGHT --}}
-    <div class="space-y-6">
-
-        {{-- MEDIA --}}
-        <div class="card">
-            <h3 class="title">Media</h3>
-
-            {{-- THUMBNAIL --}}
-            @if($isEdit && $paket?->thumbnail)
-                <img src="{{ asset('storage/'.$paket->thumbnail) }}"
-                     class="w-full h-40 object-cover rounded mb-3">
-            @endif
-
-            <input type="file" name="thumbnail" class="input">
-
-            {{-- ================= GALLERY EXISTING ================= --}}
-            @if($isEdit && $paket->gallery)
-                <div class="grid grid-cols-3 gap-2 mt-3">
-                    @foreach($paket->gallery as $img)
-                        <div class="relative">
-
-                            <img src="{{ asset('storage/'.$img) }}"
-                                 class="h-24 w-full object-cover rounded">
-
-                            <label class="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 rounded cursor-pointer">
-                                <input type="checkbox" name="remove_gallery[]" value="{{ $img }}">
-                                ✕
-                            </label>
-
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-
-            {{-- MULTI UPLOAD --}}
-            <input type="file" name="gallery[]" multiple class="input mt-3" id="galleryInput">
-
-            <div id="galleryPreview" class="grid grid-cols-3 gap-2 mt-3"></div>
+            <template id="hotelTemplate">
+                @include('pakets.partials.hotel-item', [
+                    'index'=>'__INDEX__',
+                    'hotel'=>[]
+                ])
+            </template>
         </div>
 
-        {{-- STATUS --}}
-        <div class="card space-y-3">
-            <label class="flex gap-2 items-center">
-                <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" value="1"
-                    @checked(old('is_active', $paket->is_active ?? 1))>
-                Aktif
-            </label>
+        {{-- ================= ITINERARY ================= --}}
+        <div class="card-compact space-y-3">
+            <div class="flex justify-between items-center">
+                <h3 class="text-sm font-semibold text-gray-700">Itinerary</h3>
+                <button type="button" id="btnAddItinerary" class="btn btn-xs">+ Hari</button>
+            </div>
 
-            <label class="flex gap-2 items-center">
-                <input type="hidden" name="is_published" value="0">
-                <input type="checkbox" name="is_published" value="1"
-                    @checked(old('is_published', $paket->is_published ?? 0))>
-                Publish
-            </label>
+            <div id="itineraryWrapper" class="space-y-3">
+                @foreach(old('itinerary', $paket->itinerary ?? []) as $i=>$item)
+                    @include('pakets.partials.itinerary-item', [
+                        'index'=>$i,
+                        'item'=>$item,
+                        'destinations'=>$destinations
+                    ])
+                @endforeach
+            </div>
+
+            <template id="itineraryTemplate">
+                @include('pakets.partials.itinerary-item', [
+                    'index'=>'__INDEX__',
+                    'item'=>[],
+                    'destinations'=>$destinations
+                ])
+            </template>
+        </div>
+
+        {{-- ================= DEPARTURE ================= --}}
+        <div class="card-compact space-y-3">
+            <div class="flex justify-between items-center">
+                <h3 class="text-sm font-semibold text-gray-700">Departure</h3>
+                <button type="button" id="btnAddDeparture" class="btn btn-xs">+ Departure</button>
+            </div>
+
+            <div id="departureWrapper" class="space-y-3">
+                @foreach(old('departures', $paket->departures ?? []) as $i=>$dep)
+                    @include('pakets.partials.departure-item', [
+                        'index' => $i,
+                        'dep' => $dep
+                    ])
+                @endforeach
+            </div>
+
+            <template id="departureTemplate">
+                @include('pakets.partials.departure-item', [
+                    'index'=>'__INDEX__',
+                    'dep'=>[]
+                ])
+            </template>
         </div>
 
     </div>
-</div>
 
-{{-- ================= HOTEL ================= --}}
-<div class="card">
-    <div class="flex justify-between">
-        <h3 class="title">Hotel</h3>
-        <button type="button" id="btnAddHotel" class="btn">+ Hotel</button>
+    {{-- ================= SUBMIT (STICK BOTTOM FEEL) ================= --}}
+    <div class="pt-4 flex justify-end">
+        <button class="btn btn-primary">
+            {{ $isEdit ? 'Update' : 'Simpan' }}
+        </button>
     </div>
-
-    <div id="hotelWrapper" class="space-y-4">
-        @foreach(old('hotels', $paket->hotels ?? []) as $i=>$hotel)
-            @include('pakets.partials.hotel-item', [
-                'index' => $i,
-                'hotel' => $hotel
-            ])
-        @endforeach
-    </div>
-
-    <template id="hotelTemplate">
-        @include('pakets.partials.hotel-item', [
-            'index'=>'__INDEX__',
-            'hotel'=>[]
-        ])
-    </template>
-</div>
-
-{{-- ================= ITINERARY ================= --}}
-<div class="card">
-    <div class="flex justify-between">
-        <h3 class="title">Itinerary</h3>
-        <button type="button" id="btnAddItinerary" class="btn">+ Hari</button>
-    </div>
-
-    <div id="itineraryWrapper" class="space-y-4">
-        @foreach(old('itinerary', $paket->itinerary ?? []) as $i=>$item)
-            @include('pakets.partials.itinerary-item', [
-                'index'=>$i,
-                'item'=>$item,
-                'destinations'=>$destinations
-            ])
-        @endforeach
-    </div>
-
-    <template id="itineraryTemplate">
-        @include('pakets.partials.itinerary-item', [
-            'index'=>'__INDEX__',
-            'item'=>[],
-            'destinations'=>$destinations
-        ])
-    </template>
-</div>
-
-{{-- ================= DEPARTURE ================= --}}
-<div class="card">
-    <div class="flex justify-between">
-        <h3 class="title">Departure</h3>
-        <button type="button" id="btnAddDeparture" class="btn">+ Departure</button>
-    </div>
-
-    <div id="departureWrapper" class="space-y-4">
-        @foreach(old('departures', $paket->departures ?? []) as $i=>$dep)
-            @include('pakets.partials.departure-item', [
-                'index' => $i,
-                'dep' => $dep
-            ])
-        @endforeach
-    </div>
-
-    <template id="departureTemplate">
-        @include('pakets.partials.departure-item', [
-            'index'=>'__INDEX__',
-            'dep'=>[]
-        ])
-    </template>
-</div>
-{{-- ================= SUBMIT --}}
-<div class="text-right">
-    <button class="btn btn-primary">
-        {{ $isEdit ? 'Update' : 'Simpan' }}
-    </button>
-</div>
 
 </div>
 
+{{-- ================= MEDIA SCRIPT ================= --}}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -202,99 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================================
-       🚀 GALLERY PRO MAX
-    ========================================================= */
-
-    const input = qs('#galleryInput')
-    const preview = qs('#galleryPreview')
-
-    /* ================= INPUT SELECT ================= */
-    if(input){
-        input.addEventListener('change', () => {
-            renderGallery()
-        })
-    }
-
-    /* ================= DRAG DROP ================= */
-    if(preview){
-
-        preview.addEventListener('dragover', e=>{
-            e.preventDefault()
-            preview.classList.add('ring-2','ring-green-400')
-        })
-
-        preview.addEventListener('dragleave', ()=>{
-            preview.classList.remove('ring-2','ring-green-400')
-        })
-
-        preview.addEventListener('drop', e=>{
-            e.preventDefault()
-            preview.classList.remove('ring-2','ring-green-400')
-
-            const dt = new DataTransfer()
-
-            // ambil existing file
-            Array.from(input.files).forEach(f => dt.items.add(f))
-
-            // tambah dropped file
-            Array.from(e.dataTransfer.files).forEach(f=>{
-                if(f.type.startsWith('image/')){
-                    dt.items.add(f)
-                }
-            })
-
-            input.files = dt.files
-
-            renderGallery()
-        })
-    }
-
-    /* ================= RENDER ================= */
-    function renderGallery(){
-        preview.innerHTML = ''
-
-        Array.from(input.files).forEach((file,index)=>{
-            const reader = new FileReader()
-
-            reader.onload = e=>{
-                preview.insertAdjacentHTML('beforeend', `
-                    <div class="relative">
-
-                        <img src="${e.target.result}" class="h-24 w-full object-cover rounded">
-
-                        <button type="button"
-                            class="remove-gallery absolute top-1 right-1 bg-red-500 text-white text-xs px-1 rounded"
-                            data-index="${index}">
-                            ×
-                        </button>
-
-                    </div>
-                `)
-            }
-
-            reader.readAsDataURL(file)
-        })
-    }
-
-    /* ================= REMOVE ================= */
-    document.addEventListener('click', e=>{
-        if(e.target.classList.contains('remove-gallery')){
-
-            const index = parseInt(e.target.dataset.index)
-            const dt = new DataTransfer()
-
-            Array.from(input.files)
-                .filter((_,i)=>i!==index)
-                .forEach(f=>dt.items.add(f))
-
-            input.files = dt.files
-
-            renderGallery()
-        }
-    })
-
-    /* =========================================================
-       📦 FORM DYNAMIC (FIX NO OPTIONAL CHAINING)
+       📦 FORM DYNAMIC
     ========================================================= */
 
     const btnHotel = qs('#btnAddHotel')

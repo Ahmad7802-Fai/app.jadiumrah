@@ -280,4 +280,30 @@
         @apply alert bg-yellow-50 text-yellow-700;
     }
 
+
+    /* ===============================
+    🔥 FIX CROPPER MODAL & LAYOUT
+    =============================== */
+
+    #cropModal {
+        z-index: 9999;
+    }
+
+    /* tombol tetap di atas */
+    #cropModal button {
+        position: relative;
+        z-index: 9999;
+    }
+
+    /* fix overflow cropper */
+    #cropModal img {
+        max-width: 100%;
+        display: block;
+    }
+
+    .cropper-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
 }

@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use App\Services\Media\MediaService;
 
 class PaketService
 {
+    protected MediaService $mediaService;
+
+    public function __construct(MediaService $mediaService)
+    {
+        $this->mediaService = $mediaService;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | CREATE
@@ -159,27 +168,79 @@ class PaketService
 
     private function handleMediaCreate(Paket $paket, array $data): void
     {
-        if (!empty($data['thumbnail']) && $data['thumbnail'] instanceof UploadedFile) {
+        /*
+        |--------------------------------------------------------------------------
+        | THUMBNAIL (BASE64 PRIORITY)
+        |--------------------------------------------------------------------------
+        */
+        if (!empty($data['thumbnail_base64'])) {
 
-            $path = $data['thumbnail']->store('pakets', 'public');
+            $img = $this->mediaService->uploadBase64Image($data['thumbnail_base64'], 'pakets');
 
-            $paket->update(['thumbnail' => $path]);
+            $paket->update([
+                'thumbnail' => $img['full'],
+                'thumbnail_small' => $img['thumb'],
+            ]);
+        }
+        elseif (!empty($data['thumbnail'])) {
+
+            $img = $this->mediaService->uploadImage($data['thumbnail']);
+
+            $paket->update([
+                'thumbnail' => $img['full'],
+                'thumbnail_small' => $img['thumb'],
+            ]);
         }
 
-        if (!empty($data['gallery'])) {
+        /*
+        |--------------------------------------------------------------------------
+        | GALLERY
+        |--------------------------------------------------------------------------
+        */
+        $gallery = [];
 
-            $gallery = [];
-
-            foreach ($data['gallery'] as $file) {
-
-                if ($file instanceof UploadedFile) {
-                    $gallery[] = $file->store('pakets', 'public');
-                }
+        // BASE64 (🔥 dari cropper)
+        if (!empty($data['gallery_base64'])) {
+            foreach ($data['gallery_base64'] as $img) {
+                $gallery[] = $this->mediaService->uploadBase64Single($img, 'pakets');
             }
+        }
 
+        // FILE (fallback)
+        if (!empty($data['gallery'])) {
+            foreach ($data['gallery'] as $file) {
+                $gallery[] = $this->mediaService->uploadSingle($file);
+            }
+        }
+
+        if (!empty($gallery)) {
             $paket->update(['gallery' => $gallery]);
         }
     }
+
+    // private function handleMediaCreate(Paket $paket, array $data): void
+    // {
+    //     if (!empty($data['thumbnail']) && $data['thumbnail'] instanceof UploadedFile) {
+
+    //         $path = $data['thumbnail']->store('pakets', 'public');
+
+    //         $paket->update(['thumbnail' => $path]);
+    //     }
+
+    //     if (!empty($data['gallery'])) {
+
+    //         $gallery = [];
+
+    //         foreach ($data['gallery'] as $file) {
+
+    //             if ($file instanceof UploadedFile) {
+    //                 $gallery[] = $file->store('pakets', 'public');
+    //             }
+    //         }
+
+    //         $paket->update(['gallery' => $gallery]);
+    //     }
+    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -189,39 +250,57 @@ class PaketService
 
     private function handleMediaUpdate(Paket $paket, array $data): void
     {
-        if (!empty($data['thumbnail']) && $data['thumbnail'] instanceof UploadedFile) {
+        /*
+        |--------------------------------------------------------------------------
+        | THUMBNAIL
+        |--------------------------------------------------------------------------
+        */
+        if (!empty($data['thumbnail_base64']) || !empty($data['thumbnail'])) {
 
-            if ($paket->thumbnail) {
-                Storage::disk('public')->delete($paket->thumbnail);
+            $this->mediaService->delete($paket->thumbnail);
+            $this->mediaService->delete($paket->thumbnail_small);
+
+            if (!empty($data['thumbnail_base64'])) {
+                $img = $this->mediaService->uploadBase64Image($data['thumbnail_base64'], 'pakets');
+            } else {
+                $img = $this->mediaService->uploadImage($data['thumbnail']);
             }
 
-            $path = $data['thumbnail']->store('pakets', 'public');
-
-            $paket->update(['thumbnail' => $path]);
+            $paket->update([
+                'thumbnail' => $img['full'],
+                'thumbnail_small' => $img['thumb'],
+            ]);
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | GALLERY
+        |--------------------------------------------------------------------------
+        */
         $gallery = $paket->gallery ?? [];
 
+        // REMOVE
         if (!empty($data['remove_gallery'])) {
 
-            foreach ($data['remove_gallery'] as $img) {
+            $this->mediaService->deleteMany($data['remove_gallery']);
 
-                Storage::disk('public')->delete($img);
+            $gallery = array_filter(
+                $gallery,
+                fn($g) => !in_array($g, $data['remove_gallery'])
+            );
+        }
 
-                $gallery = array_filter(
-                    $gallery,
-                    fn($g) => $g !== $img
-                );
+        // ADD BASE64
+        if (!empty($data['gallery_base64'])) {
+            foreach ($data['gallery_base64'] as $img) {
+                $gallery[] = $this->mediaService->uploadBase64Single($img, 'pakets');
             }
         }
 
+        // ADD FILE
         if (!empty($data['gallery'])) {
-
             foreach ($data['gallery'] as $file) {
-
-                if ($file instanceof UploadedFile) {
-                    $gallery[] = $file->store('pakets', 'public');
-                }
+                $gallery[] = $this->mediaService->uploadSingle($file);
             }
         }
 
@@ -229,6 +308,49 @@ class PaketService
             'gallery' => array_values($gallery)
         ]);
     }
+
+    // private function handleMediaUpdate(Paket $paket, array $data): void
+    // {
+    //     if (!empty($data['thumbnail']) && $data['thumbnail'] instanceof UploadedFile) {
+
+    //         if ($paket->thumbnail) {
+    //             Storage::disk('public')->delete($paket->thumbnail);
+    //         }
+
+    //         $path = $data['thumbnail']->store('pakets', 'public');
+
+    //         $paket->update(['thumbnail' => $path]);
+    //     }
+
+    //     $gallery = $paket->gallery ?? [];
+
+    //     if (!empty($data['remove_gallery'])) {
+
+    //         foreach ($data['remove_gallery'] as $img) {
+
+    //             Storage::disk('public')->delete($img);
+
+    //             $gallery = array_filter(
+    //                 $gallery,
+    //                 fn($g) => $g !== $img
+    //             );
+    //         }
+    //     }
+
+    //     if (!empty($data['gallery'])) {
+
+    //         foreach ($data['gallery'] as $file) {
+
+    //             if ($file instanceof UploadedFile) {
+    //                 $gallery[] = $file->store('pakets', 'public');
+    //             }
+    //         }
+    //     }
+
+    //     $paket->update([
+    //         'gallery' => array_values($gallery)
+    //     ]);
+    // }
 
     /*
     |--------------------------------------------------------------------------

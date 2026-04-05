@@ -2,197 +2,217 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto px-6 py-6 space-y-6">
+<div class="max-w-7xl mx-auto px-6 py-5 space-y-4">
 
-    {{-- ================= HEADER ================= --}}
+    {{-- HEADER --}}
     <div class="flex justify-between items-center">
+
         <div>
-            <h1 class="text-2xl font-semibold text-gray-800">
+            <h1 class="text-lg font-semibold text-gray-800">
                 {{ $paket->name }}
             </h1>
-            <p class="text-sm text-gray-500">
-                Code: {{ $paket->code }}
+            <p class="text-xs text-gray-400">
+                {{ $paket->code }}
             </p>
         </div>
 
-        <div class="flex gap-3">
-            <a href="{{ route('pakets.edit',$paket) }}" class="btn btn-outline">
-                Edit
-            </a>
-            <a href="{{ route('pakets.index') }}" class="btn btn-secondary">
-                Kembali
-            </a>
+        <div class="flex gap-2">
+            <a href="{{ route('pakets.edit',$paket) }}"
+               class="btn btn-xs btn-outline">Edit</a>
+
+            <a href="{{ route('pakets.index') }}"
+               class="btn btn-xs btn-secondary">Back</a>
         </div>
+
     </div>
 
 
-    {{-- ================= TOP GRID ================= --}}
-    <div class="grid lg:grid-cols-3 gap-6">
+    {{-- TOP GRID --}}
+    <div class="grid lg:grid-cols-3 gap-4">
 
-        {{-- ================= LEFT (DETAIL) ================= --}}
-        <div class="lg:col-span-2 card space-y-5">
+        {{-- LEFT --}}
+        <div class="lg:col-span-2 space-y-4">
 
-            <div class="grid md:grid-cols-2 gap-5 text-sm">
+            {{-- INFO --}}
+            <div class="card-compact p-4 space-y-3 text-sm">
 
-                <div>
-                    <div class="text-gray-500">Kota</div>
-                    <div class="font-medium">{{ $paket->departure_city ?? '-' }}</div>
-                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
 
-                <div>
-                    <div class="text-gray-500">Maskapai</div>
-                    <div class="font-medium">{{ $paket->airline ?? '-' }}</div>
-                </div>
-
-                <div>
-                    <div class="text-gray-500">Harga Base</div>
-                    <div class="font-semibold text-primary">
-                        Rp {{ number_format($paket->price,0,',','.') }}
+                    <div>
+                        <div class="text-gray-400">Kota</div>
+                        <div class="font-medium">{{ $paket->departure_city ?? '-' }}</div>
                     </div>
-                </div>
 
-                <div>
-                    <div class="text-gray-500">Durasi</div>
-                    <div class="font-medium">
-                        {{ $paket->duration_days ?? '-' }} Hari
+                    <div>
+                        <div class="text-gray-400">Maskapai</div>
+                        <div class="font-medium">{{ $paket->airline ?? '-' }}</div>
                     </div>
+
+                    <div>
+                        <div class="text-gray-400">Durasi</div>
+                        <div class="font-medium">{{ $paket->duration_days ?? '-' }} Hari</div>
+                    </div>
+
                 </div>
 
-                <div>
-                    <div class="text-gray-500">Quota Default</div>
-                    <div class="font-medium">{{ $paket->quota ?? '-' }}</div>
+                <div class="pt-2 border-t text-xs">
+                    <div class="text-gray-400 mb-1">Short</div>
+                    <div>{{ $paket->short_description ?? '-' }}</div>
+                </div>
+
+                <div class="text-xs">
+                    <div class="text-gray-400 mb-1">Deskripsi</div>
+                    <div class="leading-relaxed">
+                        {{ $paket->description ?? '-' }}
+                    </div>
                 </div>
 
             </div>
 
-            <div class="pt-4 border-t">
-                <div class="text-gray-500 text-sm mb-1">Deskripsi Singkat</div>
-                <div class="text-sm">{{ $paket->short_description ?? '-' }}</div>
+
+            {{-- HOTEL --}}
+            <div class="card-compact p-4 space-y-2">
+
+                <h3 class="text-sm font-semibold text-gray-700">Hotel</h3>
+
+                <div class="grid md:grid-cols-2 gap-2 text-xs">
+
+                    @foreach($paket->hotels as $hotel)
+                        <div class="border rounded-lg p-2 bg-gray-50">
+
+                            <div class="font-medium text-gray-800">
+                                {{ $hotel->hotel_name }}
+                            </div>
+
+                            <div class="text-gray-500 text-[11px]">
+                                {{ ucfirst($hotel->city) }} • ⭐ {{ $hotel->rating }}
+                            </div>
+
+                            <div class="text-gray-400 text-[10px]">
+                                {{ $hotel->distance_to_haram }}
+                            </div>
+
+                        </div>
+                    @endforeach
+
+                </div>
+
             </div>
 
-            <div>
-                <div class="text-gray-500 text-sm mb-1">Deskripsi Lengkap</div>
-                <div class="text-sm leading-relaxed">
-                    {{ $paket->description ?? '-' }}
+
+            {{-- ITINERARY --}}
+            <div class="card-compact p-4 space-y-2">
+
+                <h3 class="text-sm font-semibold text-gray-700">Itinerary</h3>
+
+                <div class="space-y-1 text-xs">
+
+                    @foreach($paket->itinerary as $item)
+                        <div class="flex justify-between border-b py-1">
+
+                            <div>
+                                <span class="font-medium">
+                                    H{{ $item->day_order }}
+                                </span>
+                                — {{ $item->destination->city }}
+                            </div>
+
+                            <div class="text-gray-400">
+                                {{ $item->note }}
+                            </div>
+
+                        </div>
+                    @endforeach
+
                 </div>
+
+            </div>
+
+
+            {{-- DEPARTURE --}}
+            <div class="card-compact p-4 space-y-2">
+
+                <h3 class="text-sm font-semibold text-gray-700">Departure</h3>
+
+                <div class="space-y-2 text-xs">
+
+                    @foreach($paket->departures as $dep)
+
+                        <div class="border rounded-lg p-2 bg-gray-50">
+
+                            <div class="flex justify-between mb-1">
+
+                                <div class="font-medium text-gray-700">
+                                    {{ \Carbon\Carbon::parse($dep->departure_date)->format('d M') }}
+                                    -
+                                    {{ \Carbon\Carbon::parse($dep->return_date)->format('d M') }}
+                                </div>
+
+                                <div class="text-gray-500">
+                                    Q: {{ $dep->quota }}
+                                </div>
+
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 text-[10px] text-gray-600">
+
+                                @foreach($dep->prices as $price)
+                                    <div>
+                                        {{ substr($price->room_type,0,3) }} :
+                                        <span class="font-medium">
+                                            {{ number_format($price->price,0,',','.') }}
+                                        </span>
+                                    </div>
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
             </div>
 
         </div>
 
 
-        {{-- ================= RIGHT PANEL ================= --}}
-        <div class="card space-y-5">
+        {{-- RIGHT --}}
+        <div class="space-y-4">
 
-            {{-- Status --}}
-            <div>
-                <div class="text-sm text-gray-500 mb-2">Status</div>
-                <div class="flex gap-2">
-                    <span class="badge {{ $paket->is_active ? 'badge-success' : 'badge-danger' }}">
-                        {{ $paket->is_active ? 'Active' : 'Inactive' }}
+            {{-- STATUS --}}
+            <div class="card-compact p-3 space-y-2 text-xs">
+
+                <div class="text-gray-400">Status</div>
+
+                <div class="flex gap-1 flex-wrap">
+
+                    <span class="px-2 py-0.5 rounded-full text-[10px]
+                        {{ $paket->is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                        {{ $paket->is_active ? 'Active' : 'Off' }}
                     </span>
 
-                    <span class="badge {{ $paket->is_published ? 'badge-primary' : 'badge-warning' }}">
-                        {{ $paket->is_published ? 'Published' : 'Draft' }}
+                    <span class="px-2 py-0.5 rounded-full text-[10px]
+                        {{ $paket->is_published ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700' }}">
+                        {{ $paket->is_published ? 'Publish' : 'Draft' }}
                     </span>
+
                 </div>
+
             </div>
 
-            {{-- Thumbnail --}}
+
+            {{-- THUMB --}}
             @if($paket->thumbnail)
-                <div>
-                    <div class="text-sm text-gray-500 mb-2">Thumbnail</div>
-                    <img src="{{ asset('storage/'.$paket->thumbnail) }}"
-                         class="w-full rounded-xl shadow">
-                </div>
+            <div class="card-compact p-2">
+                <img src="{{ asset('storage/'.$paket->thumbnail) }}"
+                     class="w-full rounded-lg">
+            </div>
             @endif
 
         </div>
 
-    </div>
-
-
-    {{-- ================= HOTEL ================= --}}
-    <div class="card">
-        <h3 class="card-header">Hotel</h3>
-
-        <div class="grid md:grid-cols-2 gap-4 text-sm">
-
-            @foreach($paket->hotels as $hotel)
-                <div class="border rounded-xl p-4 bg-gray-50">
-                    <div class="font-medium">{{ $hotel->hotel_name }}</div>
-                    <div class="text-gray-500">
-                        {{ ucfirst($hotel->city) }} • ⭐ {{ $hotel->rating }}
-                    </div>
-                    <div class="text-gray-500 text-xs">
-                        {{ $hotel->distance_to_haram }}
-                    </div>
-                </div>
-            @endforeach
-
-        </div>
-    </div>
-
-
-    {{-- ================= ITINERARY ================= --}}
-    <div class="card">
-        <h3 class="card-header">Itinerary</h3>
-
-        <div class="space-y-3 text-sm">
-
-            @foreach($paket->itinerary as $item)
-                <div class="flex justify-between border-b pb-2">
-                    <div>
-                        <span class="font-medium">
-                            Hari {{ $item->day_order }}
-                        </span>
-                        — {{ $item->destination->city }}
-                    </div>
-                    <div class="text-gray-500">
-                        {{ $item->note }}
-                    </div>
-                </div>
-            @endforeach
-
-        </div>
-    </div>
-
-
-    {{-- ================= DEPARTURES ================= --}}
-    <div class="card">
-        <h3 class="card-header">Departures</h3>
-
-        <div class="space-y-4 text-sm">
-
-            @foreach($paket->departures as $dep)
-
-                <div class="border rounded-xl p-4 bg-gray-50 space-y-2">
-
-                    <div class="flex justify-between">
-                        <div>
-                            {{ \Carbon\Carbon::parse($dep->departure_date)->format('d M Y') }}
-                            -
-                            {{ \Carbon\Carbon::parse($dep->return_date)->format('d M Y') }}
-                        </div>
-
-                        <div class="font-medium">
-                            Quota: {{ $dep->quota }}
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4 text-xs text-gray-600">
-                        @foreach($dep->prices as $price)
-                            <div>
-                                {{ ucfirst($price->room_type) }} :
-                                Rp {{ number_format($price->price,0,',','.') }}
-                            </div>
-                        @endforeach
-                    </div>
-
-                </div>
-
-            @endforeach
-
-        </div>
     </div>
 
 </div>

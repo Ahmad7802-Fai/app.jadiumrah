@@ -1,8 +1,17 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-
 window.Alpine = Alpine;
+
+/* ===============================
+🔥 CROPPER (WAJIB)
+=============================== */
+import Cropper from 'cropperjs'
+import 'cropperjs/dist/cropper.min.css'
+import imageCompression from 'browser-image-compression'
+window.imageCompression = imageCompression
+window.Cropper = Cropper
+/* =============================== */
 
 Alpine.start();
 

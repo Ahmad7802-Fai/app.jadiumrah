@@ -10,62 +10,67 @@
     $note            = $get('note');
 @endphp
 
-<div class="itinerary-item border rounded-xl p-4 bg-gray-50 cursor-move relative">
+<div class="itinerary-item border rounded-lg p-2.5 bg-gray-50 text-xs relative cursor-move">
 
     {{-- HEADER --}}
-    <div class="flex justify-between items-center mb-3">
-        <h4 class="font-semibold day-label text-gray-700">Hari</h4>
+    <div class="flex justify-between items-center mb-1">
+        <h4 class="text-[11px] font-semibold text-gray-600 day-label">
+            Hari
+        </h4>
 
         <button type="button"
-                class="btn btn-danger btn-sm btn-remove-itinerary">
-            Hapus
+            class="text-red-500 px-2 py-0.5 rounded hover:bg-red-50 btn-remove-itinerary">
+            ✕
         </button>
     </div>
 
     {{-- ORDER --}}
     <input type="hidden"
-           name="itinerary[{{ $index }}][day_order]"
-           class="day-order-input">
+        name="itinerary[{{ $index }}][day_order]"
+        class="day-order-input">
 
     {{-- FORM --}}
-    <div class="grid md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 
         {{-- DESTINATION --}}
-        <div>
-            <label class="label">Destination *</label>
+        <div class="space-y-1">
+
+            <label class="text-[10px] text-gray-400">Dest</label>
 
             <select name="itinerary[{{ $index }}][destination_id]"
-                    class="input destination-select"
-                    required>
+                class="w-full px-2 py-1.5 text-xs rounded-md border border-gray-300 focus:ring-1 focus:ring-primary destination-select"
+                required>
 
-                <option value="">-- Pilih Destination --</option>
+                <option value="">--</option>
 
                 @foreach($destinations as $dest)
                     <option value="{{ $dest->id }}"
                         @selected($destinationId == $dest->id)>
-                        {{ $dest->city }} ({{ $dest->country }})
+                        {{ $dest->city }}
                     </option>
                 @endforeach
 
                 <option value="__new__" @selected($destinationId === '__new__')>
-                    + Tambah Destination Baru
+                    + Baru
                 </option>
 
             </select>
 
             {{-- INPUT MANUAL --}}
             <input type="text"
-                   name="itinerary[{{ $index }}][destination_name]"
-                   value="{{ $destinationName }}"
-                   placeholder="Nama Destination Baru"
-                   class="input mt-2 manual-destination {{ $destinationId === '__new__' ? '' : 'hidden' }}">
+                name="itinerary[{{ $index }}][destination_name]"
+                value="{{ $destinationName }}"
+                placeholder="Destination"
+                class="w-full px-2 py-1.5 text-xs rounded-md border border-gray-300 focus:ring-1 focus:ring-primary manual-destination {{ $destinationId === '__new__' ? '' : 'hidden' }}">
         </div>
 
         {{-- NOTE --}}
-        <div>
-            <label class="label">Catatan</label>
+        <div class="space-y-1">
+            <label class="text-[10px] text-gray-400">Note</label>
+
             <textarea name="itinerary[{{ $index }}][note]"
-                      class="input">{{ $note }}</textarea>
+                rows="1"
+                class="w-full px-2 py-1.5 text-xs rounded-md border border-gray-300 focus:ring-1 focus:ring-primary resize-none">{{ $note }}</textarea>
         </div>
 
     </div>
