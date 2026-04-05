@@ -37,10 +37,11 @@ class PaketResource extends JsonResource
 
             /*
             |--------------------------------------------------------------------------
-            | IMAGE
+            | IMAGE (🔥 FIX CDN)
             |--------------------------------------------------------------------------
             */
-            'thumbnail' => $this->thumbnail_url,
+            'thumbnail' => $this->thumbnail,
+            'thumbnail_url' => $media->url($this->thumbnail),
 
             /*
             |--------------------------------------------------------------------------

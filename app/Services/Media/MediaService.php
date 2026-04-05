@@ -69,7 +69,7 @@ class MediaService
 
     /*
     |--------------------------------------------------------------------------
-    | BASE64 → FULL + THUMB (THUMBNAIL)
+    | BASE64 → FULL + THUMB
     |--------------------------------------------------------------------------
     */
     public function uploadBase64Image(string $base64, ?string $folder = null): array
@@ -154,27 +154,23 @@ class MediaService
 
     /*
     |--------------------------------------------------------------------------
-    | GET URL (CDN READY)
+    | GET URL (AUTO CDN + LOCAL FALLBACK)
     |--------------------------------------------------------------------------
     */
     public function url(?string $path): ?string
     {
         if (!$path) return null;
 
+        $cdn = config('app.cdn_url');
+
+        // ✅ Production → pakai CDN
+        if ($cdn && app()->environment('production')) {
+            return rtrim($cdn, '/') . '/' . ltrim($path, '/');
+        }
+
+        // ✅ Local / dev → pakai storage
         return asset('storage/' . $path);
     }
-
-
-    // public function url(?string $path): ?string
-    // {
-    //     if (!$path) return null;
-
-    //     $cdn = config('app.cdn_url');
-
-    //     return $cdn
-    //         ? rtrim($cdn, '/') . '/' . ltrim($path, '/')
-    //         : Storage::disk($this->disk)->url($path);
-    // }
 
     /*
     |--------------------------------------------------------------------------
