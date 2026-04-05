@@ -9,6 +9,7 @@ class PaketResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $media = app(\App\Services\Media\MediaService::class); // 🔥 FIX
         $base = (float) ($this->base_price ?? 0);
         $original = (float) ($this->original_price ?? 0);
 
