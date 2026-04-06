@@ -22,23 +22,29 @@ class MediaService
         $folder = $folder ?? $this->folder;
         $name = Str::uuid();
 
-        // FULL
+        // ===============================
+        // FULL (HIGH QUALITY MASTER)
+        // ===============================
         $fullPath = "{$folder}/{$name}.webp";
 
         $image = Image::make($file)
-            ->encode('webp', 80);
+            ->orientate() // 🔥 FIX ROTATION
+            ->encode('webp', 95); // 🔥 HIGH QUALITY
 
         Storage::disk($this->disk)->put($fullPath, $image);
 
-        // THUMB
+        // ===============================
+        // THUMB (LIGHTWEIGHT)
+        // ===============================
         $thumbPath = "{$folder}/thumb_{$name}.webp";
 
         $thumb = Image::make($file)
+            ->orientate()
             ->resize(400, null, function ($c) {
                 $c->aspectRatio();
                 $c->upsize();
             })
-            ->encode('webp', 70);
+            ->encode('webp', 70); // 🔥 tetap ringan
 
         Storage::disk($this->disk)->put($thumbPath, $thumb);
 
@@ -60,7 +66,8 @@ class MediaService
         $path = "{$folder}/{$name}.webp";
 
         $image = Image::make($file)
-            ->encode('webp', 80);
+            ->orientate()
+            ->encode('webp', 95); // 🔥 HIGH QUALITY
 
         Storage::disk($this->disk)->put($path, $image);
 
@@ -79,20 +86,27 @@ class MediaService
 
         $binary = $this->decodeBase64($base64);
 
+        // ===============================
         // FULL
+        // ===============================
         $fullPath = "{$folder}/{$name}.webp";
 
         Storage::disk($this->disk)->put(
             $fullPath,
-            Image::make($binary)->encode('webp', 80)
+            Image::make($binary)
+                ->orientate()
+                ->encode('webp', 95) // 🔥 HIGH QUALITY
         );
 
+        // ===============================
         // THUMB
+        // ===============================
         $thumbPath = "{$folder}/thumb_{$name}.webp";
 
         Storage::disk($this->disk)->put(
             $thumbPath,
             Image::make($binary)
+                ->orientate()
                 ->resize(400, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
@@ -122,12 +136,13 @@ class MediaService
 
         Storage::disk($this->disk)->put(
             $path,
-            Image::make($binary)->encode('webp', 80)
+            Image::make($binary)
+                ->orientate()
+                ->encode('webp', 95) // 🔥 HIGH QUALITY
         );
 
         return $path;
     }
-
     /*
     |--------------------------------------------------------------------------
     | DELETE FILE
@@ -165,10 +180,10 @@ class MediaService
 
         // ✅ Production → pakai CDN
         if ($cdn && app()->environment('production')) {
-            return rtrim($cdn, '/') . '/' . ltrim($path, '/');
+            return rtrim($cdn, '/') . '/storage/' . ltrim($path, '/');
         }
 
-        // ✅ Local / dev → pakai storage
+        // ✅ Local → fallback
         return asset('storage/' . $path);
     }
 
