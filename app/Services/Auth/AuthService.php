@@ -11,6 +11,8 @@ use App\Models\Jamaah;
 use App\Models\EmailVerification;
 use App\Services\CodeGeneratorService;
 use Illuminate\Support\Str;
+use App\Mail\VerifyEmailMail;
+use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
@@ -27,27 +29,68 @@ class AuthService
     }
 
     // ===============================
-    // 📝 REGISTER JAMAAH (FINAL FIX)
+    // ✅ REGISTER JAMAAH (DENGAN VERIFIKASI EMAIL) - LOGIC UTAMA ADA DI SINI               
     // ===============================
+
     public function registerJamaah(array $data): User
     {
-        // 🔥 STEP 1: TRANSACTION (DB ONLY)
+        $existingUser = User::where('email', $data['email'])->first();
+
+        // ===============================
+        // 🔥 CASE 1: SUDAH ADA & BELUM VERIFY → RESEND
+        // ===============================
+        if ($existingUser && !$existingUser->email_verified_at) {
+
+            // 🔥 RATE LIMIT (ANTI SPAM)
+            $last = EmailVerification::where('email', $existingUser->email)
+                ->latest()
+                ->first();
+
+            if ($last && now()->diffInSeconds($last->created_at) < 60) {
+                throw ValidationException::withMessages([
+                    'email' => ['Tunggu 1 menit sebelum kirim ulang']
+                ]);
+            }
+
+            EmailVerification::where('email', $existingUser->email)->delete();
+
+            $token = Str::random(64);
+
+            EmailVerification::create([
+                'email'      => $existingUser->email,
+                'token'      => $token,
+                'expired_at' => now()->addMinutes(30),
+            ]);
+
+            $this->sendVerificationEmail($existingUser, $token);
+
+            return $existingUser;
+        }
+
+        // ===============================
+        // 🔥 CASE 2: SUDAH ADA & SUDAH VERIFY → ERROR
+        // ===============================
+        if ($existingUser && $existingUser->email_verified_at) {
+            throw ValidationException::withMessages([
+                'email' => ['Email sudah terdaftar']
+            ]);
+        }
+
+        // ===============================
+        // 🔥 CASE 3: USER BARU
+        // ===============================
         [$user, $token] = DB::transaction(function () use ($data) {
 
-            // ================= USER
             $user = User::create([
                 'name'     => $data['name'],
                 'email'    => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
 
-            // ================= ROLE
             $user->assignRole('JAMAAH');
 
-            // ================= CODE
             $jamaahCode = $this->code->generate('JMH', 'jamaah');
 
-            // ================= JAMAAH
             Jamaah::create([
                 'jamaah_code'   => $jamaahCode,
                 'user_id'       => $user->id,
@@ -56,7 +99,6 @@ class AuthService
                 'source'        => 'website',
             ]);
 
-            // ================= TOKEN VERIFICATION
             $token = Str::random(64);
 
             EmailVerification::create([
@@ -68,47 +110,7 @@ class AuthService
             return [$user, $token];
         });
 
-        // ===============================
-        // 🔗 BUILD VERIFY LINK
-        // ===============================
-        $frontend = config('app.frontend_url') ?: 'http://localhost:3000';
-
-        $link = $frontend .
-            "/verify?email=" . urlencode($user->email) .
-            "&token={$token}";
-
-        // ===============================
-        // 📧 SEND EMAIL (IMPROVED UX 🔥)
-        // ===============================
-        try {
-            Mail::raw(
-                "Assalamu'alaikum {$user->name},\n\n" .
-
-                "Selamat datang di JadiUmrah ✨\n\n" .
-
-                "Silakan verifikasi akun Anda dengan klik link berikut:\n\n" .
-
-                "{$link}\n\n" .
-
-                "⏳ Link ini hanya berlaku selama 30 menit.\n\n" .
-
-                "Jika tombol/link tidak bisa diklik, silakan copy & paste ke browser Anda.\n\n" .
-
-                "Jika Anda tidak merasa mendaftar, abaikan email ini.\n\n" .
-
-                "Barakallahu fiikum 🤲\n" .
-                "Tim JadiUmrah",
-                
-                function ($msg) use ($user) {
-                    $msg->to($user->email)
-                        ->subject('Verifikasi Akun JadiUmrah');
-                }
-            );
-
-        } catch (\Throwable $e) {
-            // 🔥 LOG ERROR TANPA GAGALKAN REGISTER
-            Log::error('MAIL ERROR: ' . $e->getMessage());
-        }
+        $this->sendVerificationEmail($user, $token);
 
         return $user;
     }
@@ -190,4 +192,25 @@ class AuthService
 
         return $user;
     }
+
+    private function sendVerificationEmail(User $user, string $token): void
+    {
+        $frontend = config('app.frontend_url') ?: 'http://localhost:3000';
+
+        $link = $frontend
+            . "/verify?email=" . urlencode($user->email)
+            . "&token={$token}";
+
+        try {
+            Mail::to($user->email)->queue(
+                new VerifyEmailMail($user->name, $link)
+            );
+
+            Log::info("Verification email queued: {$user->email}");
+
+        } catch (\Throwable $e) {
+            Log::error('MAIL ERROR: ' . $e->getMessage());
+        }
+    }
+
 }
