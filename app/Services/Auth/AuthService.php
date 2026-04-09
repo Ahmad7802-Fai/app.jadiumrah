@@ -68,27 +68,50 @@ class AuthService
             return [$user, $token];
         });
 
-        // 🔥 STEP 2: KIRIM EMAIL (DI LUAR TRANSACTION)
+        // ===============================
+        // 🔗 BUILD VERIFY LINK
+        // ===============================
+        $frontend = config('app.frontend_url') ?: 'http://localhost:3000';
+
+        $link = $frontend .
+            "/verify?email=" . urlencode($user->email) .
+            "&token={$token}";
+
+        // ===============================
+        // 📧 SEND EMAIL (IMPROVED UX 🔥)
+        // ===============================
         try {
             Mail::raw(
                 "Assalamu'alaikum {$user->name},\n\n" .
-                "Klik link berikut untuk verifikasi akun:\n\n" .
-                env('FRONTEND_URL') .
-                "/verify?email={$user->email}&token={$token}\n\n" .
-                "Link berlaku 30 menit.",
+
+                "Selamat datang di JadiUmrah ✨\n\n" .
+
+                "Silakan verifikasi akun Anda dengan klik link berikut:\n\n" .
+
+                "{$link}\n\n" .
+
+                "⏳ Link ini hanya berlaku selama 30 menit.\n\n" .
+
+                "Jika tombol/link tidak bisa diklik, silakan copy & paste ke browser Anda.\n\n" .
+
+                "Jika Anda tidak merasa mendaftar, abaikan email ini.\n\n" .
+
+                "Barakallahu fiikum 🤲\n" .
+                "Tim JadiUmrah",
+                
                 function ($msg) use ($user) {
                     $msg->to($user->email)
-                        ->subject('Verifikasi Email JadiUmrah');
+                        ->subject('Verifikasi Akun JadiUmrah');
                 }
             );
+
         } catch (\Throwable $e) {
-            // 🔥 JANGAN GAGALKAN REGISTER KARENA EMAIL
+            // 🔥 LOG ERROR TANPA GAGALKAN REGISTER
             Log::error('MAIL ERROR: ' . $e->getMessage());
         }
 
         return $user;
     }
-
 
     // ===============================
     // ✅ VERIFY EMAIL
