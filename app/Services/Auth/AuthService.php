@@ -200,7 +200,7 @@ class AuthService
     }
 
     // ===============================
-    // 📧 SEND EMAIL
+    // 📧 RESEND EMAIL VERIFICATION
     // ===============================
     public function resendVerification(string $email): ?User
     {
@@ -210,19 +210,25 @@ class AuthService
             return null;
         }
 
-        // 🔥 SUDAH VERIFIED → TIDAK BOLEH
+        // 🔥 SUDAH VERIFIED
         if ($user->email_verified_at) {
             throw ValidationException::withMessages([
                 'email' => ['Email sudah diverifikasi']
             ]);
         }
 
-        // 🔥 RATE LIMIT (ANTI SPAM)
+        // 🔥 AMBIL TOKEN TERAKHIR
         $last = EmailVerification::where('email', $email)
-            ->latest()
+            ->orderByDesc('created_at')
             ->first();
 
-        if ($last && now()->diffInSeconds($last->created_at) < 60) {
+        // 🔥 HITUNG SELISIH WAKTU (FIX)
+        $diff = $last
+            ? $last->created_at->diffInSeconds(now())
+            : null;
+
+        // 🔥 RATE LIMIT
+        if ($diff !== null && $diff < 60) {
             throw ValidationException::withMessages([
                 'email' => ['Tunggu 1 menit sebelum kirim ulang']
             ]);
@@ -231,7 +237,7 @@ class AuthService
         // 🔥 HAPUS TOKEN LAMA
         EmailVerification::where('email', $email)->delete();
 
-        // 🔥 TOKEN BARU
+        // 🔥 BUAT TOKEN BARU
         $token = Str::random(64);
 
         EmailVerification::create([
@@ -240,7 +246,7 @@ class AuthService
             'expired_at' => now()->addMinutes(30),
         ]);
 
-        // 🔥 KIRIM EMAIL
+        // 🔥 KIRIM EMAIL (QUEUE)
         $this->sendVerificationEmail($user, $token);
 
         return $user;

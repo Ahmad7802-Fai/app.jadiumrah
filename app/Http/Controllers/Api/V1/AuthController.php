@@ -117,32 +117,23 @@ class AuthController extends Controller
     // ================= RESEND VERIFICATION
     public function resendVerification(Request $request)
     {
-        try {
-            $request->validate([
-                'email' => ['required', 'email']
-            ]);
+        $request->validate([
+            'email' => ['required', 'email']
+        ]);
 
-            $user = $this->service->resendVerification($request->email);
+        $user = $this->service->resendVerification($request->email);
 
-            if (!$user) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'User tidak ditemukan'
-                ], 404);
-            }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Email verifikasi dikirim ulang'
-            ]);
-
-        } catch (ValidationException $e) {
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Validation error',
-                'errors' => $e->errors()
-            ], 422);
+                'message' => 'User tidak ditemukan'
+            ], 404);
         }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email verifikasi dikirim ulang'
+        ]);
     }
 
     // ================= FORGOT PASSWORD
