@@ -45,15 +45,24 @@ class AuthController extends Controller
             $request->token
         );
 
+        // ❌ TOKEN INVALID / EXPIRED
         if (!$user) {
             return response()->json([
+                'success' => false,
                 'message' => 'Token invalid / expired'
             ], 400);
         }
 
+        // 🔥 AUTO LOGIN (GENERATE TOKEN)
+        $user->tokens()->delete();
+        $token = $user->createToken('auth')->plainTextToken;
+
+        // ✅ RESPONSE FINAL
         return response()->json([
             'success' => true,
-            'message' => 'Email verified'
+            'message' => 'Email verified',
+            'token' => $token,
+            'data' => new UserResource($user)
         ]);
     }
 
@@ -100,7 +109,7 @@ class AuthController extends Controller
         $user->tokens()->delete();
         $token = $user->createToken('auth')->plainTextToken;
 
-        return redirect(env('FRONTEND_URL'))
+        return redirect(config('app.frontend_url'))
             ->cookie(AuthHelper::make($token));
     }
 
