@@ -2,38 +2,93 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Verifikasi Email</title>
+    <title>Verifikasi Email JadiUmrah</title>
 </head>
-<body style="font-family: Arial; background: #f5f5f5; padding: 20px;">
+<body style="margin:0; padding:0; background:#f3f4f6; font-family:Arial, sans-serif;">
 
-    <div style="max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px;">
-        
-        <h2>Assalamu'alaikum {{ $name }} 👋</h2>
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:20px;">
+<tr>
+<td align="center">
 
-        <p>Selamat datang di <b>JadiUmrah</b> ✨</p>
+    <!-- CARD -->
+    <table width="500" cellpadding="0" cellspacing="0" 
+           style="background:#ffffff; border-radius:10px; padding:24px;">
 
-        <p>Silakan verifikasi akun Anda dengan klik tombol di bawah:</p>
+        <!-- HEADER -->
+        <tr>
+            <td align="center" style="padding-bottom:20px;">
+                <h2 style="margin:0; color:#16a34a;">
+                    JadiUmrah
+                </h2>
+                <p style="margin:5px 0 0; font-size:12px; color:#6b7280;">
+                    Perjalanan Ibadah Lebih Mudah
+                </p>
+            </td>
+        </tr>
 
-        <div style="text-align: center; margin: 20px 0;">
-            <a href="{{ $link }}" 
-               style="background: #16a34a; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
-               Verifikasi Akun
-            </a>
-        </div>
+        <!-- CONTENT -->
+        <tr>
+            <td style="color:#111827; font-size:14px; line-height:1.6;">
+                
+                <p>Assalamu'alaikum <b>{{ $name }}</b> 👋</p>
 
-        <p>Atau copy link ini:</p>
-        <p style="word-break: break-all;">{{ $link }}</p>
+                <p>
+                    Selamat datang di <b>JadiUmrah</b> ✨  
+                    Silakan verifikasi akun Anda untuk melanjutkan.
+                </p>
 
-        <p>⏳ Link berlaku 30 menit.</p>
+                <!-- BUTTON -->
+                <div style="text-align:center; margin:25px 0;">
+                    <a href="{{ $link }}" 
+                       style="display:inline-block;
+                              background:#16a34a;
+                              color:#ffffff;
+                              padding:12px 20px;
+                              border-radius:6px;
+                              text-decoration:none;
+                              font-weight:bold;">
+                        Verifikasi Akun
+                    </a>
+                </div>
 
-        <p>Jika Anda tidak merasa mendaftar, abaikan email ini.</p>
+                <p style="font-size:12px; color:#6b7280;">
+                    Jika tombol tidak berfungsi, copy link berikut:
+                </p>
 
-        <br>
+                <p style="font-size:12px; word-break:break-all; color:#16a34a;">
+                    {{ $link }}
+                </p>
 
-        <p>Barakallahu fiikum 🤲</p>
-        <p><b>Tim JadiUmrah</b></p>
+                <p style="font-size:12px; color:#6b7280;">
+                    ⏳ Link berlaku selama 30 menit.
+                </p>
 
-    </div>
+                <p style="font-size:12px; color:#6b7280;">
+                    Jika Anda tidak merasa mendaftar, abaikan email ini.
+                </p>
+
+                <br>
+
+                <p>
+                    Barakallahu fiikum 🤲<br>
+                    <b>Tim JadiUmrah</b>
+                </p>
+
+            </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+            <td align="center" style="padding-top:20px; font-size:11px; color:#9ca3af;">
+                © {{ date('Y') }} JadiUmrah. All rights reserved.
+            </td>
+        </tr>
+
+    </table>
+
+</td>
+</tr>
+</table>
 
 </body>
 </html>

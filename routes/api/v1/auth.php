@@ -15,6 +15,9 @@ Route::prefix('auth')->group(function () {
     Route::post('/verify-email', [AuthController::class,'verifyEmail']);
     Route::post('/login', [AuthController::class,'login']);
 
+    // 🔥 TAMBAHAN
+    Route::post('/resend-verification', [AuthController::class,'resendVerification']);
+
     Route::post('/forgot-password', [AuthController::class,'forgotPassword']);
     Route::post('/reset-password', [AuthController::class,'resetPassword']);
 

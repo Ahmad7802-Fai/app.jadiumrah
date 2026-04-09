@@ -3,9 +3,12 @@
 namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 
-class VerifyEmailMail extends Mailable
+class VerifyEmailMail extends Mailable implements ShouldQueue
 {
     use SerializesModels;
 
@@ -18,13 +21,27 @@ class VerifyEmailMail extends Mailable
         $this->link = $link;
     }
 
-    public function build()
+    // ===============================
+    // SUBJECT
+    // ===============================
+    public function envelope(): Envelope
     {
-        return $this->subject('Verifikasi Akun JadiUmrah')
-            ->view('emails.verify')
-            ->with([
+        return new Envelope(
+            subject: 'Verifikasi Akun JadiUmrah'
+        );
+    }
+
+    // ===============================
+    // VIEW
+    // ===============================
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.verify',
+            with: [
                 'name' => $this->name,
                 'link' => $this->link,
-            ]);
+            ],
+        );
     }
 }

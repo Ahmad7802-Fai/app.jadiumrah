@@ -15,8 +15,9 @@ use App\Http\Requests\Api\V1\User\VerifyEmailRequest;
 use App\Http\Requests\Api\V1\User\ForgotPasswordRequest;
 use App\Http\Requests\Api\V1\User\ResetPasswordRequest;
 use App\Http\Resources\Api\V1\User\UserResource;
-use Illuminate\Auth\Events\Registered;
-use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+
 class AuthController extends Controller
 {
     protected $service;
@@ -45,7 +46,6 @@ class AuthController extends Controller
             $request->token
         );
 
-        // ❌ TOKEN INVALID / EXPIRED
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -53,11 +53,10 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // 🔥 AUTO LOGIN (GENERATE TOKEN)
+        // 🔥 AUTO LOGIN
         $user->tokens()->delete();
         $token = $user->createToken('auth')->plainTextToken;
 
-        // ✅ RESPONSE FINAL
         return response()->json([
             'success' => true,
             'message' => 'Email verified',
@@ -71,6 +70,7 @@ class AuthController extends Controller
     {
         if (!Auth::attempt($request->validated())) {
             return response()->json([
+                'success' => false,
                 'message' => 'Email / password salah'
             ], 401);
         }
@@ -79,6 +79,7 @@ class AuthController extends Controller
 
         if (!$user->email_verified_at) {
             return response()->json([
+                'success' => false,
                 'message' => 'Email belum diverifikasi'
             ], 403);
         }
@@ -89,7 +90,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'token' => $token, // 🔥 INI KUNCI
+            'token' => $token,
             'data' => new UserResource($user)
         ]);
     }
@@ -111,6 +112,37 @@ class AuthController extends Controller
 
         return redirect(config('app.frontend_url'))
             ->cookie(AuthHelper::make($token));
+    }
+
+    // ================= RESEND VERIFICATION
+    public function resendVerification(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => ['required', 'email']
+            ]);
+
+            $user = $this->service->resendVerification($request->email);
+
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User tidak ditemukan'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Email verifikasi dikirim ulang'
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $e->errors()
+            ], 422);
+        }
     }
 
     // ================= FORGOT PASSWORD
@@ -141,8 +173,8 @@ class AuthController extends Controller
             'message' => 'Password berhasil direset'
         ]);
     }
-    
-    // ================= ME (GET USER LOGIN)
+
+    // ================= ME
     public function me()
     {
         $user = request()->user();
@@ -169,28 +201,4 @@ class AuthController extends Controller
             'success' => true
         ]);
     }
-
-    // ================= RESEND VERIFICATION 🔥
-    public function resendVerification(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'email']
-        ]);
-
-        $user = $this->service->resendVerification($request->email);
-
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'User tidak ditemukan'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Email verifikasi dikirim ulang'
-        ]);
-    }
-
-
 }
