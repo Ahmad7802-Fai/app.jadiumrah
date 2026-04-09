@@ -16,9 +16,13 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'email' => ['required','email','unique:users,email'],
-            'password' => ['required','confirmed','min:6'],
+            'name' => ['required', 'string', 'max:255'],
+
+            // 🔥 TANPA UNIQUE (BIAR RESEND JALAN)
+            'email' => ['required', 'email'],
+
+            // 🔥 PASSWORD OPTIONAL (BIAR RESEND AMAN)
+            'password' => ['nullable', 'confirmed', 'min:6'],
         ];
     }
 

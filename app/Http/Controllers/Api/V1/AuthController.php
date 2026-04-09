@@ -141,7 +141,7 @@ class AuthController extends Controller
             'message' => 'Password berhasil direset'
         ]);
     }
-
+    
     // ================= ME (GET USER LOGIN)
     public function me()
     {
@@ -169,5 +169,28 @@ class AuthController extends Controller
             'success' => true
         ]);
     }
+
+    // ================= RESEND VERIFICATION 🔥
+    public function resendVerification(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email']
+        ]);
+
+        $user = $this->service->resendVerification($request->email);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email verifikasi dikirim ulang'
+        ]);
+    }
+
 
 }
