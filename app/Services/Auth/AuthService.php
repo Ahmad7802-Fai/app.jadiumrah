@@ -202,25 +202,50 @@ class AuthService
     // ===============================
     // 📧 SEND EMAIL
     // ===============================
-    private function sendVerificationEmail(User $user, string $token): void
+    public function resendVerification(string $email): ?User
     {
-        $frontend = config('app.frontend_url') ?: 'http://localhost:3000';
+        $user = User::where('email', $email)->first();
 
-        $link = $frontend
-            . "/verify?email=" . urlencode($user->email)
-            . "&token={$token}";
-
-        try {
-            Mail::to($user->email)->queue(
-                new VerifyEmailMail($user->name, $link)
-            );
-
-            Log::info("Verification email queued: {$user->email}");
-
-        } catch (\Throwable $e) {
-            Log::error('MAIL ERROR: ' . $e->getMessage());
+        if (!$user) {
+            return null;
         }
+
+        // 🔥 SUDAH VERIFIED → TIDAK BOLEH
+        if ($user->email_verified_at) {
+            throw ValidationException::withMessages([
+                'email' => ['Email sudah diverifikasi']
+            ]);
+        }
+
+        // 🔥 RATE LIMIT (ANTI SPAM)
+        $last = EmailVerification::where('email', $email)
+            ->latest()
+            ->first();
+
+        if ($last && now()->diffInSeconds($last->created_at) < 60) {
+            throw ValidationException::withMessages([
+                'email' => ['Tunggu 1 menit sebelum kirim ulang']
+            ]);
+        }
+
+        // 🔥 HAPUS TOKEN LAMA
+        EmailVerification::where('email', $email)->delete();
+
+        // 🔥 TOKEN BARU
+        $token = Str::random(64);
+
+        EmailVerification::create([
+            'email'      => $email,
+            'token'      => $token,
+            'expired_at' => now()->addMinutes(30),
+        ]);
+
+        // 🔥 KIRIM EMAIL
+        $this->sendVerificationEmail($user, $token);
+
+        return $user;
     }
+
 }
 
 
