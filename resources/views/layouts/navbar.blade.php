@@ -15,13 +15,13 @@
         {{-- LOGO --}}
         <div class="header-logo">
             <img src="{{ asset('logo.png') }}"
-                 alt="Umrah Baik"
+                 alt="JadiUmrah"
                  class="logo-img">
         </div>
 
         {{-- BRAND / TAGLINE --}}
         <div class="header-tagline">
-            <div class="header-brand-title">Umrah Baik</div>
+            <div class="header-brand-title">JadiUmrah</div>
             <div class="header-brand-tagline">Satukan Keluarga</div>
         </div>
 

@@ -9,7 +9,7 @@
             >
 
             <div class="agent-header-text">
-                <div class="agent-brand-title">Umrah Baik</div>
+                <div class="agent-brand-title">JadiUmrah</div>
                 <div class="agent-brand-tagline">Satukan Keluarga</div>
             </div>
         </a>

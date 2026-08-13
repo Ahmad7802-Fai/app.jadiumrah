@@ -39,7 +39,7 @@
         >
 
         <div class="j-header__tagline">
-            <span class="tagline-top">Umrah Baik</span>
+            <span class="tagline-top">JadiUmrah</span>
             <span class="tagline-bottom">Satukan Keluarga</span>
         </div>
     </a>

@@ -4,7 +4,7 @@
         <div class="sidebar-logo">
             <img src="{{ asset('logo.png') }}"
                 class="sidebar-logo-auto"
-                alt="Logo Umrah Baik">
+                alt="Logo JadiUmrah">
         </div>
     </div>
     

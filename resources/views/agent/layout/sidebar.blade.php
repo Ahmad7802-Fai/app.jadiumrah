@@ -4,12 +4,12 @@
     <div class="sidebar-brand">
         <img
             src="{{ asset('assets/images/logo.png') }}"
-            alt="Umrah Baik"
+            alt="JadiUmrah"
             class="sidebar-brand-logo"
         >
 
         <div class="sidebar-brand-text">
-            <span class="sidebar-brand-name">Umrah Baik</span>
+            <span class="sidebar-brand-name">JadiUmrah</span>
             <span class="sidebar-brand-sub">Agent Panel</span>
         </div>
     </div>

@@ -9,7 +9,7 @@
                 class="header-logo"
             >
             <div class="header-text">
-                <span class="brand-title">Umrah Baik</span>
+                <span class="brand-title">JadiUmrah</span>
                 <span class="brand-tagline">Satukan Keluarga</span>
             </div>
         </a>
