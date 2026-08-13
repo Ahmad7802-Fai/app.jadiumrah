@@ -67,8 +67,6 @@ Route::prefix('ticketing')
         Route::get('pnr/{pnr}', [TicketPnrController::class, 'show'])
             ->name('pnr.show');
 
-        Route::post('pnr/{pnr}/status', [TicketPnrController::class, 'updateStatus'])
-            ->name('pnr.updateStatus');
         // ✅ CONFIRM PNR
         Route::post(
             'pnr/{pnr}/confirm',
@@ -180,9 +178,5 @@ Route::prefix('ticketing')
             [TicketRefundApprovalController::class, 'reject']
         )->name('refund.reject');
 
-        Route::post(
-            'ticketing/pnr/store-json',
-            [TicketPnrController::class, 'storeJson']
-        )->name('pnr.storeJson');
 
     });

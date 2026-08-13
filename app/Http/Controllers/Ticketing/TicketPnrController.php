@@ -30,6 +30,8 @@ class TicketPnrController extends Controller
      ========================= */
     public function create()
     {
+        $this->authorize('create', TicketPnr::class);
+
         $clients  = Client::orderBy('nama')->get();
         $airlines = Airline::orderBy('name')->get();
 
@@ -46,6 +48,8 @@ class TicketPnrController extends Controller
         Request $request,
         TicketPnrService $service
     ) {
+        $this->authorize('create', TicketPnr::class);
+
         $pnr = $service->create(
             $request->all() + [
                 'created_by' => auth()->id(),
@@ -62,6 +66,8 @@ class TicketPnrController extends Controller
      ========================= */
     public function show(TicketPnr $pnr)
     {
+        $this->authorize('view', $pnr);
+
         $pnr->load([
             'routes',
             'client',
@@ -78,6 +84,8 @@ class TicketPnrController extends Controller
      ========================= */
     public function edit(TicketPnr $pnr)
     {
+        $this->authorize('update', $pnr);
+
         $clients  = Client::orderBy('nama')->get();
         $airlines = Airline::orderBy('name')->get();
 
@@ -95,6 +103,8 @@ class TicketPnrController extends Controller
         Request $request,
         TicketPnr $pnr
     ) {
+        $this->authorize('update', $pnr);
+
         $pnr->update($request->only([
             'pnr_code',
             'client_id',
@@ -118,6 +128,8 @@ class TicketPnrController extends Controller
         TicketPnr $pnr,
         TicketPnrService $service
     ) {
+        $this->authorize('confirm', $pnr);
+
         $service->confirm($pnr);
 
         return back()->with('success', 'PNR dikonfirmasi');
@@ -128,6 +140,8 @@ class TicketPnrController extends Controller
     ====================================================== */
     public function editRoutes(TicketPnr $pnr)
     {
+        $this->authorize('update', $pnr);
+
         // safety: issued tidak boleh edit
         if ($pnr->status === 'ISSUED') {
             abort(403, 'PNR sudah ISSUED dan tidak bisa diubah.');
@@ -143,6 +157,8 @@ class TicketPnrController extends Controller
     ====================================================== */
     public function updateRoutes(Request $request, TicketPnr $pnr)
     {
+        $this->authorize('update', $pnr);
+
         if ($pnr->status === 'ISSUED') {
             abort(403);
         }

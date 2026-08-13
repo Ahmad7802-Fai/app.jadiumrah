@@ -2,50 +2,35 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\TicketPnr;
+use App\Models\User;
 
 class TicketPnrPolicy
 {
     public function view(User $user, TicketPnr $pnr): bool
     {
-        if ($user->isSuperAdmin()) return true;
-
-        if ($user->agent_id && $pnr->agent_id === $user->agent_id) {
-            return true;
-        }
-
-        if ($user->branch_id && $pnr->branch_id === $user->branch_id) {
-            return true;
-        }
-
-        return false;
+        return $user->hasRole(['SUPERADMIN', 'KEUANGAN']);
     }
 
     public function create(User $user): bool
     {
-        return $user->hasRole(['SUPERADMIN', 'ADMIN']);
+        return $user->hasRole(['SUPERADMIN', 'KEUANGAN']);
     }
 
-    public function update(User $user, TicketPnr $pnr)
+    public function update(User $user, TicketPnr $pnr): bool
     {
-        if ($pnr->status === 'ISSUED') {
-            return false;
-        }
-
-        return true;
+        return $user->hasRole(['SUPERADMIN', 'KEUANGAN'])
+            && $pnr->status !== 'ISSUED';
     }
-
 
     public function delete(User $user, TicketPnr $pnr): bool
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('SUPERADMIN');
     }
 
     public function confirm(User $user, TicketPnr $pnr): bool
     {
-        return $user->can('update-ticketing')
+        return $user->hasRole(['SUPERADMIN', 'KEUANGAN'])
             && $pnr->status === 'ON_FLOW';
     }
-
 }
