@@ -4,8 +4,8 @@
     <div class="header-left">
         <a href="{{ route('agent.dashboard') }}" class="header-brand">
             <img
-                src="{{ asset('assets/images/hasantour.png') }}"
-                alt="HASAN Tour & Travel"
+                src="{{ asset('assets/images/logo.png') }}"
+                alt="JadiUmrah"
                 class="header-logo"
             >
             <div class="header-text">

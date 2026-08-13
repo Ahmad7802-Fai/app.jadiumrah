@@ -147,9 +147,9 @@ hr {
 <table class="header-table">
 <tr>
     <td width="60%" valign="top">
-        <img src="{{ realpath(public_path('images/logohasantour1.png')) }}"
+        <img src="{{ realpath(public_path('logo.png')) }}"
              class="logo"><br>
-        <strong>HASAN TOUR & TRAVEL</strong><br>
+        <strong>JADIUMRAH</strong><br>
         <span class="text-muted">Official Umrah & Travel Partner</span>
     </td>
 

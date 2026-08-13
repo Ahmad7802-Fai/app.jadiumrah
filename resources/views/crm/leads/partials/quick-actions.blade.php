@@ -4,7 +4,7 @@
 
     $waText = urlencode(
         "Assalamu’alaikum, Bapak/Ibu {$lead->nama}. ".
-        "Kami dari Jadiumrah menindaklanjuti permintaan informasi umroh."
+        "Kami dari JadiUmrah menindaklanjuti permintaan informasi umroh."
     );
 @endphp
 

@@ -14,7 +14,7 @@
 
         {{-- LOGO --}}
         <div class="header-logo">
-            <img src="{{ asset('hasantour.png') }}"
+            <img src="{{ asset('logo.png') }}"
                  alt="Umrah Baik"
                  class="logo-img">
         </div>

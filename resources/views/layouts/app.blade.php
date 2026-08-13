@@ -6,8 +6,7 @@
 
     <title>{{ $title ?? 'JadiUmrah' }}</title>
     <link rel="icon" type="image/png" href="{{ asset('iconjadiumrah.png') }}">
-    <link rel="icon" href="{{ asset('iconjadiumrah.ico') }}">
-    <link rel="shortcut icon" href="{{ asset('iconjadiumrah.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('iconjadiumrah.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('iconjadiumrah.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('iconjadiumrah.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('iconjadiumrah.png') }}">

@@ -10,7 +10,7 @@
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 9.5px;
-            color: #425678;
+            color: #586D4E;
             margin: 0;
         }
 
@@ -23,7 +23,7 @@
 
         .title {
             font-weight: 700;
-            color: #425678;
+            color: #586D4E;
             margin-bottom: 4px;
             font-size: 11px;
         }
@@ -40,7 +40,7 @@
         }
 
         th {
-            background: #425678;
+            background: #586D4E;
             color: #fff;
             font-weight: bold;
         }
@@ -77,7 +77,7 @@
                     <img src="{{ public_path('storage/'.company()->logo_invoice) }}" class="logo"><br>
                 @endif
 
-                <div style="font-size:13px; font-weight:700; color: #425678;">
+                <div style="font-size:13px; font-weight:700; color: #586D4E;">
                     {{ company()->brand_name ?? company()->name }}
                 </div>
 
@@ -117,7 +117,7 @@
     <table class="noborder">
         <tr valign="top">
             <td width="53%">
-                <strong style="font-size:10.5px; color: #425678;">
+                <strong style="font-size:10.5px; color: #586D4E;">
                     {{ $jamaah->nama_lengkap }}
                 </strong><br>
 
@@ -206,7 +206,7 @@
 
     <br>
 
-    <div style="font-size:9px; font-weight:700; color: #425678;">
+    <div style="font-size:9px; font-weight:700; color: #586D4E;">
         Rekening Pembayaran Resmi
     </div>
 

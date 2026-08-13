@@ -15,7 +15,7 @@ body {
 
 /* ================= COLOR ================= */
 :root {
-    --primary: #425678;
+    --primary: #586D4E;
     --border: #cbd5e1;
     --muted: #6b7280;
     --danger: #b91c1c;

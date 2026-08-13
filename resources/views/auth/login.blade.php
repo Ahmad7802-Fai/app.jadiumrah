@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Hasan Tour </title>
+    <title>Login | JadiUmrah</title>
 
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
@@ -16,9 +16,9 @@
 
     <style>
         :root {
-            --primary: #425678;
-            --card-bg: #506487;
-            --input-bg: #e9eeee;
+            --primary: #586D4E;
+            --card-bg: #445339;
+            --input-bg: #F3F4EE;
         }
 
         body {
@@ -61,7 +61,7 @@
         }
 
         .subtitle {
-            color: #d3dcd8;
+            color: #D8DED3;
             font-size: 15px;
             margin-bottom: 28px;
         }
@@ -117,7 +117,7 @@
         .login-footer {
             margin-top: 26px;
             font-size: 13px;
-            color: #cdd7d3;
+            color: #D8DED3;
             opacity: 0.85;
         }
 
@@ -150,7 +150,7 @@
 
     <!-- LOGO -->
     <div class="logo-box">
-        <img src="{{ asset('hasantour.png') }}" alt="Logo">
+        <img src="{{ asset('logo.png') }}" alt="Logo">
     </div>
 
     <!-- TITLE -->

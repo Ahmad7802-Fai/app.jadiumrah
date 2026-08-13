@@ -3,8 +3,8 @@
     <div class="agent-header-left">
         <a href="{{ route('agent.dashboard') }}" class="agent-header-brand">
             <img
-                src="{{ asset('assets/images/hasantour.png') }}"
-                alt="HASAN Tour & Travel"
+                src="{{ asset('assets/images/logo.png') }}"
+                alt="JadiUmrah"
                 class="agent-header-logo"
             >
 

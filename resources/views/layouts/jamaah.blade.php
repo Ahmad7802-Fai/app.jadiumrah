@@ -33,7 +33,7 @@
 <header class="j-header">
     <a href="{{ route('jamaah.dashboard') }}" class="j-header__brand">
         <img
-            src="{{ asset('hasantour.png') }}"
+            src="{{ asset('logo.png') }}"
             alt="Tabungan Umrah"
             class="j-header__logo"
         >

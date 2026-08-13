@@ -5,7 +5,7 @@
     =============================== --}}
     <div class="c-navbar__left">
         <img
-            src="{{ asset('hasantour.png') }}"
+            src="{{ asset('logo.png') }}"
             class="c-navbar__logo"
             alt="Logo Cabang">
 

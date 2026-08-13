@@ -15,7 +15,7 @@ body {
 
 /* ================= BOX ================= */
 .box {
-    border: 1px solid #425678;
+    border: 1px solid #586D4E;
     border-radius: 6px;
     padding: 10px 12px;
     margin-bottom: 8px;
@@ -25,7 +25,7 @@ body {
 .section-title {
     font-size: 11.5px;
     font-weight: 700;
-    color: #425678;
+    color: #586D4E;
     margin-bottom: 4px;
 }
 
@@ -42,7 +42,7 @@ body {
 
 /* ================= INFO BOX ================= */
 .invbox {
-    border: 1px solid #425678;
+    border: 1px solid #586D4E;
     border-radius: 6px;
     padding: 6px;
     font-size: 9.5px;
@@ -67,7 +67,7 @@ table.compact td {
 }
 
 table.compact th {
-    background-color: #425678;
+    background-color: #586D4E;
     color: #ffffff;
     font-weight: 700;
     text-align: center;
@@ -113,7 +113,7 @@ footer {
     @endif
 
     <div class="header-info">
-        <strong style="font-size:12px;color:#425678;">
+        <strong style="font-size:12px;color:#586D4E;">
             {{ company()->brand_name ?? company()->name }}
         </strong><br>
         {!! nl2br(e(company()->address)) !!}
@@ -211,7 +211,7 @@ footer {
 
 <br>
 
-<strong style="color:#425678;">Rekening Resmi:</strong>
+<strong style="color:#586D4E;">Rekening Resmi:</strong>
 <table>
 @if($bank)
 <tr><td width="110">Bank</td><td>: {{ $bank->bank_name }}</td></tr>

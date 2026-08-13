@@ -95,8 +95,8 @@ class CaptureReferral
                 json_encode($payload),
                 60 * 24 * 30,        // 30 hari
                 '/',
-                '.hasantour.co.id', // lintas subdomain
-                false,              // secure → true kalau https
+                config('referral.cookie_domain'),
+                config('referral.cookie_secure'),
                 true                // httpOnly
             )
         );
@@ -177,7 +177,7 @@ class CaptureReferral
 //                 json_encode($payload),
 //                 60 * 24 * 30,     // 30 hari
 //                 '/',              // path
-//                 '.hasantour.co.id', // 🔥 lintas subdomain
+//                 '.jadiumrah.com', // 🔥 lintas subdomain
 //                 false,            // secure (true kalau HTTPS)
 //                 true              // httpOnly
 //             )

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {{-- SEO BASIC --}}
-    <title>@yield('title', 'Hasan Tour & Travel')</title>
+    <title>@yield('title', 'JadiUmrah')</title>
     <meta name="description"
-          content="@yield('meta_description', 'Program Umrah terpercaya, nyaman, dan sesuai sunnah bersama Hasan Tour & Travel')">
+          content="@yield('meta_description', 'Program Umrah terpercaya, nyaman, dan sesuai sunnah bersama JadiUmrah')">
 
     {{-- WEBSITE CSS (ISOLATED) --}}
     @vite([
@@ -24,7 +24,7 @@
     <header class="site-header">
         <div class="container site-header-inner">
             <div class="site-brand">
-                <div class="brand-title">Hasan Tour</div>
+                <div class="brand-title">JadiUmrah</div>
                 <div class="brand-subtitle">Umrah & Travel</div>
             </div>
         </div>
@@ -43,7 +43,7 @@
     <footer class="site-footer">
         <div class="container">
             <p>
-                © {{ date('Y') }} Hasan Tour & Travel · Umrah Aman & Terpercaya
+                © {{ date('Y') }} JadiUmrah · Umrah Aman & Terpercaya
             </p>
         </div>
     </footer>

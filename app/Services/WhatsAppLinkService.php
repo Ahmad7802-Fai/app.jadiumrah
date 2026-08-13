@@ -220,7 +220,7 @@ TEXT;
 
 //         $message = match ($context) {
 //             'closing' => "Assalamu’alaikum Bapak/Ibu {$jamaah->nama_lengkap},\n"
-//                 . "Kami dari tim Hasan Tour ingin konfirmasi pendaftaran Anda.",
+//                 . "Kami dari tim JadiUmrah ingin konfirmasi pendaftaran Anda.",
 
 //             default => "Assalamu’alaikum Bapak/Ibu {$jamaah->nama_lengkap},\n"
 //                 . "Kami dari tim Umrah ingin follow up pendaftaran Anda.",
