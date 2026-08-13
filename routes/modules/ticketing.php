@@ -19,8 +19,9 @@ use App\Http\Controllers\Ticketing\{
 |--------------------------------------------------------------------------
 | TICKETING MODULE
 |--------------------------------------------------------------------------
-| Role access dikontrol di policy
-| Superadmin & operator auto lewat Gate::before
+| Module access: KEUANGAN
+| SUPERADMIN bypasses through CheckRole
+| Action-level access dikontrol di policy
 */
 
 Route::prefix('ticketing')

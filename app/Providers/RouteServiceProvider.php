@@ -114,10 +114,10 @@ class RouteServiceProvider extends ServiceProvider
             |--------------------------------------------------------------------------
             | 🎫 TICKETING
             |--------------------------------------------------------------------------
-            | Multi role (admin, operator, keuangan, sales)
-            | Akses dikontrol policy
+            | KEUANGAN only; SUPERADMIN bypasses through CheckRole
+            | Action-level authorization tetap dikontrol policy
             */
-            Route::middleware(['web','auth','access.context'])
+            Route::middleware(['web','auth','access.context','role:KEUANGAN'])
                 ->group(base_path('routes/modules/ticketing.php'));
             
             /*
