@@ -1,0 +1,217 @@
+/* =====================================================
+   BASE TABLE (DESKTOP FIRST)
+===================================================== */
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+  background: $bg-card;
+
+  th,
+  td {
+    padding: 8px 10px;
+    vertical-align: middle;
+    border-bottom: 1px solid $border-color;
+  }
+
+  th {
+    font-weight: 600;
+    color: $text-secondary;
+    text-align: left;
+    background: $gray-50;
+    white-space: nowrap;
+  }
+
+  td {
+    color: $text-primary;
+  }
+
+  tbody tr:hover {
+    background: $bg-soft;
+  }
+}
+
+/* =====================================================
+   TABLE VARIANTS
+===================================================== */
+
+.table-compact {
+  th,
+  td {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+}
+
+.table-bordered {
+  th,
+  td {
+    border: 1px solid $border-color;
+  }
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background: $gray-50;
+}
+
+/* =====================================================
+   ALIGNMENT & WIDTH HELPERS
+===================================================== */
+
+.table-center th,
+.table-center td {
+  text-align: center;
+}
+
+.table-right th,
+.table-right td {
+  text-align: right;
+}
+
+.col-actions {
+  width: 120px;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   TABLE HEADER TOOLBAR
+===================================================== */
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.table-empty {
+  text-align: center;
+  padding: 24px;
+  color: $text-muted;
+  font-size: 12px;
+}
+
+/* =====================================================
+   MOBILE MODE (TABLE → CARD)
+===================================================== */
+
+@include down($bp-md) {
+
+  .table-responsive {
+    overflow: visible;
+  }
+
+  .table {
+    border: none;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .table tbody tr {
+    display: block;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-lg;
+    padding: 10px;
+    background: $bg-card;
+    box-shadow: $shadow-xs;
+  }
+
+  .table tbody tr:hover {
+    background: $bg-card;
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 0;
+    border: none;
+    font-size: 12px;
+    overflow: visible;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: $text-muted;
+  }
+
+  .col-actions {
+    justify-content: flex-end;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+/* =====================================================
+   TABLE ACTION GROUP
+===================================================== */
+
+.table-action,
+.table-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   STATUS CELL
+===================================================== */
+
+.table-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   TABLE PREMIUM
+===================================================== */
+
+.table-premium {
+  width: 100%;
+  table-layout: fixed;
+
+  th,
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  tbody tr:hover {
+    background: $bg-soft;
+  }
+}
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+

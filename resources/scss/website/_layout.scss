@@ -1,0 +1,57 @@
+/* ===============================
+   HEADER
+=============================== */
+
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid $color-border;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+}
+
+.site-header-inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.site-brand {
+  line-height: 1.1;
+
+  .brand-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: $color-primary;
+  }
+
+  .brand-subtitle {
+    font-size: .75rem;
+    color: $color-muted;
+  }
+}
+
+/* ===============================
+   MAIN
+=============================== */
+
+.site-main {
+  min-height: calc(100vh - 64px - 60px);
+}
+
+/* ===============================
+   FOOTER
+=============================== */
+
+.site-footer {
+  background: #fff;
+  border-top: 1px solid $color-border;
+  padding: 20px 0;
+  margin-top: 48px;
+
+  p {
+    font-size: .75rem;
+    color: $color-muted;
+    text-align: center;
+  }
+}

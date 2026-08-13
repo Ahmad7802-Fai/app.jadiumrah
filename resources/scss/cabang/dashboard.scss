@@ -1,0 +1,81 @@
+/* =====================================================
+   CABANG — DASHBOARD STATS
+   Ultra Compact · Mobile First
+===================================================== */
+
+/* ===============================
+   GRID
+=============================== */
+.c-dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* ===============================
+   STAT CARD
+=============================== */
+.c-stat {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* LABEL */
+.c-stat__label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: $text-muted;
+}
+
+/* VALUE */
+.c-stat__value {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: $text;
+}
+
+/* ===============================
+   TABLET
+=============================== */
+@media (min-width: 640px) {
+
+  .c-dashboard-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .c-stat__value {
+    font-size: 26px;
+  }
+}
+
+/* ===============================
+   MOBILE SAFE AREA
+=============================== */
+@media (max-width: 768px) {
+
+  .cabang-dashboard {
+    padding-bottom: 96px; /* aman dari bottom menu */
+  }
+}
+
+/* ===============================
+   SMALL MOBILE
+=============================== */
+@media (max-width: 480px) {
+
+  .c-stat {
+    padding: 10px;
+  }
+
+  .c-stat__value {
+    font-size: 22px;
+  }
+}

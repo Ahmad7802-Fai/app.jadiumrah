@@ -1,0 +1,113 @@
+/* =====================================================
+   BREADCRUMB WRAPPER
+===================================================== */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-secondary;
+
+  margin-bottom: 12px;
+}
+
+/* =====================================================
+   BREADCRUMB ITEM
+===================================================== */
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  white-space: nowrap;
+}
+
+.breadcrumb-item a {
+  color: $text-secondary;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary;
+    text-decoration: underline;
+  }
+}
+
+/* =====================================================
+   ACTIVE ITEM
+===================================================== */
+
+.breadcrumb-item.active {
+  color: $text-primary;
+  cursor: default;
+}
+
+/* =====================================================
+   SEPARATOR
+===================================================== */
+
+.breadcrumb-separator {
+  color: $text-muted;
+  font-size: 12px;
+}
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.breadcrumb-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* =====================================================
+   COMPACT VARIANT
+===================================================== */
+
+.breadcrumb-compact {
+  font-size: 11px;
+  gap: 4px;
+
+  .breadcrumb-separator {
+    font-size: 10px;
+  }
+}
+
+/* =====================================================
+   CARD STYLE (OPTIONAL)
+===================================================== */
+
+.breadcrumb-card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+
+  padding: 8px 12px;
+}
+
+/* =====================================================
+   MOBILE FIRST BEHAVIOR
+===================================================== */
+
+@include down($bp-md) {
+
+  .breadcrumb {
+    font-size: 13px;
+    overflow: hidden;
+  }
+
+  /* Sembunyikan item tengah */
+  .breadcrumb-item:not(:first-child):not(:last-child) {
+    display: none;
+  }
+
+  /* Ganti separator jadi arrow */
+  .breadcrumb-separator {
+    font-size: 14px;
+  }
+}

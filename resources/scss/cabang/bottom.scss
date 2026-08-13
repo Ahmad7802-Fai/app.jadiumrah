@@ -1,0 +1,82 @@
+/* =====================================================
+   CABANG — BOTTOM MENU
+   Ultra Compact · Mobile First
+===================================================== */
+
+/* ===============================
+   DEFAULT: OFF
+=============================== */
+.cabang-bottom-menu {
+  display: none;
+}
+
+/* =====================================================
+   MOBILE ONLY
+===================================================== */
+@media (max-width: 768px) {
+
+  .cabang-bottom-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 60px;
+    padding-bottom: env(safe-area-inset-bottom);
+
+    background: $bg-card;
+    border-top: 1px solid $border;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    z-index: $z-header;
+  }
+
+  .cabang-bottom-menu a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+    padding-top: 6px;
+
+    font-size: 10.5px;
+    font-weight: 500;
+
+    color: $text-muted;
+    text-decoration: none;
+
+    transition: color .12s ease;
+  }
+
+  .cabang-bottom-menu a i {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* ================= ACTIVE ================= */
+  .cabang-bottom-menu a.active {
+    color: $primary;
+  }
+
+  .cabang-bottom-menu a.active i {
+    color: $primary;
+    transform: translateY(-1px);
+  }
+
+  /* ================= TAP FEEDBACK ================= */
+  .cabang-bottom-menu a:active {
+    background: $bg-soft;
+  }
+}
+
+/* =====================================================
+   DESKTOP — FORCE OFF
+===================================================== */
+@media (min-width: 769px) {
+  .cabang-bottom-menu {
+    display: none !important;
+  }
+}

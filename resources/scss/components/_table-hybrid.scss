@@ -1,0 +1,151 @@
+/* =====================================================
+   HYBRID TABLE WRAPPER
+===================================================== */
+
+.table-hybrid {
+  width: 100%;
+}
+
+/* =====================================================
+   DESKTOP MODE (TABLE ENHANCED)
+===================================================== */
+
+@include up($bp-md) {
+
+  .table-hybrid {
+
+    .hybrid-toggle {
+      cursor: pointer;
+      color: $primary;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* DETAIL ROW (EXPANDABLE) */
+    .hybrid-detail {
+      display: none;
+      background: $bg-soft;
+
+      td {
+        padding: 12px;
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    tr.is-open + .hybrid-detail {
+      display: table-row;
+    }
+
+    /* DETAIL GRID */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .label {
+        font-size: 11px;
+        color: $text-muted;
+        font-weight: 600;
+      }
+
+      .value {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* =====================================================
+   MOBILE MODE (CARD STACK)
+===================================================== */
+
+@include down($bp-md) {
+
+  .table-hybrid {
+
+    table {
+      border: none;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    tr {
+      display: block;
+      background: $bg-card;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-lg;
+      padding: 10px;
+      box-shadow: $shadow-xs;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 0;
+      border: none;
+      font-size: 12px;
+
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: $text-muted;
+      }
+    }
+
+    /* TOGGLE */
+    .hybrid-toggle {
+      font-size: 12px;
+      color: $primary;
+      font-weight: 600;
+    }
+
+    /* DETAIL SECTION (MOBILE) */
+    .hybrid-detail {
+      display: none;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed $border-color;
+    }
+
+    .is-open + .hybrid-detail {
+      display: block;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+
+      .label {
+        color: $text-muted;
+        font-weight: 600;
+      }
+
+      .value {
+        text-align: right;
+      }
+    }
+  }
+}

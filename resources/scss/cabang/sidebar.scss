@@ -1,0 +1,122 @@
+/* =====================================================
+   CABANG — SIDEBAR
+   Synced with Header · Clean Dark UI
+===================================================== */
+/* =====================================================
+   CABANG — SIDEBAR
+   Sync with Header
+===================================================== */
+
+.c-sidebar {
+  background: #4a647f;        /* sama dengan header */
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 220px;
+}
+
+/* ===============================
+   LOGO AREA
+=============================== */
+.c-sidebar__logo {
+  height: 56px;               /* 🔥 SAMA DENGAN HEADER */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 12px;
+  flex-shrink: 0;
+
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.c-sidebar__logo img {
+  max-height: 50px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* ===============================
+   MENU
+=============================== */
+.c-sidebar__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  padding: 10px 6px;
+}
+
+/* ===============================
+   MENU ITEM
+=============================== */
+.c-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+
+  transition: background .15s ease, color .15s ease;
+}
+
+.c-sidebar__link i {
+  font-size: 14px;
+  opacity: .9;
+}
+
+/* HOVER */
+.c-sidebar__link:hover {
+  background: rgba(255,255,255,.12);
+  color: #ffffff;
+}
+
+/* ACTIVE */
+.c-sidebar__link.is-active {
+  background: rgba(255,255,255,.18);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ACTIVE INDICATOR */
+.c-sidebar__link.is-active::before {
+  content: '';
+  width: 4px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+/* =====================================================
+   MOBILE (OPTIONAL)
+===================================================== */
+@media (max-width: 1024px) {
+  .c-sidebar {
+    width: 210px;
+  }
+}
+
+@media (max-width: 768px) {
+  .c-sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    z-index: 1000;
+
+    transition: left 0.25s ease;
+  }
+
+  .c-sidebar.is-open {
+    left: 0;
+  }
+}

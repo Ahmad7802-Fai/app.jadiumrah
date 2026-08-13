@@ -1,0 +1,92 @@
+/* =====================================================
+   APP FOOTER (GLOBAL)
+===================================================== */
+
+.app-footer {
+  background: $bg-card;
+  border-top: 1px solid $border-color;
+
+  padding: 12px 16px;
+  font-size: 11px;
+  color: $text-muted;
+
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ✅ CENTER DEFAULT */
+  gap: 12px;
+
+  text-align: center;
+}
+
+/* =====================================================
+   FOOTER CONTENT
+===================================================== */
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Text meta */
+.footer-meta {
+  font-size: 11px;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+/* Link */
+.footer-link {
+  font-size: 11px;
+  color: $text-muted;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary;
+    text-decoration: underline;
+  }
+}
+
+/* =====================================================
+   DESKTOP VARIANT (OPTIONAL SPLIT)
+   Kalau nanti mau kiri-kanan lagi
+===================================================== */
+
+.app-footer.is-split {
+  justify-content: space-between;
+
+  .footer-left,
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+/* =====================================================
+   MOBILE BEHAVIOR
+===================================================== */
+
+@include down($bp-md) {
+  .app-footer {
+    padding: 10px 12px;
+    font-size: 10px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* =====================================================
+   SAFE AREA (iOS)
+===================================================== */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .app-footer {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}

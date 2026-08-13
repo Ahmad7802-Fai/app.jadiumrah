@@ -1,0 +1,109 @@
+/* =====================================================
+   CABANG — GRID SYSTEM
+   Ultra Compact · Mobile First
+===================================================== */
+
+/* ===============================
+   BASE
+=============================== */
+.c-grid {
+  display: grid;
+  gap: 10px;                 /* default rapat & aman */
+}
+
+/* ===============================
+   COLUMN VARIANTS (DESKTOP)
+=============================== */
+.c-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.c-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.c-grid.cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ===============================
+   AUTO GRID (SMART CARD)
+=============================== */
+.c-grid.auto {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* ===============================
+   GRID ITEM SAFETY
+=============================== */
+.c-grid > * {
+  min-width: 0;             /* cegah overflow */
+}
+
+/* =====================================================
+   MOBILE — SINGLE COLUMN
+===================================================== */
+@media (max-width: 768px) {
+
+  .c-grid {
+    gap: 8px;
+  }
+
+  .c-grid.cols-2,
+  .c-grid.cols-3,
+  .c-grid.cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================================
+   TABLET — SOFT STEP
+===================================================== */
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  .c-grid.cols-3,
+  .c-grid.cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* =====================================================
+   INFO GRID (DETAIL VIEW)
+===================================================== */
+
+.c-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ITEM */
+.c-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* LABEL */
+.c-info-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: $text-muted;
+}
+
+/* VALUE */
+.c-info-value {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: $text;
+  line-height: 1.35;
+}
+
+/* ===============================
+   MOBILE
+=============================== */
+@media (max-width: 768px) {
+  .c-info-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

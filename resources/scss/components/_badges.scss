@@ -1,0 +1,221 @@
+/* =====================================================
+   BASE BADGE (GLOBAL)
+===================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   SOFT BADGES – STATUS FRIENDLY
+===================================================== */
+
+/* SUCCESS / ACTIVE */
+.badge-soft-success {
+  background: rgba(22, 163, 74, 0.12);
+  color: #166534;
+}
+
+/* PRIMARY / INFO */
+.badge-soft-primary {
+  background: rgba(66, 86, 120, 0.12);
+  color: #425678;
+}
+
+/* SECONDARY / INACTIVE */
+.badge-soft-secondary {
+  background: rgba(107, 114, 128, 0.12);
+  color: #374151;
+}
+
+/* WARNING */
+.badge-soft-warning {
+  background: rgba(245, 158, 11, 0.14);
+  color: #92400e;
+}
+
+/* DANGER / REJECTED */
+.badge-soft-danger {
+  background: rgba(220, 38, 38, 0.12);
+  color: #7f1d1d;
+}
+.badge-soft-info {
+  background: rgba(107, 114, 128, 0.12);
+  color: #374151;
+}
+/* =====================================================
+   SOLID BADGES (OPTIONAL)
+===================================================== */
+
+.badge-success {
+  background: #16a34a;
+  color: #fff;
+}
+
+.badge-primary {
+  background: #425678;
+  color: #fff;
+}
+
+.badge-secondary {
+  background: #6b7280;
+  color: #fff;
+}
+
+.badge-danger {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* =====================================================
+   SIZE VARIANTS
+===================================================== */
+
+.badge-sm {
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.badge-lg {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+/* =====================================================
+   BADGE WITH DOT (DESKTOP)
+===================================================== */
+
+.badge-dot {
+  position: relative;
+  padding-left: 18px;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* =====================================================
+   MOBILE AWARE BADGE BEHAVIOR
+===================================================== */
+
+@include down($bp-md) {
+
+  /* BASE BADGE – LEBIH TERBACA */
+  .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* STATUS BADGE → DOT MODE */
+  .badge-mobile-dot {
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    font-size: 0;
+  }
+
+  /* ICON + BADGE INLINE */
+  .badge-mobile-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  /* TABLE BADGE → TEXT ONLY */
+  .badge-table {
+    padding: 0;
+    background: none !important;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* BADGE PANJANG → TRUNCATE */
+  .badge-truncate {
+    max-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+/* =====================================================
+   UI BADGE (ONLY FOR CONTENT / TABLE / STATUS)
+===================================================== */
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   SOFT VARIANTS
+===================================================== */
+
+.ui-badge-success {
+  background: rgba(22, 163, 74, 0.12);
+  color: #166534;
+}
+
+.ui-badge-primary {
+  background: rgba(66, 86, 120, 0.12);
+  color: #425678;
+}
+
+.ui-badge-secondary {
+  background: rgba(107, 114, 128, 0.12);
+  color: #374151;
+}
+
+.ui-badge-warning {
+  background: rgba(245, 158, 11, 0.14);
+  color: #92400e;
+}
+
+.ui-badge-danger {
+  background: rgba(220, 38, 38, 0.12);
+  color: #7f1d1d;
+}
+
+/* =====================================================
+   SIZE VARIANTS
+===================================================== */
+
+.ui-badge-sm {
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.ui-badge-lg {
+  padding: 6px 14px;
+  font-size: 12px;
+}

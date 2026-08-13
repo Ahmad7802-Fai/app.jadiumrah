@@ -1,0 +1,73 @@
+/* =========================================================
+   CABANG DESIGN TOKENS (FINAL)
+   Gunakan HANYA variabel di file ini
+========================================================= */
+
+/* ================= COLORS ================= */
+
+/* BRAND */
+$primary: #46617a;
+$primary-soft: #eef2f6;
+$primary-dark: #33485d;
+
+/* STATUS */
+$success: #16a34a;
+$success-soft: #dcfce7;
+
+$warning: #f59e0b;
+$warning-soft: #fef3c7;
+
+$danger: #dc2626;
+$danger-soft: #fee2e2;
+
+$info: #2563eb;
+$info-soft: #eff6ff;
+
+/* BACKGROUND */
+$bg: #f7f9fb;
+$bg-card: #ffffff;
+$bg-soft: #f1f5f9;
+$bg-sidebar: #2f3e4f;
+$bg-header: #ffffff;
+
+/* ================= TEXT ================= */
+$text: #1f2937;
+$text-muted: #6b7280;
+$text-soft: #9ca3af;
+$text-invert: #ffffff;
+
+/* ================= BORDER ================= */
+$border: #e5e7eb;
+$border-soft: #edf2f7;
+
+/* ================= RADIUS ================= */
+$radius-xs: 4px;
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+
+/* ================= SHADOW ================= */
+$shadow-xs: 0 1px 2px rgba(0,0,0,.04);
+$shadow-sm: 0 2px 6px rgba(0,0,0,.08);
+$shadow-md: 0 8px 20px rgba(0,0,0,.12);
+
+/* ================= SPACING ================= */
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 14px;
+$space-lg: 20px;
+$space-xl: 28px;
+
+/* ================= FONT ================= */
+$font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+/* ================= Z-INDEX ================= */
+$z-sidebar: 100;
+$z-header: 110;
+$z-dropdown: 120;
+$z-modal: 200;
+
+/* ================= LEGACY / ALIAS ================= */
+/* dipakai biar tidak error di file lama */
+$radius: $radius-md;
+$muted: $text-muted;

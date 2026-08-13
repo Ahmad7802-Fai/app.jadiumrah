@@ -1,0 +1,172 @@
+/* =====================================================
+   SIDEBAR — FINAL LOCKED
+   Desktop Only • Generic • High Contrast
+===================================================== */
+
+/* =====================================================
+   BASE SIDEBAR
+===================================================== */
+
+.sidebar {
+  width: $sidebar-width;
+  min-height: 100vh;
+
+  background: $primary;
+  color: $text-inverse;
+
+  display: flex;
+  flex-direction: column;
+
+   padding: $space-md;
+
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  padding-bottom: $space-md;
+  margin-bottom: $space-md;
+
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.sidebar-brand-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.sidebar-brand-name {
+  font-size: $font-lg;
+  font-weight: 700;
+  color: $text-inverse;
+}
+
+.sidebar-brand-sub {
+  font-size: $font-xs;
+  font-weight: 500;
+  color: rgba(255,255,255,.75);
+}
+
+/* =====================================================
+   MENU CONTAINER
+===================================================== */
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* =====================================================
+   SIDEBAR LINK — BASE
+===================================================== */
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  padding: 12px 14px;
+  border-radius: $border-radius;
+
+  text-decoration: none;
+
+  font-size: $font-sm;
+  font-weight: 500;
+
+  background: transparent;
+  color: rgba(255,255,255,.9);
+
+  transition:
+    background $transition-fast,
+    color $transition-fast,
+    transform $transition-fast,
+    opacity $transition-fast;
+}
+
+/* ICON */
+.sidebar-link .icon {
+  width: 20px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* LABEL */
+.sidebar-link .label {
+  color: inherit;
+  font-weight: 500;
+}
+
+/* =====================================================
+   HOVER (DESKTOP ONLY)
+===================================================== */
+
+@media (hover: hover) {
+  .sidebar-link:hover {
+    background: rgba(255,255,255,.14);
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   ACTIVE STATE
+===================================================== */
+
+.sidebar-link.is-active {
+  background: $bg-card;
+  color: $primary;
+  font-weight: 600;
+
+  box-shadow: $shadow-sm;
+}
+
+.sidebar-link.is-active .label {
+  color: $primary;
+  font-weight: 600;
+}
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.sidebar-divider {
+  height: 1px;
+  margin: $space-sm 0;
+  background: rgba(255,255,255,.18);
+}
+
+/* =====================================================
+   FOOTER / PROFILE
+===================================================== */
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: $space-sm;
+  border-top: 1px solid rgba(255,255,255,.15);
+}
+
+/* =====================================================
+   DESKTOP ONLY
+===================================================== */
+
+@include down($bp-md) {
+  .sidebar {
+    display: none;
+  }
+}

@@ -1,0 +1,164 @@
+/* =====================================================
+   APP FOUNDATION — FINAL LOCKED (ANTI SCROLL BUG)
+===================================================== */
+
+/* =====================================================
+   ROOT LOCK
+===================================================== */
+
+html,
+body {
+  height: 100%;
+}
+
+body[data-app] {
+  margin: 0;
+
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: 1.45;
+
+  background: $bg-body;
+  color: $text-primary;
+
+  overflow: hidden; // 🔥 WAJIB — HENTIKAN SCROLL GLOBAL
+}
+
+/* =====================================================
+   APP WRAPPER (VIEWPORT LOCK)
+===================================================== */
+
+.app-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;     // 🔥 FIXED VIEWPORT
+  overflow: visible;  // ✅ WAJIB  // 🔥 TIDAK BOLEH SCROLL
+}
+
+/* =====================================================
+   SIDEBAR (DESKTOP ONLY, DIAM)
+===================================================== */
+
+.sidebar {
+  width: $sidebar-width;
+  height: 100vh;     // 🔥 KUNCI TINGGI
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: $bg-card;
+  border-right: 1px solid $border-color;
+
+  overflow: hidden; // 🔥 SIDEBAR TIDAK IKUT SCROLL
+}
+
+/* =====================================================
+   MAIN AREA
+===================================================== */
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: $bg-body;
+
+  overflow: visible;  // ✅ WAJIB // 🔥 PENTING
+}
+
+/* =====================================================
+   HEADER (STICKY AMAN)
+===================================================== */
+
+.app-header {
+  height: $header-height;
+  min-height: $header-height;
+
+  padding: 0 $space-md;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: $bg-card;
+  border-bottom: 1px solid $border-color;
+
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+
+  flex-shrink: 0; // 🔥 JANGAN PERNAH MENYUSUT
+}
+
+/* =====================================================
+   PAGE CONTENT (SATU-SATUNYA YANG BOLEH SCROLL)
+===================================================== */
+
+.page-content {
+  flex: 1;
+  min-height: 0;
+
+  padding: $space-md;
+  background: transparent;
+
+  overflow-y: auto;           // 🔥 SCROLL DI SINI SAJA
+  overscroll-behavior: contain;
+}
+/* =====================================================
+   MODAL SCROLL LOCK — FINAL FIX
+===================================================== */
+
+body.is-modal-open {
+  .page-content {
+    overflow: hidden !important;
+  }
+}
+
+
+/* =====================================================
+   MOBILE & TABLET
+===================================================== */
+
+@include down($bp-md) {
+
+  .sidebar {
+    display: none;
+  }
+
+  body[data-app] {
+    overflow: auto; // mobile pakai scroll native
+  }
+
+  .app-wrapper {
+    height: auto;
+    overflow: visible;
+  }
+
+  .app-main {
+    overflow: visible;
+  }
+
+  .page-content {
+    padding: $space-sm;
+    padding-bottom: calc(#{$bottom-nav-height} + env(safe-area-inset-bottom));
+    overflow: visible;
+  }
+}
+
+/* =====================================================
+   BOTTOM NAV VISIBILITY
+===================================================== */
+
+.bottom-nav {
+  display: none;
+}
+
+@include down($bp-md) {
+  .bottom-nav {
+    display: flex;
+  }
+}

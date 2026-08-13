@@ -1,0 +1,265 @@
+/* =====================================================
+   RESPONSIVE BREAKPOINTS
+===================================================== */
+
+$bp-xs: 360px;
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1536px;
+
+@mixin up($size) {
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin down($size) {
+  @media (max-width: ($size - 1)) {
+    @content;
+  }
+}
+
+@mixin between($min, $max: $min) {
+  padding-left: $min;
+  padding-right: $max;
+}
+
+/* =====================================================
+   ULTRA COMPACT SPACING
+===================================================== */
+
+@mixin compact-padding($y: 8px, $x: 12px) {
+  padding: $y $x;
+}
+
+@mixin compact-margin($y: 8px, $x: 12px) {
+  margin: $y $x;
+}
+
+@mixin stack($gap: 12px) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+@mixin inline($gap: 8px, $wrap: wrap) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  flex-wrap: $wrap;
+}
+
+/* =====================================================
+   TYPOGRAPHY COMPACT
+===================================================== */
+
+@mixin text-xs {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+@mixin text-sm {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+@mixin text-md {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@mixin text-lg {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@mixin truncate($lines: 1) {
+  overflow: hidden;
+
+  @if $lines == 1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+  }
+}
+
+/* =====================================================
+   BUTTON & ACTION COMPACT
+===================================================== */
+
+@mixin btn-compact {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+@mixin btn-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* =====================================================
+   CARD / CONTAINER
+===================================================== */
+
+@mixin card {
+  background: $bg-card;
+  border-radius: $border-radius;
+  box-shadow: $shadow-sm;
+}
+
+@mixin card-compact {
+  @include card;
+  padding: 12px;
+}
+
+@mixin card-dense {
+  @include card;
+  padding: 8px;
+}
+
+/* =====================================================
+   TABLE ULTRA COMPACT
+===================================================== */
+
+@mixin table-compact {
+  th,
+  td {
+    padding: 6px 10px;
+    font-size: 12px;
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: 600;
+    color: $text-secondary;
+    white-space: nowrap;
+  }
+}
+
+@mixin table-mobile {
+  @include down($bp-md) {
+    th {
+      display: none;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px dashed $border-color;
+
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: $text-muted;
+      }
+    }
+  }
+}
+
+/* =====================================================
+   FORM ULTRA COMPACT
+===================================================== */
+
+@mixin form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@mixin input-compact {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: $border-radius-sm;
+}
+
+@mixin form-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =====================================================
+   GRID & LAYOUT
+===================================================== */
+
+@mixin grid($cols: 2, $gap: 16px) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gap;
+}
+
+@mixin grid-responsive($desktop: 3, $tablet: 2, $mobile: 1) {
+  display: grid;
+  grid-template-columns: repeat($desktop, 1fr);
+  gap: 16px;
+
+  @include down($bp-lg) {
+    grid-template-columns: repeat($tablet, 1fr);
+  }
+
+  @include down($bp-md) {
+    grid-template-columns: repeat($mobile, 1fr);
+  }
+}
+
+/* =====================================================
+   STATUS & BADGE
+===================================================== */
+
+@mixin badge-soft($color) {
+  background: rgba($color, 0.1);
+  color: $color;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* =====================================================
+   HOVER & TRANSITION
+===================================================== */
+
+@mixin hover-lift {
+  transition: $transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+@mixin hover-soft {
+  transition: $transition-fast;
+
+  &:hover {
+    background: $bg-soft;
+  }
+}
+
+/* =====================================================
+   VISIBILITY HELPERS
+===================================================== */
+
+@mixin hide-mobile {
+  @include down($bp-md) {
+    display: none !important;
+  }
+}
+
+@mixin hide-desktop {
+  @include up($bp-md) {
+    display: none !important;
+  }
+}

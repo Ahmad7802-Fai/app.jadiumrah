@@ -1,0 +1,39 @@
+.sa-toggle {
+  position: relative;
+  display: inline-block;
+
+  input {
+    display: none;
+  }
+
+  span {
+    width: 36px;
+    height: 18px;
+    background: #d1d5db;
+    border-radius: 999px;
+    display: inline-block;
+    position: relative;
+    transition: .2s;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      width: 14px;
+      height: 14px;
+      background: #fff;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      border-radius: 50%;
+      transition: .2s;
+    }
+  }
+
+  input:checked + span {
+    background: #10b981;
+
+    &:after {
+      transform: translateX(18px);
+    }
+  }
+}

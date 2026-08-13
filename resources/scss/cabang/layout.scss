@@ -1,0 +1,90 @@
+/* ===============================
+   SHELL
+=============================== */
+.c-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ===============================
+   SIDEBAR
+=============================== */
+.c-sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+/* ===============================
+   MAIN
+=============================== */
+.c-main {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;       /* 🔥 WAJIB untuk grid */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===============================
+   HEADER
+=============================== */
+.c-header {
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+
+  background: #4a647f; /* header color */
+  z-index: 10;
+}
+
+/* ===============================
+   CONTENT (SCROLL AREA)
+=============================== */
+.c-content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+
+  padding-top: 16px;
+  padding-right: 24px;
+  padding-bottom: 24px;
+
+  /* 🔥 INI KUNCINYA */
+  padding-left: 24px;
+
+  overflow-x: hidden;
+}
+
+
+/* ===============================
+   FOOTER
+=============================== */
+.c-footer {
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+
+@media (max-width: 768px) {
+  .c-shell {
+    display: block;
+  }
+
+  .c-sidebar {
+    display: none;
+  }
+
+  .c-main {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .c-content {
+    padding-bottom: 88px; /* aman dari bottom menu */
+  }
+}

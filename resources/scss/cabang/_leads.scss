@@ -1,0 +1,192 @@
+/* =====================================================
+   CABANG — LEADS PAGE (CLEAN & FINAL)
+===================================================== */
+
+.cabang-leads {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===============================
+   PAGE HEADER
+=============================== */
+.cabang-leads .page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cabang-leads .page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cabang-leads .page-header p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 4px 0 0;
+}
+
+/* ===============================
+   FILTER
+=============================== */
+.leads-filter {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.leads-filter .form-input {
+  width: 100%;
+}
+
+/* ===============================
+   MOBILE LIST
+=============================== */
+.leads-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leads-mobile .lead-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.leads-mobile .lead-meta {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.leads-mobile .lead-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* ===============================
+   DESKTOP TABLE (HIDDEN MOBILE)
+=============================== */
+.leads-desktop {
+  display: none;
+}
+
+/* =====================================================
+   DESKTOP MODE
+===================================================== */
+@media (min-width: 1024px) {
+
+  /* FILTER */
+  .leads-filter {
+    grid-template-columns: 2fr 1fr auto auto;
+    align-items: center;
+  }
+
+  /* MOBILE OFF */
+  .leads-mobile {
+    display: none;
+  }
+
+  /* DESKTOP ON */
+  .leads-desktop {
+    display: block;
+  }
+}
+@media (min-width: 1024px) {
+  .leads-filter {
+    grid-template-columns: 3fr 1.2fr auto auto;
+    gap: 12px;
+  }
+}
+/* =====================================================
+   LEADS PAGE — MOBILE OVERRIDES (ADD ONLY)
+===================================================== */
+@media (max-width: 768px) {
+
+  /* ===============================
+     PAGE HEADER — MOBILE
+  =============================== */
+  .cabang-leads .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cabang-leads .page-header h1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .cabang-leads .page-header p {
+    font-size: 12px;
+  }
+
+  .cabang-leads .page-header .btn-ju {
+    align-self: flex-start;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  /* ===============================
+     FILTER — MOBILE STACK (RAPI)
+  =============================== */
+  .leads-filter {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .leads-filter .form-input {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .leads-filter button,
+  .leads-filter a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ===============================
+     MOBILE CARD LIST — ULTRA COMPACT
+  =============================== */
+  .leads-mobile {
+    gap: 10px;
+  }
+
+  .leads-mobile .cabang-card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .leads-mobile .lead-header {
+    gap: 8px;
+  }
+
+  .leads-mobile .lead-meta {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .leads-mobile .lead-actions {
+    gap: 6px;
+  }
+
+  .leads-mobile .btn-sm {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* ===============================
+     SAFE SPACE FOR BOTTOM MENU
+  =============================== */
+  .cabang-leads {
+    padding-bottom: 96px;
+  }
+}

@@ -1,0 +1,36 @@
+.sa-header--with-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+
+    h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+    }
+}
+
+.sa-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* SEARCH INLINE */
+.sa-search-inline {
+    input {
+        height: 38px;
+        padding: 0 12px;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        font-size: 13px;
+        width: 200px;
+
+        &:focus {
+            outline: none;
+            border-color: #0d6b45;
+        }
+    }
+}

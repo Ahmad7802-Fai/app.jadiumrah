@@ -1,0 +1,159 @@
+/* ==========================================================================
+   F7 ULTRA PREMIUM — CREATE TRANSAKSI LAYANAN
+   Mobile First — Compact — Clean — Elegant
+========================================================================== */
+
+/* Root colors */
+:root {
+    --ju-green: #0A6847;
+    --ju-green-dark: #075234;
+    --ju-light: #EAF6F1;
+    --ju-soft: #F8FAFC;
+    --radius: 18px;
+}
+
+/* Page wrapper max width */
+.transaksi-container {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER
+-------------------------------------------------------------------------- */
+.f7-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.f7-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--ju-green-dark);
+}
+
+.f7-subtitle {
+    color: #6b7280;
+    font-size: .9rem;
+}
+
+.btn-f7 {
+    background: var(--ju-green);
+    color: #fff !important;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+}
+.btn-f7:hover { background: var(--ju-green-dark); }
+
+/* --------------------------------------------------------------------------
+   CARD
+-------------------------------------------------------------------------- */
+.f7-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    margin-bottom: 22px;
+}
+
+.f7-label {
+    font-size: .8rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.f7-input {
+    border-radius: 14px !important;
+    padding: 10px 14px !important;
+}
+
+/* --------------------------------------------------------------------------
+   TABLE ITEMS
+-------------------------------------------------------------------------- */
+.f7-items-table {
+    margin-top: 10px;
+}
+
+.f7-items-table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.f7-items-table thead th {
+    font-size: .78rem;
+    font-weight: 700;
+    color: #475569;
+    padding-bottom: 4px;
+}
+
+.f7-row {
+    background: var(--ju-soft);
+    border-radius: 14px;
+}
+
+.f7-row td {
+    padding: 14px 12px !important;
+}
+
+.f7-select,
+.f7-qty,
+.f7-price,
+.f7-subtotal {
+    border-radius: 12px !important;
+    padding: 8px 12px !important;
+}
+
+.f7-remove {
+    background: #ef4444 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    padding: 6px 10px !important;
+}
+
+.f7-add-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: #111827 !important;
+    border-radius: 14px;
+    padding: 10px !important;
+    color: white !important;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+/* TOTAL */
+.f7-total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: right;
+    margin-top: 18px;
+    color: var(--ju-green-dark);
+}
+
+/* SUBMIT BUTTON */
+.f7-submit {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    background: var(--ju-green);
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+.f7-submit:hover { background: var(--ju-green-dark); }
+
+/* MOBILE */
+@media(max-width: 768px){
+    .f7-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .f7-title { font-size: 1.4rem; }
+    .f7-card { padding: 18px; }
+}

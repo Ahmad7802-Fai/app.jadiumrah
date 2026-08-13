@@ -1,0 +1,133 @@
+/* =====================================================
+   GLOBAL TYPOGRAPHY SYSTEM
+   Single File • Mobile First • App Wide
+===================================================== */
+
+/* =====================================================
+   FONT SCALE (FLUID)
+===================================================== */
+
+:root {
+  /* font size */
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-base: 13px;
+  --fs-md: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 18px;
+  --fs-2xl: 22px;
+
+  /* line height */
+  --lh-tight: 1.2;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.6;
+
+  /* text colors */
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-soft: #9ca3af;
+  --text-danger: #dc2626;
+}
+
+/* Mobile tuning */
+@media (max-width: 480px) {
+  :root {
+    --fs-xs: 10px;
+    --fs-sm: 11px;
+    --fs-base: 12px;
+    --fs-md: 13px;
+    --fs-lg: 14px;
+    --fs-xl: 16px;
+    --fs-2xl: 20px;
+  }
+}
+
+/* =====================================================
+   BASE TEXT
+===================================================== */
+
+body {
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: var(--text-main);
+}
+
+/* =====================================================
+   HEADINGS
+===================================================== */
+
+h1, .text-h1 {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  line-height: var(--lh-tight);
+}
+
+h2, .text-h2 {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+}
+
+h3, .text-h3 {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+
+h4, .text-h4 {
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+
+/* =====================================================
+   FONT SIZE UTILITIES
+===================================================== */
+
+.text-xs   { font-size: var(--fs-xs); }
+.text-sm   { font-size: var(--fs-sm); }
+.text-base { font-size: var(--fs-base); }
+.text-md   { font-size: var(--fs-md); }
+.text-lg   { font-size: var(--fs-lg); }
+.text-xl   { font-size: var(--fs-xl); }
+
+/* =====================================================
+   FONT WEIGHT
+===================================================== */
+
+.font-regular  { font-weight: 400; }
+.font-medium   { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold     { font-weight: 700; }
+.font-extrabold{ font-weight: 800; }
+
+/* =====================================================
+   TEXT COLOR
+===================================================== */
+
+.text-main   { color: var(--text-main); }
+.text-muted  { color: var(--text-muted); }
+.text-soft   { color: var(--text-soft); }
+.text-danger { color: var(--text-danger); }
+
+/* =====================================================
+   LINE HEIGHT
+===================================================== */
+
+.leading-tight   { line-height: var(--lh-tight); }
+.leading-normal  { line-height: var(--lh-normal); }
+.leading-relaxed { line-height: var(--lh-relaxed); }
+
+/* =====================================================
+   ALIGNMENT
+===================================================== */
+
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+/* =====================================================
+   TRANSFORM
+===================================================== */
+
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }

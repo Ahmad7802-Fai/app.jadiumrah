@@ -1,0 +1,188 @@
+/* =====================================================
+   QUICK ACTION WRAPPER
+===================================================== */
+
+.quick-action {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.quick-action-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quick-action-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =====================================================
+   ACTION LIST
+===================================================== */
+
+.quick-action-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
+  @include down($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include down($bp-md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =====================================================
+   ACTION ITEM
+===================================================== */
+
+.quick-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  padding: 10px 6px;
+  border-radius: $border-radius;
+  background: $bg-soft;
+
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background: rgba(66, 86, 120, 0.1);
+  }
+}
+
+.quick-action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(66, 86, 120, 0.15);
+  color: $primary;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.quick-action-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* =====================================================
+   VARIANTS
+===================================================== */
+
+.quick-primary {
+  .quick-action-icon {
+    background: rgba(66, 86, 120, 0.2);
+    color: $primary;
+  }
+}
+
+.quick-success {
+  .quick-action-icon {
+    background: rgba(22, 163, 74, 0.2);
+    color: $success;
+  }
+}
+
+.quick-danger {
+  .quick-action-icon {
+    background: rgba(220, 38, 38, 0.2);
+    color: $danger;
+  }
+}
+
+.quick-warning {
+  .quick-action-icon {
+    background: rgba(245, 158, 11, 0.25);
+    color: $warning;
+  }
+}
+
+/* =====================================================
+   INLINE QUICK ACTION (TABLE / CARD)
+===================================================== */
+
+.quick-action-inline {
+  display: inline-flex;
+  gap: 6px;
+
+  .quick-action-item {
+    padding: 6px;
+    background: transparent;
+
+    &:hover {
+      background: $bg-soft;
+    }
+  }
+
+  .quick-action-label {
+    display: none;
+  }
+}
+
+/* =====================================================
+   MOBILE BOTTOM SHEET MODE
+===================================================== */
+
+@include down($bp-md) {
+
+  .quick-action {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -10px 30px rgba(0,0,0,.15);
+
+    padding: 14px 12px;
+
+    transform: translateY(100%);
+    transition: transform $transition-base;
+    z-index: $z-fixed;
+  }
+
+  .quick-action.is-open {
+    transform: translateY(0);
+  }
+
+  .quick-action-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =====================================================
+   SAFE AREA (iOS)
+===================================================== */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .quick-action {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}

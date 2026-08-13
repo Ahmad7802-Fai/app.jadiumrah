@@ -1,0 +1,155 @@
+/* =====================================================
+   BASE
+   ===================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+               'Helvetica Neue', Arial, sans-serif;
+
+  background-color: $bg;
+  color: $text;
+
+  margin: 0;
+  padding: 0;
+
+  line-height: 1.45;          // lebih padat tapi tetap nyaman
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =====================================================
+   TYPOGRAPHY RESET
+   ===================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 6px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+small {
+  font-size: 12px;
+  color: $text-muted;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+}
+
+/* =====================================================
+   CONTAINER
+   ===================================================== */
+
+.container-jamaah {
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 14px 16px;   // dipadatkan
+}
+
+/* =====================================================
+   IMAGES & MEDIA
+   ===================================================== */
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =====================================================
+   FORM RESET (AMAN UNTUK MOBILE)
+   ===================================================== */
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* =====================================================
+   UTILITIES (GLOBAL)
+   ===================================================== */
+
+.text-muted {
+  color: $text-muted;
+}
+
+.text-success {
+  color: $success;
+}
+
+.text-danger {
+  color: $danger;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* =====================================================
+   SPACING UTIL (COMPACT)
+   ===================================================== */
+
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+
+/* =====================================================
+   SAFE AREA (iOS BOTTOM NAV)
+   ===================================================== */
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

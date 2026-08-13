@@ -1,0 +1,50 @@
+/* ===============================
+   COLOR SYSTEM
+=============================== */
+$color-primary: #47637b;
+$color-primary-dark: darken($color-primary, 8%);
+$color-primary-light: lighten($color-primary, 12%);
+
+$color-bg: #f9fafb;
+$color-surface: #ffffff;
+
+$color-text: #1f2937;
+$color-muted: #6b7280;
+$color-border: #e5e7eb;
+
+/* STATUS (optional but recommended) */
+$color-success: #16a34a;
+$color-warning: #f59e0b;
+$color-danger:  #dc2626;
+
+/* ===============================
+   TYPOGRAPHY
+=============================== */
+$font-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+$font-size-base: 14px;
+$font-size-sm: 13px;
+$font-size-lg: 16px;
+
+/* ===============================
+   LAYOUT
+=============================== */
+$container-width: 1100px;
+
+$radius-lg: 16px;
+$radius-md: 12px;
+$radius-sm: 8px;
+
+/* ===============================
+   SHADOW
+=============================== */
+$shadow-sm: 0 4px 12px rgba(0,0,0,.06);
+$shadow-md: 0 10px 30px rgba(0,0,0,.08);
+$shadow-lg: 0 20px 40px rgba(0,0,0,.12);
+
+/* ===============================
+   Z INDEX
+=============================== */
+$z-header: 40;
+$z-sticky: 50;
+$z-modal: 100;

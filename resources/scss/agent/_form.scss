@@ -1,0 +1,167 @@
+/* =====================================================
+   FORM SYSTEM — FINAL & SAFE
+   Ultra Compact • Premium • Reusable
+===================================================== */
+
+/* =====================================================
+   FORM WRAPPER
+===================================================== */
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+/* =====================================================
+   FORM CARD SPACING
+===================================================== */
+
+.form .card {
+  padding: $space-md;
+}
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: $font-xs;
+  font-weight: 500;
+  color: $text-secondary;
+}
+
+/* =====================================================
+   INPUT SYSTEM
+===================================================== */
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  height: 34px;
+
+  padding: 0 $space-xs;
+
+  font-size: $font-sm;
+  line-height: 1.2;
+
+  border-radius: $border-radius-sm;
+  border: 1px solid $border-color;
+  background: $bg-card;
+  color: $text-primary;
+
+  outline: none;
+
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast,
+    background $transition-fast;
+}
+
+/* TEXTAREA */
+.form-textarea {
+  height: auto;
+  min-height: 70px;
+  padding: $space-xs;
+  resize: vertical;
+}
+
+/* FOCUS */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: $primary;
+  box-shadow: 0 0 0 2px rgba($primary, 0.15);
+}
+
+/* PLACEHOLDER */
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: $text-muted;
+}
+
+/* DISABLED */
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background: $gray-50;
+  color: $text-muted;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   ERROR & HELP TEXT
+===================================================== */
+
+.form-error {
+  font-size: $font-xs;
+  color: $danger;
+  margin-top: 2px;
+}
+
+.form-help {
+  font-size: $font-xs;
+  color: $text-secondary;
+  margin-top: 2px;
+}
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+  @include inline($space-xs);
+  margin-top: 4px;
+}
+
+/* =====================================================
+   INLINE FORM (OPTIONAL)
+===================================================== */
+
+.form-inline {
+  display: flex;
+  gap: $space-xs;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   MOBILE — EXTRA COMPACT
+===================================================== */
+
+@include down($bp-xs) {
+
+  .form {
+    gap: $space-xs;
+  }
+
+  .form .card {
+    padding: $space-sm;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    height: 32px;
+    font-size: $font-xs;
+    padding: 0 $space-xxs;
+  }
+
+  .form-textarea {
+    min-height: 60px;
+    padding: $space-xxs;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: $space-xxs;
+  }
+}

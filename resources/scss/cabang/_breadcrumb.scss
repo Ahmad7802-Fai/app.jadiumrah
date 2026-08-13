@@ -1,0 +1,93 @@
+/* =====================================================
+   CABANG — BREADCRUMB
+   Ultra Compact · Mobile First
+===================================================== */
+
+/* ===============================
+   WRAPPER
+=============================== */
+.cabang-breadcrumb-wrap {
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   BREADCRUMB BAR
+=============================== */
+.cabang-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 13px;
+  color: $text-muted;
+}
+
+/* ===============================
+   LINK
+=============================== */
+.cabang-breadcrumb .crumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: $text-muted;
+  text-decoration: none;
+
+  transition: color .12s ease;
+}
+
+.cabang-breadcrumb .crumb-link:hover {
+  color: $text;
+}
+
+/* ===============================
+   CURRENT
+=============================== */
+.cabang-breadcrumb .crumb-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: $text-soft;
+  font-weight: 500;
+}
+
+/* ===============================
+   SEPARATOR
+=============================== */
+.cabang-breadcrumb .crumb-sep {
+  color: $border;
+}
+
+/* ===============================
+   ICON
+=============================== */
+.cabang-breadcrumb i {
+  font-size: 12px;
+  opacity: .7;
+}
+
+/* =====================================================
+   MOBILE MODE
+===================================================== */
+@media (max-width: 768px) {
+
+  .cabang-breadcrumb-wrap {
+    margin-bottom: 8px;
+  }
+
+  .cabang-breadcrumb {
+    font-size: 12px;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .cabang-breadcrumb i {
+    font-size: 11px;
+  }
+
+  .cabang-breadcrumb .crumb-link,
+  .cabang-breadcrumb .crumb-current {
+    gap: 4px;
+  }
+}

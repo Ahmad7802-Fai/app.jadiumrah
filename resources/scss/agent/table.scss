@@ -1,0 +1,178 @@
+/* =====================================================
+   TABLE SYSTEM — FINAL
+   Premium • Compact • Generic
+===================================================== */
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* =====================================================
+   BASE TABLE
+===================================================== */
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  font-size: $font-md;
+  color: $text-primary;
+  table-layout: fixed; // 🔥 INI KUNCI UTAMA
+
+}
+
+/* =====================================================
+   TABLE HEADER
+===================================================== */
+
+.table thead {
+  background: $gray-50;
+}
+
+.table th {
+  padding: $space-sm $space-md;
+
+  font-size: $font-sm;
+  font-weight: 600;
+  color: $text-secondary;
+  white-space: nowrap;
+
+  border-bottom: 1px solid $border-color;
+}
+
+/* =====================================================
+   TABLE BODY
+===================================================== */
+
+.table td {
+  padding: $space-md $space-md;
+  vertical-align: middle;
+
+  border-bottom: 1px solid $gray-100;
+}
+
+@media (hover: hover) {
+  .table tbody tr:hover {
+    background: $gray-50;
+  }
+}
+
+/* =====================================================
+   CELL CONTENT
+===================================================== */
+
+.table-name {
+  font-weight: 600;
+  font-size: $font-md;
+}
+
+.table-sub {
+  margin-top: 2px;
+  font-size: $font-xs;
+  color: $text-muted;
+}
+
+/* =====================================================
+   ALIGNMENT UTILITIES
+===================================================== */
+
+.table-right {
+  text-align: right;
+}
+
+.table-center {
+  text-align: center;
+}
+
+/* =====================================================
+   ACTION COLUMN
+===================================================== */
+
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-xs;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   CHIP / INLINE ACTION
+===================================================== */
+
+.table-chip {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: $font-xs;
+  padding: 4px 10px;
+
+  border-radius: 999px;
+  text-decoration: none;
+
+  background: $gray-100;
+  color: $gray-700;
+
+  transition:
+    background $transition-fast,
+    transform $transition-fast,
+    opacity $transition-fast;
+}
+
+@media (hover: hover) {
+  .table-chip:hover {
+    transform: translateY(-1px);
+    opacity: .9;
+  }
+}
+
+/* Semantic variants */
+.table-chip--info {
+  background: rgba($info, .15);
+  color: $info;
+}
+
+.table-chip--warning {
+  background: rgba($warning, .18);
+  color: $warning;
+}
+
+.table-chip--success {
+  background: rgba($success, .15);
+  color: $success;
+  font-weight: 600;
+}
+
+/* Empty chip */
+.table-chip--empty {
+  background: transparent;
+  color: $text-muted;
+  font-style: italic;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.table-empty {
+  padding: $space-lg;
+  text-align: center;
+
+  font-size: $font-sm;
+  color: $text-muted;
+}
+
+/* =====================================================
+   DESKTOP ONLY
+===================================================== */
+
+@include down($bp-lg) {
+  .table-wrapper {
+    display: none;
+  }
+}

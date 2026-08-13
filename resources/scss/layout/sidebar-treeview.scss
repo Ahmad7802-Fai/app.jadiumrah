@@ -1,0 +1,26 @@
+/* ============================================
+   TREEVIEW (SUBMENU) FIX PREMIUM F2
+=============================================== */
+
+.nav-sidebar .nav-treeview > .nav-item > .nav-link {
+    padding-left: 2.3rem !important;
+    font-size: .92rem;
+    color: #cdd6d5 !important;
+}
+
+.nav-sidebar .nav-treeview > .nav-item > .nav-link i {
+    width: 22px !important;
+    margin-right: .25rem !important;
+    font-size: .75rem !important;
+}
+
+.nav-sidebar .nav-treeview .nav-link.active {
+    background: rgba(255,255,255,.12) !important;
+    border-radius: 6px;
+    color: #fff !important;
+}
+
+/* reduce default AdminLTE indent */
+.nav-sidebar .nav-treeview {
+    margin-left: .3rem !important;
+}

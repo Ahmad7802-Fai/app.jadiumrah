@@ -1,0 +1,10 @@
+.sa-user-form {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+@media(max-width:768px){
+    .sa-user-form {
+        padding: 0 6px;
+    }
+}

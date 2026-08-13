@@ -1,0 +1,89 @@
+/* =========================================================
+   ROLE INDEX – SUPERADMIN
+========================================================= */
+
+.sa-role-index {
+
+    /* ================= HEADER ================= */
+    .sa-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    /* ================= SEARCH ================= */
+    .sa-search {
+        width: 240px;
+
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+
+        input {
+            border-radius: 999px;
+            font-size: 13px;
+        }
+    }
+
+    /* ================= TABLE ================= */
+    .table {
+        th, td {
+            padding: 8px 10px;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        th {
+            font-weight: 600;
+            color: #374151;
+        }
+    }
+
+    /* ================= ACTION ================= */
+    .action-col {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+
+        .btn {
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+        }
+    }
+
+    /* ================= MOBILE ================= */
+    @media (max-width: 768px) {
+        .table th,
+        .table td {
+            padding: 12px;
+            font-size: 14px;
+        }
+    }
+}
+.sa-role-index {
+
+    .table {
+        table-layout: fixed; // ⬅️ PENTING
+        width: 100%;
+    }
+
+    .action-col {
+        display: inline-flex;
+        gap: 6px;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    td, th {
+        vertical-align: middle;
+    }
+}

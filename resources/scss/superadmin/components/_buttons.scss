@@ -1,0 +1,80 @@
+/* ============================================
+   SUPERADMIN BUTTONS
+============================================ */
+
+.sa-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 8px 14px;
+    border-radius: 10px;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: all .18s ease;
+}
+
+/* PRIMARY */
+.sa-btn-primary {
+    background: #0d6b45;
+    color: #fff;
+
+    &:hover {
+        background: #095c3b;
+        color: #fff;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+/* SECONDARY */
+.sa-btn-secondary {
+    background: #f3f4f6;
+    color: #111827;
+
+    &:hover {
+        background: #e5e7eb;
+    }
+}
+
+/* DANGER */
+.sa-btn-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+
+    &:hover {
+        background: #fecaca;
+    }
+}
+
+/* SIZE */
+.sa-btn-sm {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.sa-btn-lg {
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 640px) {
+    .sa-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        width: 100%;
+    }
+}

@@ -1,0 +1,33 @@
+/* ============================================
+   COMPACT SIDEBAR (SIDEBAR-MINI)
+=============================================== */
+
+body.sidebar-mini.sidebar-collapse .main-sidebar {
+    width: 4.8rem !important;
+}
+
+body.sidebar-mini.sidebar-collapse .sidebar .nav-link p,
+body.sidebar-mini.sidebar-collapse .brand-text,
+body.sidebar-mini.sidebar-collapse .user-panel .info {
+    opacity: 0;
+    transition: opacity .15s ease;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover {
+    width: 250px !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover .sidebar .nav-link p,
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-text,
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover .user-panel .info {
+    opacity: 1;
+}
+
+/* content wrapper sync */
+body.sidebar-mini.sidebar-collapse .content-wrapper {
+    margin-left: 4.8rem !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover ~ .content-wrapper {
+    margin-left: 250px !important;
+}

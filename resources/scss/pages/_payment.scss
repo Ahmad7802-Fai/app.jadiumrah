@@ -1,0 +1,5 @@
+.payment-summary {
+    @include card;
+    background: #fff;
+    border-left: 4px solid $accent-gold;
+}

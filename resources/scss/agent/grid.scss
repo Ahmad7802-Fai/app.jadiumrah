@@ -1,0 +1,132 @@
+/* =====================================================
+   AGENT DASHBOARD GRID — ULTRA COMPACT
+===================================================== */
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // 📱 mobile: 2 kolom
+  gap: 12px;
+}
+
+/* ===============================
+   TABLET (>= 640px)
+=============================== */
+@media (min-width: 640px) {
+  .agent-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+/* ===============================
+   DESKTOP (>= 1024px)
+=============================== */
+@media (min-width: 1024px) {
+  .agent-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+}
+/* ===============================
+   MOBILE — ULTRA COMPACT
+=============================== */
+@media (max-width: 480px) {
+
+  .agent-grid {
+    gap: 8px; // 🔥 dari 12 → 8
+  }
+
+  .agent-card {
+    padding: 10px 12px; // 🔥 dari 12–14 → lebih rapat
+    border-radius: 12px;
+    gap: 4px;
+  }
+
+  .agent-card-title {
+    font-size: 11px;
+    line-height: 1.1;
+  }
+
+  .agent-card-value {
+    font-size: 20px; // 🔥 dari 24 → 20
+    line-height: 1;
+  }
+}
+.agent-grid-compact {
+  gap: 10px;
+
+  .agent-card {
+    padding: 10px 12px;
+  }
+
+  .agent-card-title {
+    font-size: 11px;
+  }
+
+  .agent-card-value {
+    font-size: 22px;
+  }
+}
+
+/* =====================================================
+   SUMMARY GRID — KOMISI
+===================================================== */
+
+/* =====================================================
+   AGENT SUMMARY GRID (KOMISI)
+===================================================== */
+
+.agent-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   TABLET
+=============================== */
+@media (max-width: 1024px) {
+  .agent-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===============================
+   MOBILE
+=============================== */
+@media (max-width: 640px) {
+  .agent-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* =====================================================
+   KOMISI CARD TWEAK (OPTIONAL BUT NICE)
+===================================================== */
+
+.agent-summary-grid .agent-card {
+  padding: 18px;
+}
+
+.agent-summary-grid .agent-card-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.agent-summary-grid .agent-card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+/* MOBILE FONT SCALE */
+@media (max-width: 640px) {
+  .agent-summary-grid .agent-card-value {
+    font-size: 22px;
+  }
+}

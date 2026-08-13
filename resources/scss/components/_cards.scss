@@ -1,0 +1,649 @@
+/* =====================================================
+   BASE CARD
+===================================================== */
+
+.card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow-xs;
+  overflow: hidden;
+}
+
+/* =====================================================
+   CARD BODY
+===================================================== */
+
+.card-body {
+  padding: 12px;
+}
+
+.card-body-sm {
+  padding: 8px;
+}
+
+.card-body-lg {
+  padding: 16px;
+}
+
+/* =====================================================
+   CARD HEADER & FOOTER
+===================================================== */
+
+.card-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid $border-color;
+  background: $bg-soft;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-footer {
+  padding: 10px 12px;
+  border-top: 1px solid $border-color;
+  background: $gray-50;
+}
+
+/* =====================================================
+   CARD TITLE & META
+===================================================== */
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card-subtitle {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+/* =====================================================
+   VARIANTS
+===================================================== */
+
+.card-compact {
+  .card-body {
+    padding: 8px;
+  }
+}
+
+.card-soft {
+  background: $bg-soft;
+  border-color: transparent;
+}
+
+.card-outline {
+  background: transparent;
+  border-style: dashed;
+}
+
+/* =====================================================
+   STAT / METRIC CARD
+===================================================== */
+
+.card-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    background: $bg-soft;
+    color: $text-muted;
+    flex-shrink: 0;
+  }
+
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: $text-muted;
+  }
+
+  .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+.card-stat {
+  padding: 14px 16px;
+  min-height: 86px;
+}
+
+.card-stat .stat-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.card-stat-success {
+  border-left: 3px solid $success;
+
+  .stat-icon {
+    background: rgba($success, .12);
+    color: $success;
+  }
+
+  .stat-value {
+    color: $success;
+  }
+}
+
+.card-stat-danger {
+  border-left: 3px solid $danger;
+
+  .stat-icon {
+    background: rgba($danger, .12);
+    color: $danger;
+  }
+
+  .stat-value {
+    color: $danger;
+  }
+}
+
+.card-stat-primary {
+  border-left: 3px solid $primary;
+
+  .stat-icon {
+    background: rgba($primary, .12);
+    color: $primary;
+  }
+
+  .stat-value {
+    color: $primary;
+  }
+}
+
+.card-stat-muted {
+  border-left: 3px solid $border-color;
+}
+
+@include down($bp-md) {
+  .card-stat {
+    align-items: center;
+    text-align: center;
+
+    .stat-value {
+      font-size: 18px;
+    }
+  }
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+
+/* =====================================================
+   CARD LIST (MOBILE FIRST)
+===================================================== */
+
+.card-list {
+  display: grid;
+  gap: 12px;
+
+  @include up($bp-md) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* =====================================================
+   MOBILE CARD MODE (AUTO)
+===================================================== */
+
+@include down($bp-md) {
+
+  .card {
+    border-radius: $border-radius-lg;
+  }
+
+  .card-header {
+    padding: 8px 10px;
+    flex-wrap: wrap;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .card-footer {
+    padding: 8px 10px;
+  }
+
+  .card-title {
+    font-size: 13px;
+  }
+
+  /* TABLE → CARD BEHAVIOR */
+  .card-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .row-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+
+      .label {
+        color: $text-muted;
+        font-weight: 600;
+      }
+
+      .value {
+        text-align: right;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* =====================================================
+   HOVER (DESKTOP ONLY)
+===================================================== */
+
+@include up($bp-md) {
+  .card-hover {
+    transition: $transition-base;
+
+    &:hover {
+      box-shadow: $shadow-md;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card-metric {
+  position: relative;
+  background: $card-bg;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: $shadow-soft;
+}
+
+.card-metric__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba($primary, .12);
+  color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.card-metric__label {
+  font-size: 13px;
+  color: $text-muted;
+  margin-bottom: 4px;
+}
+
+.card-metric__value {
+  font-size: 26px;
+  font-weight: 800;
+  color: $primary;
+}
+
+/* =====================================================
+   INFO GRID (PNR / DETAIL CARD)
+===================================================== */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+  }
+
+  .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-primary;
+    line-height: 1.3;
+  }
+
+  .mono {
+    font-family: $font-mono;
+    letter-spacing: .04em;
+  }
+}
+@include down($bp-md) {
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .info-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .label {
+      font-size: 11px;
+    }
+
+    .value {
+      font-size: 13px;
+      text-align: right;
+    }
+  }
+}
+.info-item {
+  padding-left: 8px;
+  border-left: 2px solid $border-color;
+}
+/* =====================================================
+   COMPACT STAT (HORIZONTAL)
+===================================================== */
+
+.stat-compact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  min-height: 68px;
+
+  .stat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $bg-soft;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .stat-body {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: $text-muted;
+    font-weight: 600;
+  }
+
+  .stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: $text-primary;
+  }
+}
+
+/* STATUS VARIANT */
+.stat-primary {
+  border-left: 3px solid $primary;
+
+  .stat-icon {
+    background: rgba($primary, .12);
+  }
+}
+
+.stat-success {
+  border-left: 3px solid $success;
+
+  .stat-icon {
+    background: rgba($success, .12);
+    color: $success;
+  }
+}
+
+.stat-danger {
+  border-left: 3px solid $danger;
+
+  .stat-icon {
+    background: rgba($danger, .12);
+    color: $danger;
+  }
+}
+
+/* MOBILE */
+@include down($bp-md) {
+  .stat-compact {
+    min-height: auto;
+    padding: 10px 12px;
+
+    .stat-value {
+      font-size: 15px;
+    }
+  }
+}
+/* =====================================================
+   PNR SUMMARY (HORIZONTAL)
+===================================================== */
+
+.pnr-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.summary-card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow-xs;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  min-height: 64px;
+}
+
+.summary-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: $bg-soft;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.summary-label {
+  font-size: 11px;
+  color: $text-muted;
+  font-weight: 600;
+}
+
+.summary-value {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* STATUS */
+.stat-primary { border-left: 3px solid $primary; }
+.stat-success { border-left: 3px solid $success; }
+.stat-danger  { border-left: 3px solid $danger; }
+
+/* MOBILE */
+@include down($bp-md) {
+  .pnr-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* =====================================================
+   FLIGHT TIMELINE
+===================================================== */
+
+.flight-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 12px;
+}
+
+/* MARKER */
+.timeline-marker {
+  position: relative;
+  width: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-marker .dot {
+  width: 8px;
+  height: 8px;
+  background: $primary;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+.timeline-marker .line {
+  position: absolute;
+  top: 16px;
+  width: 2px;
+  height: calc(100% - 16px);
+  background: $border-color;
+}
+
+/* CONTENT */
+.timeline-content {
+  flex: 1;
+  background: $bg-soft;
+  border-radius: $border-radius-sm;
+  padding: 10px 12px;
+}
+
+/* HEADER */
+.route-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.route-sector {
+  background: rgba($primary, .12);
+  color: $primary;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.route-city {
+  text-transform: uppercase;
+}
+
+.route-date {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+/* META */
+.route-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.muted {
+  color: $text-muted;
+  font-size: 10px;
+}
+
+/* MOBILE */
+@include down($bp-md) {
+  .route-head {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+/* =====================================================
+   ROUTE EDITOR
+===================================================== */
+
+.route-editor-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 16px;
+}
+
+.route-card {
+  background: $bg-soft;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.chart-wrapper canvas {
+  max-width: 100% !important;
+}

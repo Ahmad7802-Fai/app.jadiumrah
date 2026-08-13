@@ -1,0 +1,46 @@
+/* =========================================================
+   PAGINATION – SUPERADMIN
+========================================================= */
+.sa-pagination {
+    display: flex;
+    justify-content: center;
+
+    .pagination {
+        margin: 0;
+        gap: 4px;
+    }
+
+    .page-item {
+
+        &.active .page-link {
+            background: #059669;
+            border-color: #059669;
+            color: #fff;
+        }
+
+        &.disabled .page-link {
+            opacity: .5;
+        }
+    }
+
+    .page-link {
+        border-radius: 10px;
+        padding: 6px 12px;
+        font-size: 13px;
+        color: #374151;
+        border: 1px solid #e5e7eb;
+        min-width: 36px;
+        text-align: center;
+
+        &:hover {
+            background: #ecfdf5;
+            border-color: #059669;
+            color: #065f46;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    
+}

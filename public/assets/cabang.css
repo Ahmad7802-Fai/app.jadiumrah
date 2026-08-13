@@ -1,0 +1,66 @@
+body.cabang {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f7fa;
+}
+
+/* HEADER */
+.cabang-header {
+    height: 60px;
+    background: #0f766e;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* LAYOUT */
+.cabang-wrapper {
+    display: flex;
+}
+
+.cabang-sidebar {
+    width: 220px;
+    background: #134e4a;
+    min-height: calc(100vh - 60px);
+}
+
+.cabang-sidebar a {
+    display: block;
+    padding: 12px 18px;
+    color: #e5e7eb;
+    text-decoration: none;
+}
+
+.cabang-sidebar a:hover {
+    background: #0f766e;
+}
+
+/* CONTENT */
+.cabang-content {
+    flex: 1;
+    padding: 24px;
+}
+
+/* CARD */
+.cabang-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
+.cabang-stat {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* FOOTER */
+.cabang-footer {
+    text-align: center;
+    padding: 14px;
+    font-size: 13px;
+    color: #6b7280;
+}

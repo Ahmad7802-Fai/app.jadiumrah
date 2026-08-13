@@ -1,0 +1,116 @@
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 10px 14px;        // compact tapi nyaman
+  border-radius: 12px;
+
+  border: none;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   BUTTON TYPES
+   ===================================================== */
+
+.btn-primary {
+  background-color: $primary;
+  color: #ffffff;
+
+  &:hover {
+    background-color: darken($primary, 6%);
+  }
+
+  &:active {
+    background-color: darken($primary, 10%);
+    transform: scale(0.98);
+  }
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: $text;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+
+  &:active {
+    background-color: #d1d5db;
+    transform: scale(0.98);
+  }
+}
+
+.btn-danger {
+  background-color: $danger;
+  color: #ffffff;
+
+  &:hover {
+    background-color: darken($danger, 6%);
+  }
+
+  &:active {
+    background-color: darken($danger, 10%);
+    transform: scale(0.98);
+  }
+}
+
+/* =====================================================
+   BUTTON STATES
+   ===================================================== */
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  color: $text;
+
+  &:hover {
+    background: #f9fafb;
+  }
+}
+
+.btn-disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  color: #ffffff;
+}
+
+/* =====================================================
+   BUTTON SIZES
+   ===================================================== */
+
+.btn-sm {
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.btn-lg {
+  font-size: 15px;
+  padding: 12px 18px;
+  border-radius: 14px;
+}
+
+/* =====================================================
+   FULL WIDTH (CTA)
+   ===================================================== */
+
+.btn-block {
+  width: 100%;
+}

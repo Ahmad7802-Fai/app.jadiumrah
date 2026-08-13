@@ -1,0 +1,41 @@
+/* =============================
+   FOUNDATION
+============================= */
+@import "./agent/variables";
+@import "./agent/mixins";
+@import "./agent/typography";
+
+/* =============================
+   BOOTSTRAP
+============================= */
+@import "bootstrap/scss/bootstrap";
+
+/* =============================
+   APP LAYOUT
+============================= */
+@import "./agent/layout";
+@import "./agent/header";
+@import "./agent/sidebar";
+@import "./agent/footer";
+@import "./agent/bottom-nav";
+
+/* =============================
+   UI COMPONENTS
+============================= */
+@import "./agent/card";
+@import "./agent/button";
+@import "./agent/table";
+@import "./agent/filter";
+@import "./agent/badge";
+@import "./agent/modal";
+@import "./agent/form";
+
+/* =============================
+   RESPONSIVE RULES (FINAL AUTHORITY)
+============================= */
+@import "./agent/responsive-content";
+
+/* =============================
+   UTILITIES (LAST, DANGEROUS)
+============================= */
+@import "./agent/utilities/display";

@@ -1,0 +1,74 @@
+/* ===============================
+   PAKET CARD (SUMMARY / LIST)
+=============================== */
+
+.paket-card {
+  background: #ffffff;
+  border-radius: $radius-lg;
+  padding: 22px 24px;
+
+  border: 1px solid $color-border;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+  transition: transform .25s ease, box-shadow .25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ===============================
+     TITLE
+  =============================== */
+  .paket-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 14px;
+  }
+
+  /* ===============================
+     META INFO
+  =============================== */
+  .paket-meta {
+    font-size: 0.85rem;
+    color: $color-muted;
+    margin-bottom: 8px;
+    line-height: 1.5;
+
+    strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    &.price {
+      margin-top: 10px;
+      font-size: 0.9rem;
+
+      strong {
+        color: $color-primary;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+/* ===============================
+   VARIANT: COMPACT
+=============================== */
+.paket-card--compact {
+  padding: 16px 18px;
+
+  .paket-title {
+    font-size: 0.95rem;
+  }
+}
+
+/* ===============================
+   MOBILE
+=============================== */
+@media (max-width: 768px) {
+  .paket-card {
+    padding: 18px;
+  }
+}

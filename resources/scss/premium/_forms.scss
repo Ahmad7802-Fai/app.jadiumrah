@@ -1,0 +1,12 @@
+.form-select-premium,
+.form-control-premium {
+    border-radius: 50px;
+    padding: 10px 16px;
+    border: 1px solid #d7d7d7;
+    transition: .15s ease;
+
+    &:focus {
+        border-color: #0d6b45;
+        box-shadow: 0 0 0 3px rgba(13,107,69,0.12);
+    }
+}

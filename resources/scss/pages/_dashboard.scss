@@ -1,0 +1,4 @@
+.dashboard-summary-card {
+    @include card;
+    border-left: 5px solid $primary;
+}

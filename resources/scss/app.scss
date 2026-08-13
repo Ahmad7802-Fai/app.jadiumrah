@@ -1,0 +1,41 @@
+/* CORE */
+/* Importing Bootstrap first to ensure our custom variables and mixins can override Bootstrap's defaults. */
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "variables";
+@import "mixins";
+@import 'breakpoints';
+
+/* BASE */
+@import "base/reset";
+@import "base/typography";
+@import "base/utilities";
+
+/* COMPONENTS */
+@import "components/buttons";
+@import "components/badges";
+@import "components/cards";
+@import "components/table";
+// @import "components/table-hybrid";
+@import "components/forms";
+@import "components/filter";
+@import "components/modal";
+@import "components/drawer";
+@import "components/fab";
+@import "components/quick-action";
+@import "components/toast";
+@import "components/empty-state";
+
+/* OPTIONAL BUT RECOMMENDED */
+@import "components/pagination";
+@import "components/tabs";
+@import "components/breadcrumb";
+
+/* LAYOUT */
+@import "layout/layout";
+@import "layout/header";
+@import "layout/sidebar";
+@import "layout/footer";
+
+
+

@@ -1,0 +1,105 @@
+/* =====================================================
+   HISTORY / TIMELINE
+   ===================================================== */
+
+.j-history {
+  margin-top: 10px; // dipadatkan dari 12px
+}
+
+/* =====================================================
+   ITEM
+   ===================================================== */
+
+.j-history-item {
+  display: flex;
+  gap: 10px;             // dari 12 → lebih rapat
+  margin-bottom: 14px;   // dari 18 → compact
+  align-items: flex-start;
+}
+
+/* =====================================================
+   DOT (STATUS)
+   ===================================================== */
+
+.j-history-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 18px;      // sejajar dengan teks utama
+  flex-shrink: 0;
+
+  &.success { background-color: $success; }
+  &.danger  { background-color: $danger; }
+  &.warning { background-color: $warning; }
+  &.muted   { background-color: #9ca3af; }
+}
+
+/* =====================================================
+   CARD CONTENT
+   ===================================================== */
+
+.j-history-card {
+  flex: 1;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+/* hilangkan garis di item terakhir */
+.j-history-item:last-child .j-history-card {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* =====================================================
+   CONTENT TEXT
+   ===================================================== */
+
+.j-history-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text;
+  line-height: 1.35;
+}
+
+.j-history-amount {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 2px;
+
+  &.success { color: $success; }
+  &.danger  { color: $danger; }
+}
+
+.j-history-meta {
+  font-size: 12px;
+  color: $text-muted;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* =====================================================
+   COMPACT MODE (OPTIONAL)
+   ===================================================== */
+
+.j-history--compact .j-history-item {
+  margin-bottom: 10px;
+}
+
+.j-history--compact .j-history-dot {
+  margin-top: 14px;
+}
+
+/* =====================================================
+   MOBILE POLISH
+   ===================================================== */
+
+@media (max-width: 360px) {
+  .j-history-item {
+    gap: 8px;
+  }
+
+  .j-history-title,
+  .j-history-amount {
+    font-size: 13px;
+  }
+}

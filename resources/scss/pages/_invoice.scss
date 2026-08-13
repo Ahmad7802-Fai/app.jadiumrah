@@ -1,0 +1,17 @@
+.invoice-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: #fff;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,0,0,.05);
+}
+
+.invoice-card .badge {
+    font-size: 12px;
+}
+
+.invoice-card .actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}

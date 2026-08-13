@@ -1,0 +1,43 @@
+/* =====================================================
+   FOUNDATION (WAJIB PALING ATAS)
+===================================================== */
+@import "./cabang/variables";
+@import "mixins";
+
+/* =====================================================
+   BASE SYSTEM (CABANG)
+===================================================== */
+@import "./cabang/base";
+
+/* =====================================================
+   BOOTSTRAP (SATU SUMBER)
+===================================================== */
+@import "bootstrap/scss/bootstrap";
+
+/* =====================================================
+   LAYOUT CORE
+===================================================== */
+@import "./cabang/layout";
+@import "./cabang/header";
+@import "./cabang/sidebar";
+@import "./cabang/footer";
+@import "./cabang/bottom";   // ⚠️ pastikan nama file bottom.scss
+
+/* =====================================================
+   CORE COMPONENTS
+===================================================== */
+@import "./cabang/grid";
+@import "./cabang/card";
+@import "./cabang/button";
+@import "./cabang/badge";
+@import "./cabang/table";
+@import "./cabang/filter";
+@import "./cabang/modal";
+@import "./cabang/form";
+
+/* =====================================================
+   PAGE / FEATURE LEVEL
+===================================================== */
+@import "./cabang/dashboard";
+@import "./cabang/leads";
+@import "./cabang/breadcrumb";

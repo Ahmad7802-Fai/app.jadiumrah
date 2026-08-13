@@ -1,0 +1,53 @@
+/* =====================================================
+   FOOTER SYSTEM — FINAL
+   Ultra Compact • Desktop Only • Generic
+===================================================== */
+
+/* =====================================================
+   BASE FOOTER
+===================================================== */
+
+.footer {
+  margin-top: auto;
+  padding: $space-sm $space-md;
+
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+
+  color: $text-muted;
+  background: $gray-50;
+
+  border-top: 1px solid $border-color;
+}
+
+/* =====================================================
+   FOOTER INNER
+===================================================== */
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xs;
+
+  text-align: center;
+}
+
+/* =====================================================
+   SEPARATOR
+===================================================== */
+
+.footer-sep {
+  opacity: .4;
+}
+
+/* =====================================================
+   DESKTOP ONLY
+===================================================== */
+
+@include down($bp-md) {
+  .footer {
+    display: none;
+  }
+}

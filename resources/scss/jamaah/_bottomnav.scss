@@ -1,0 +1,82 @@
+/* =====================================================
+   BOTTOM NAVIGATION (JAMAAH)
+   ===================================================== */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+  z-index: 1000;
+}
+
+/* =====================================================
+   ITEM
+   ===================================================== */
+
+.bottom-nav__item {
+  flex: 1;
+  text-align: center;
+  color: #9ca3af; // abu soft
+  font-size: 11px;
+  line-height: 1.2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition: color 0.2s ease;
+}
+
+/* =====================================================
+   ICON
+   ===================================================== */
+
+.bottom-nav__icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+/* =====================================================
+   ACTIVE STATE
+   ===================================================== */
+
+.bottom-nav__item.active {
+  color: $primary;
+}
+
+.bottom-nav__item.active .bottom-nav__icon {
+  color: $primary;
+}
+
+/* =====================================================
+   TOUCH AREA (MOBILE FRIENDLY)
+   ===================================================== */
+
+.bottom-nav__item a {
+  width: 100%;
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================================
+   SAFE SPACE FOR CONTENT
+   ===================================================== */
+
+.has-bottom-nav {
+  padding-bottom: 64px; // tinggi nav + breathing room
+}

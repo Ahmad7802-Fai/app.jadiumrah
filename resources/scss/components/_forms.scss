@@ -1,0 +1,294 @@
+/* =====================================================
+   FORM WRAPPER
+===================================================== */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.form-hint {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.form-label,
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-secondary;
+}
+
+/* =====================================================
+   INPUT BASE
+===================================================== */
+
+.form-control,
+.form-select,
+.form-textarea,
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+
+  background: #fff;
+  color: $text-primary;
+
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+
+  transition: 
+    border-color $transition-fast,
+    box-shadow $transition-fast,
+    background-color $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba($primary, 0.15);
+  }
+
+  &:disabled,
+  &[readonly] {
+    background: $gray-100;
+    color: $text-muted;
+    cursor: not-allowed;
+  }
+}
+
+.form-textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+/* =====================================================
+   SIZE VARIANTS
+===================================================== */
+
+.input-xs {
+  padding: 5px 8px;
+  font-size: 11px;
+}
+
+.input-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.input-lg {
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+/* =====================================================
+   INPUT WITH ICON
+===================================================== */
+
+.input-group {
+  display: flex;
+  align-items: center;
+
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+
+  .input-icon {
+    padding: 0 10px;
+    font-size: 14px;
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+  }
+
+  input,
+  select {
+    border: none;
+    box-shadow: none;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  &:focus-within {
+    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba($primary, 0.15);
+  }
+}
+
+/* =====================================================
+   CHECKBOX & RADIO
+===================================================== */
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 12px;
+  color: $text-primary;
+
+  input {
+    width: 14px;
+    height: 14px;
+    accent-color: $primary;
+  }
+}
+
+/* =====================================================
+   HELP & ERROR TEXT
+===================================================== */
+
+.form-text {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.form-error {
+  font-size: 11px;
+  color: $danger;
+}
+
+/* =====================================================
+   VALIDATION STATES
+===================================================== */
+
+.is-invalid {
+  border-color: $danger !important;
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba($danger, 0.15);
+  }
+}
+
+.is-valid {
+  border-color: $success !important;
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba($success, 0.15);
+  }
+}
+
+/* =====================================================
+   FORM GRID
+===================================================== */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+
+  @include down($bp-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+
+  @include down($bp-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include down($bp-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+
+  @include down($bp-md) {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+/* =====================================================
+   READ ONLY / DISPLAY FIELD
+===================================================== */
+
+.form-static {
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-primary;
+}
+
+/* =====================================================
+   MOBILE OPTIMIZATION
+===================================================== */
+
+@include down($bp-md) {
+
+  .form {
+    gap: 12px;
+  }
+
+  .form-label,
+  label {
+    font-size: 11px;
+  }
+
+  .form-control,
+  .form-select,
+  .form-textarea,
+  .form-input {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+}
+.text-uppercase {
+  text-transform: uppercase;
+}

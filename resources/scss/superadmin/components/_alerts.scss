@@ -1,0 +1,16 @@
+.sa-alert {
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+
+    ul {
+        padding-left: 16px;
+        list-style: disc;
+    }
+}
+
+.sa-alert-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}

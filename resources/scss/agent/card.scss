@@ -1,0 +1,195 @@
+/* =====================================================
+   CARD SYSTEM — SAFE & FINAL
+   Legacy Sass Compatible
+===================================================== */
+
+/* =====================================================
+   BASE CARD
+===================================================== */
+
+.card {
+  position: relative;
+  background: $bg-card;
+
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+
+  padding: $space-md;
+
+  box-shadow:
+    $shadow-xs,
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    border-color $transition-fast;
+}
+
+/* Hover only on real pointer device */
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-1px);
+    border-color: $gray-300;
+
+    box-shadow:
+      $shadow-md,
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* =====================================================
+   CARD LAYOUT UTILITIES
+===================================================== */
+
+.card-stack {
+  @include stack(10px);
+}
+
+.card-row {
+  @include between(8px);
+}
+
+.card-actions {
+  margin-top: $space-xs;
+}
+
+/* =====================================================
+   CARD GRID
+===================================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-sm;
+}
+
+/* Tablet */
+@include up($bp-sm) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-md;
+  }
+}
+
+/* Desktop */
+@include up($bp-lg) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-lg;
+  }
+}
+
+/* =====================================================
+   CARD LIST
+===================================================== */
+
+.card-list {
+  @include stack(10px);
+}
+
+/* =====================================================
+   KPI / STAT CARD
+===================================================== */
+
+.card-stat {
+  @include stack(4px);
+}
+
+.card-stat.is-highlight {
+  background: linear-gradient(
+    135deg,
+    $primary,
+    darken($primary, 10%)
+  );
+
+  border: none;
+  box-shadow: $shadow-md;
+}
+
+.card-stat.is-highlight * {
+  color: $text-inverse;
+}
+
+/* =====================================================
+   KPI MOBILE SLIDER
+===================================================== */
+
+@include down($bp-sm) {
+  .card-grid-stat {
+    display: flex;
+    gap: $space-sm;
+
+    overflow-x: auto;
+    padding-bottom: $space-xs;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      flex: 0 0 75%;
+      scroll-snap-align: start;
+    }
+  }
+}
+
+/* =====================================================
+   REFERRAL CARD
+===================================================== */
+
+.card-referral {
+  @include stack(10px);
+}
+
+.card-referral-input {
+  @include inline(8px);
+}
+
+.card-referral-input input {
+  flex: 1;
+  height: 34px;
+  padding: 0 $space-xs;
+  width: 100%;
+
+  border-radius: $border-radius-sm;
+  border: 1px solid $border-color;
+  background: $gray-50;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =====================================================
+   REFERRAL — MOBILE
+===================================================== */
+
+@include down($bp-sm) {
+  .card-referral-input {
+    flex-direction: column;
+    align-items: stretch;
+
+    input {
+      height: 38px;
+    }
+  }
+}
+
+/* =====================================================
+   MOBILE COMPACT TUNING
+===================================================== */
+
+@include down($bp-xs) {
+  .card {
+    padding: $space-sm;
+    border-radius: $border-radius;
+  }
+
+  .card-grid {
+    gap: $space-sm;
+  }
+}

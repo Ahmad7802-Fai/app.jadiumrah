@@ -1,0 +1,233 @@
+/* =====================================================
+   APP ROOT
+===================================================== */
+
+.app {
+  min-height: 100vh;
+  background: $bg-body;
+  color: $text-primary;
+  display: flex;
+}
+
+/* =====================================================
+   SIDEBAR (DESKTOP)
+===================================================== */
+
+.app-sidebar {
+  width: 240px;
+  background: $bg-card;
+  border-right: 1px solid $border-color;
+
+  display: flex;
+  flex-direction: column;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 1020; // sidebar layer
+}
+
+.sidebar-header {
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: $primary;
+  border-bottom: 1px solid $border-color;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-link {
+  padding: 8px 12px;
+  border-radius: $border-radius;
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-secondary;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background: $bg-soft;
+    color: $text-primary;
+  }
+
+  &.active {
+    background: rgba(66, 86, 120, 0.12);
+    color: $primary;
+  }
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden; // ✅ KUNCI LAYOUT
+}
+
+.app-content {
+  flex: 1;
+  padding: 16px;
+  min-width: 0;
+  overflow-x: hidden; // ✅ PENTING
+  overflow-y: visible; // dropdown masih aman
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.app-footer {
+  padding: 10px 16px;
+  font-size: 11px;
+  color: $text-muted;
+  border-top: 1px solid $border-color;
+  background: $bg-card;
+}
+
+/* =====================================================
+   MOBILE LAYOUT
+===================================================== */
+
+@include down($bp-md) {
+
+  .app {
+    flex-direction: column;
+  }
+
+  /* SIDEBAR → DRAWER */
+  .app-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    transform: translateX(-100%);
+    transition: transform $transition-base;
+
+    width: 240px;
+    z-index: 1020;
+  }
+
+  .app.is-sidebar-open .app-sidebar {
+    transform: translateX(0);
+  }
+
+  /* HEADER MOBILE */
+  .app-header {
+    height: 52px;
+    padding: 0 12px;
+  }
+
+  /* CONTENT */
+  .app-content {
+    padding: 12px;
+    padding-bottom: 72px;
+  }
+
+  /* FOOTER HIDDEN */
+  .app-footer {
+    display: none;
+  }
+}
+
+/* =====================================================
+   OVERLAY (SIDEBAR MOBILE)
+===================================================== */
+
+.app-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 1040;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $transition-fast;
+}
+
+.app.is-sidebar-open .app-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =====================================================
+   PAGE HEADER (CONTENT LEVEL)
+===================================================== */
+
+.page-header {
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.page-actions {
+  display: flex;
+  gap: 6px;
+}
+
+@include down($bp-md) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-actions {
+    width: 100%;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+/* =====================================================
+   CONTAINER WIDTH
+===================================================== */
+
+.container-narrow {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.container-wide {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* =====================================================
+   DROPDOWN FIX (GLOBAL)
+===================================================== */
+
+.user-menu {
+  position: relative;
+  overflow: visible;
+
+  .dropdown-menu {
+    z-index: 1100 !important;
+  }
+}
+.container-fluid {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}

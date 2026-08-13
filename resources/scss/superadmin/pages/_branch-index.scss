@@ -1,0 +1,24 @@
+// resources/scss/superadmin/pages/_branch-index.scss
+
+.branch-index {
+
+    .table {
+        font-size: 13px;
+    }
+
+    .badge {
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-weight: 600;
+    }
+
+    .toggle-branch {
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .table {
+            font-size: 12px;
+        }
+    }
+}

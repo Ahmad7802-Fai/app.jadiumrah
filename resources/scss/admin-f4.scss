@@ -1,0 +1,373 @@
+@import "bootstrap/scss/bootstrap";
+
+// ======================================
+// VARIABLES
+// ======================================
+$brand-green: #0d6b45;
+$brand-green-dark: #0a5738;
+$bg-body: #f4f6f9;
+$sidebar-width: 260px;
+$sidebar-compact: 75px;
+
+:root {
+  --brand-green: #{$brand-green};
+  --brand-green-dark: #{$brand-green-dark};
+  --bg-body: #{$bg-body};
+  --sidebar-width: #{$sidebar-width}px;
+  --sidebar-compact: #{$sidebar-compact}px;
+}
+
+// ======================================
+// BASE LAYOUT
+// ======================================
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg-body);
+  color: #0f172a;
+  margin: 0;
+}
+
+// ======================================
+// TOP NAVBAR — FINAL (Stable + Mobile-first)
+// ======================================
+.top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: .5rem 1rem;
+  background: #fff;
+  border-bottom: 1px solid #e8eaed;
+  height: 64px;
+
+  // Desktop alignment follow compact sidebar
+  margin-left: var(--sidebar-compact);
+  width: calc(100% - var(--sidebar-compact));
+
+  transition: margin-left .22s ease, width .22s ease;
+}
+
+// Geser saat sidebar di-hover
+#sidebar:hover ~ .top-navbar,
+#sidebar.expanded ~ .top-navbar {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+}
+
+// Mobile full-width
+@media(max-width: 991px) {
+  .top-navbar {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+// ======================================
+// SIDEBAR — COMPACT → EXPAND
+// ======================================
+#sidebar {
+  width: var(--sidebar-compact);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+
+  background: #fff;
+  border-right: 1px solid #e8eaed;
+
+  overflow-y: auto;
+  transition: width .22s ease;
+  z-index: 60 !important;
+}
+
+#sidebar:hover {
+  width: var(--sidebar-width);
+}
+
+// Sidebar text fade-in on expand
+.sidebar-text {
+  opacity: 0;
+  transition: opacity .18s ease;
+  pointer-events: none;
+}
+
+#sidebar:hover .sidebar-text {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+// ======================================
+// MAIN CONTENT
+// ======================================
+#main-content {
+  margin-left: var(--sidebar-compact);
+  padding: 1.25rem;
+  transition: margin-left .22s ease;
+  min-height: calc(100vh - 64px - 48px);
+}
+
+#sidebar:hover ~ #main-content,
+#sidebar.expanded ~ #main-content {
+  margin-left: var(--sidebar-width);
+}
+
+@media(max-width: 991px) {
+  #main-content {
+    margin-left: 0 !important;
+  }
+}
+
+// ======================================
+// BUTTONS
+// ======================================
+.btn-ju {
+  background: $brand-green !important;
+  color: #fff !important;
+  border-radius: 50px !important;
+  padding: 10px 20px !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border: none !important;
+}
+
+.btn-ju:hover {
+  background: $brand-green-dark !important;
+}
+
+.btn-ju-outline {
+  background: transparent !important;
+  border: 2px solid $brand-green !important;
+  color: $brand-green !important;
+  border-radius: 50px !important;
+}
+
+.btn-ju-outline:hover {
+  background: $brand-green !important;
+  color: #fff !important;
+}
+
+// ======================================
+// FAB BUTTON
+// ======================================
+.fab-ju {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+
+  width: 62px;
+  height: 62px;
+
+  background: $brand-green;
+  color: #fff;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 8px 20px rgba(10, 104, 71, .12);
+  z-index: 9999 !important;
+}
+
+// ======================================
+// CARDS
+// ======================================
+.content-card,
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 6px 20px rgba(2, 6, 23, .04);
+  overflow: visible !important; // important for select2
+}
+
+// ======================================
+// SELECT2 — FINAL FIX (Typing OK + Not clipped)
+// ======================================
+.select2-container {
+  width: 100% !important;
+  z-index: 999999 !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+
+  border-radius: 50px !important;
+  padding-left: 14px !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.select2-selection__arrow {
+  height: 48px !important;
+  right: 14px !important;
+}
+
+.select2-selection__rendered {
+  line-height: 48px !important;
+  font-size: 14px !important;
+}
+
+.select2-dropdown {
+  z-index: 999999 !important;
+}
+
+.select2-search__field {
+  height: 38px !important;
+  padding: 6px 10px !important;
+  z-index: 999999 !important;
+}
+
+// ======================================
+// DARK MODE
+// ======================================
+body.dark {
+  background: #0b1220;
+  color: #dbeafe;
+}
+
+body.dark .top-navbar,
+body.dark #sidebar,
+body.dark .card {
+  background: #0f1724;
+  color: #dbeafe;
+  border-color: rgba(255, 255, 255, .04);
+}
+
+body.dark .btn-ju {
+  background: $brand-green-dark !important;
+}
+/* ============================================================
+   F7 PREMIUM — INVOICE SHOW PAGE
+============================================================ */
+
+/* Mobile Cards */
+.m-card {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(2,6,23,0.06);
+    margin-bottom: 18px;
+}
+
+.m-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--brand-green);
+}
+
+.m-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 2px;
+}
+
+.m-value {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* History & Logs (Mobile) */
+.history-item {
+    padding: 12px;
+    border-radius: 12px;
+    background: #f8fafc;
+    margin-bottom: 10px;
+}
+
+.log-item {
+    background: #eef5f3;
+    border-left: 4px solid var(--brand-green);
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+/* Header layout */
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+@media(max-width: 768px) {
+    .invoice-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+}
+
+/* Mobile stacked actions */
+.mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+// ======================================
+// TYPOGRAPHY — PREMIUM ADMIN (FINAL)
+// ======================================
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;            // tegas tapi tidak kasar
+  color: #0f172a;              // slate-900 (lebih soft dari hitam)
+  letter-spacing: -0.01em;     // subtle premium tracking
+}
+
+/* Heading scale (compact & clean) */
+h1 { font-size: 1.125rem; line-height: 1.4; }   // 18px
+h2 { font-size: 1rem;     line-height: 1.4; }   // 16px
+h3 { font-size: 0.9375rem;line-height: 1.4; }   // 15px
+h4 { font-size: 0.875rem; line-height: 1.4; }   // 14px
+h5 { font-size: 0.8125rem;line-height: 1.4; }   // 13px
+h6 { font-size: 0.75rem;  line-height: 1.4; }   // 12px
+
+p, span, small {
+  font-weight: 400;
+  color: #374151;              // gray-700 (admin friendly)
+}
+
+/* Muted / helper text */
+.text-muted {
+  color: #6b7280;              // gray-500
+}
+
+/* Strong number / currency / total */
+.text-strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Monospace data (PNR, Invoice, Ref) */
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.02em;
+}
+// ======================================
+// PAGE HEADER — COMPACT PREMIUM
+// ======================================
+.page-title {
+  font-size: 1.125rem !important;   // 18px
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 0.75rem;               // 12px
+  color: #6b7280;
+  margin-top: 2px;
+}

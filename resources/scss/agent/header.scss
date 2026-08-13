@@ -1,0 +1,186 @@
+/* =====================================================
+   HEADER — FINAL SIMPLE & STABLE
+   Avatar + Logout Only
+   No JS • No Dropdown • No State
+===================================================== */
+
+/* =====================================================
+   BASE HEADER
+===================================================== */
+
+.header {
+  height: $header-height;
+  min-height: $header-height;
+
+  padding: 0 $space-md;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: $primary;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+}
+
+/* =====================================================
+   LEFT — BRAND
+===================================================== */
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  text-decoration: none;
+  color: $text-inverse;
+}
+
+.header-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-title {
+  font-size: $font-sm;
+  font-weight: 600;
+  color: $text-inverse;
+}
+
+.brand-tagline {
+  font-size: $font-xs;
+  color: rgba(255,255,255,.75);
+}
+
+/* =====================================================
+   RIGHT — HEADER ACTIONS
+===================================================== */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+/* =====================================================
+   USER AVATAR
+===================================================== */
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.28),
+    rgba(255,255,255,.16)
+  );
+
+  color: $text-inverse;
+  font-size: $font-sm;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,.35);
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+
+  user-select: none;
+}
+
+/* =====================================================
+   LOGOUT BUTTON (ICON)
+===================================================== */
+
+.logout-btn {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.35);
+
+  background: rgba(255,255,255,.14);
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition:
+    background .15s ease,
+    transform .1s ease,
+    box-shadow .15s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255,255,255,.24);
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+
+.logout-btn:active {
+  transform: scale(.95);
+}
+
+.logout-btn i {
+  font-size: 14px;
+}
+
+/* =====================================================
+   MOBILE TUNING
+===================================================== */
+
+@include down($bp-sm) {
+
+  .header {
+    padding: 0 $space-sm;
+  }
+
+  .header-logo {
+    height: 32px;
+  }
+
+  .brand-title {
+    font-size: $font-xs;
+  }
+
+  .brand-tagline {
+    font-size: $font-xxs;
+  }
+
+  .user-avatar,
+  .logout-btn {
+    width: 34px;
+    height: 34px;
+    font-size: $font-xs;
+  }
+}
+.logout-btn i {
+  position: relative;
+  top: 0.5px; // sesuaikan 0.5 / -0.5 kalau mau super presisi
+}
+.header-right form {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}

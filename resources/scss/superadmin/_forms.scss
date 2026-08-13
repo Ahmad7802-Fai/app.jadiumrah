@@ -1,0 +1,28 @@
+.sa-form input,
+.sa-form select,
+.sa-form textarea {
+  width: 100%;
+  padding: $space-3 $space-4;
+  font-size: $text-sm;
+  border-radius: $radius-sm;
+  border: 1px solid #e5e7eb;
+}
+
+@media (max-width: 640px) {
+  .sa-form input,
+  .sa-form select {
+    padding: $space-4;
+    font-size: $text-base;
+  }
+}
+.sa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-5;
+
+  h1 {
+    font-size: $text-lg;
+    font-weight: 600;
+  }
+}

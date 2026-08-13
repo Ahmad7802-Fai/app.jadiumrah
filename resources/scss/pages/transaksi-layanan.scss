@@ -1,0 +1,117 @@
+/* ============================================================
+   TRANSAKSI LAYANAN — F7 PREMIUM
+   ============================================================ */
+
+:root {
+  --ju-green: #0d6b45;
+  --ju-green-dark: #0a5738;
+  --ju-light: #e6f5ef;
+}
+
+.transaksi-header-title {
+  color: var(--ju-green-dark);
+  font-weight: 700;
+}
+
+.ju-thead {
+  background: #165E55 !important;
+  color: #ffffff !important;
+
+  th {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+  }
+}
+
+/* BUTTONS */
+.btn-ju {
+  background-color: var(--ju-green);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 600;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-ju:hover { background: var(--ju-green-dark); }
+
+.btn-ju-outline {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.2);
+  color: var(--ju-green-dark);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-ju-outline:hover {
+  background: var(--ju-light);
+}
+
+/* MOBILE FAB */
+.fab-add {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  width: 52px;
+  height: 52px;
+  background: var(--ju-green);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(10,80,50,0.12);
+  font-size: 20px;
+  text-decoration: none;
+  z-index: 1200;
+}
+
+/* Desktop compact table */
+@media (min-width: 992px) {
+  .table td, .table th {
+    padding-top: .45rem !important;
+    padding-bottom: .45rem !important;
+    white-space: nowrap;
+  }
+  .btn-sm {
+    padding: 2px 6px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* WRAPPER UTAMA */
+.trx-wrapper {
+    width: 100%;
+    max-width: 1100px;          // batas agar tidak terlalu melebar di desktop
+    margin: 0 auto;
+    padding: 24px 18px;
+}
+
+/* CARD */
+.trx-card {
+    background:white;
+    border-radius:14px;
+    padding:18px 20px;
+    margin-bottom:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+/* TABLE */
+.table-responsive { overflow-x:auto; }
+
+/* Agar input dalam tabel tidak terlalu besar */
+#itemsTable input,
+#itemsTable select {
+    height:36px;
+}
+
+/* Total */
+.total-row {
+    display:flex;
+    justify-content:end;
+    font-size:1.1rem;
+    margin-top:10px;
+}

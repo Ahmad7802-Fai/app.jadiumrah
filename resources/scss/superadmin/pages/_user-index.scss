@@ -1,0 +1,39 @@
+.sa-user-index {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* MOBILE CARD */
+.sa-user-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sa-user-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sa-user-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sa-actions {
+    display: flex;
+    gap: 10px;
+
+    .sa-btn {
+        flex: 1;
+    }
+}
+
+/* DESKTOP ROW */
+.sa-user-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

@@ -1,0 +1,78 @@
+/* =====================================================
+   CABANG — FILTER
+   Ultra Compact · Mobile First · Consistent
+===================================================== */
+
+.c-filter {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: end;
+}
+
+/* ===============================
+   FILTER GROUP
+=============================== */
+.c-filter__group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* LABEL */
+.c-filter__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: $text-muted;
+}
+
+/* INPUT & SELECT */
+.c-filter__input {
+  height: 32px;
+  padding: 0 10px;
+
+  font-size: 12px;
+  line-height: 1;
+
+  border-radius: $radius-sm;
+  border: 1px solid $border;
+
+  background: $bg-card;
+  color: $text;
+
+  transition: border .12s ease, box-shadow .12s ease;
+}
+
+.c-filter__input:focus {
+  outline: none;
+  border-color: $primary;
+  box-shadow: 0 0 0 2px rgba($primary, .12);
+}
+
+/* ===============================
+   ACTION
+=============================== */
+.c-filter__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.c-filter__actions .c-btn {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 12px;
+}
+
+/* ===============================
+   MOBILE MODE
+=============================== */
+@media (max-width: 768px) {
+  .c-filter {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .c-filter__actions {
+    justify-content: flex-end;
+  }
+}

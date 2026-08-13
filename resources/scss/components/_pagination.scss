@@ -1,0 +1,159 @@
+/* =====================================================
+   PAGINATION WRAPPER
+===================================================== */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+/* =====================================================
+   PAGINATION INFO
+===================================================== */
+
+.pagination-info {
+  margin-right: auto;
+  font-size: 11px;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   PAGINATION LIST
+===================================================== */
+
+.pagination-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* =====================================================
+   PAGE ITEM
+===================================================== */
+
+.page-item {
+  display: inline-flex;
+}
+
+.page-link {
+  min-width: 30px;
+  height: 30px;
+
+  padding: 0 8px;
+  border-radius: $border-radius-sm;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: $text-secondary;
+  background: $bg-card;
+  border: 1px solid $border-color;
+
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background: $bg-soft;
+    color: $text-primary;
+  }
+}
+
+/* =====================================================
+   ACTIVE & DISABLED
+===================================================== */
+
+.page-item.active .page-link {
+  background: rgba(66, 86, 120, 0.12);
+  border-color: rgba(66, 86, 120, 0.3);
+  color: $primary;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* =====================================================
+   ICON BUTTON (PREV / NEXT)
+===================================================== */
+
+.page-link-icon {
+  font-size: 14px;
+}
+
+/* =====================================================
+   SIZE VARIANTS
+===================================================== */
+
+.pagination-sm {
+  .page-link {
+    min-width: 26px;
+    height: 26px;
+    font-size: 11px;
+  }
+}
+
+.pagination-lg {
+  .page-link {
+    min-width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+}
+
+/* =====================================================
+   MOBILE FIRST BEHAVIOR
+===================================================== */
+
+@include down($bp-md) {
+
+  .pagination {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pagination-info {
+    display: none;
+  }
+
+  .page-link {
+    min-width: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  /* HIDE NUMBERED PAGES (OPTIONAL) */
+  .pagination-simple {
+
+    .page-item-number {
+      display: none;
+    }
+  }
+}
+
+/* =====================================================
+   SIMPLE MODE (MOBILE OPTIMIZED)
+===================================================== */
+
+.pagination-simple {
+  .pagination-list {
+    gap: 8px;
+  }
+
+  .page-link {
+    min-width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+}

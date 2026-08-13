@@ -1,0 +1,184 @@
+/* =====================================================
+   FAB WRAPPER
+===================================================== */
+
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: $z-fixed;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================================
+   FAB BUTTON
+===================================================== */
+
+.fab-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: $primary;
+  color: #fff;
+  box-shadow: $shadow-md;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: transform $transition-fast, box-shadow $transition-fast, background $transition-fast;
+
+  &:hover {
+    background: darken($primary, 6%);
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+/* =====================================================
+   FAB LABEL (OPTIONAL)
+===================================================== */
+
+.fab-label {
+  margin-right: 8px;
+  padding: 6px 10px;
+
+  background: $primary;
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: $border-radius;
+
+  box-shadow: $shadow-sm;
+}
+
+/* =====================================================
+   FAB VARIANTS
+===================================================== */
+
+.fab-secondary {
+  background: $gray-700;
+}
+
+.fab-success {
+  background: $success;
+}
+
+.fab-danger {
+  background: $danger;
+}
+
+/* =====================================================
+   MINI FAB
+===================================================== */
+
+.fab-sm {
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+}
+
+/* =====================================================
+   FAB MENU (MULTI ACTION)
+===================================================== */
+
+.fab-menu {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: $transition-base;
+}
+
+.fab.is-open .fab-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.fab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fab-item-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: $bg-card;
+  color: $primary;
+
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-color;
+
+  font-size: 18px;
+
+  &:hover {
+    background: $bg-soft;
+  }
+}
+
+.fab-item-label {
+  padding: 6px 10px;
+  background: $bg-card;
+  color: $text-primary;
+
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: $border-radius;
+
+  box-shadow: $shadow-sm;
+}
+
+/* =====================================================
+   DESKTOP BEHAVIOR
+===================================================== */
+
+@include up($bp-md) {
+
+  .fab {
+    right: 24px;
+    bottom: 24px;
+  }
+
+  /* Optional: hide FAB on desktop if needed */
+  .fab-desktop-hidden {
+    display: none;
+  }
+}
+
+/* =====================================================
+   MOBILE SAFE AREA (iOS)
+===================================================== */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .fab {
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+}

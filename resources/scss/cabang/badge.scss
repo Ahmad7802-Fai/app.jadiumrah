@@ -1,0 +1,84 @@
+/* =====================================================
+   CABANG — BADGE (ULTRA COMPACT · MOBILE FIRST)
+===================================================== */
+
+/* ===============================
+   BASE
+=============================== */
+.c-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+
+  border-radius: 999px;
+  background: $bg-soft;
+  color: $text;
+
+  white-space: nowrap;
+}
+
+/* ===============================
+   VARIANTS (STATUS)
+=============================== */
+
+.c-badge.primary {
+  background: $primary-soft;
+  color: $primary;
+}
+
+.c-badge.success {
+  background: $success-soft;
+  color: $success;
+}
+
+.c-badge.warning {
+  background: $warning-soft;
+  color: $warning;
+}
+
+.c-badge.danger {
+  background: $danger-soft;
+  color: $danger;
+}
+
+.c-badge.info {
+  background: $info-soft;
+  color: $info;
+}
+
+/* ===============================
+   SIZE VARIANTS
+=============================== */
+
+.c-badge.sm {
+  font-size: 10px;
+  padding: 2px 6px;
+}
+
+.c-badge.lg {
+  font-size: 12px;
+  padding: 3px 10px;
+}
+
+/* ===============================
+   MOBILE OVERRIDES
+=============================== */
+
+@media (max-width: 768px) {
+
+  .c-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    gap: 3px;
+  }
+
+  .c-badge.lg {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+}

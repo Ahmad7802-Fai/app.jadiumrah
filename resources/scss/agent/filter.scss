@@ -1,0 +1,110 @@
+/* =====================================================
+   FILTER SYSTEM — FINAL & SAFE
+   Generic • Compact • Sync Variables & Mixins
+===================================================== */
+
+/* =====================================================
+   FILTER CARD (WRAPPER)
+===================================================== */
+
+.filter-card {
+  padding: $space-sm;
+}
+
+@include down($bp-sm) {
+  .filter-card {
+    padding: $space-xs;
+  }
+}
+
+/* =====================================================
+   FILTER FORM
+===================================================== */
+
+.filter-form {
+  display: flex;
+  align-items: flex-end;
+  gap: $space-xs;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   FILTER GROUP
+===================================================== */
+
+.filter-group {
+  display: flex;
+  gap: $space-xs;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+/* =====================================================
+   INPUT & SELECT
+===================================================== */
+
+.filter-input,
+.filter-select {
+  height: 32px;
+  padding: 0 $space-xs;
+
+  font-size: $font-sm;
+  line-height: 1;
+
+  border-radius: $border-radius-sm;
+  border: 1px solid $border-color;
+  background: $bg-card;
+
+  color: $text-primary;
+  min-width: 160px;
+
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast;
+}
+
+.filter-input::placeholder {
+  color: $text-muted;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  outline: none;
+  border-color: $primary;
+  box-shadow: 0 0 0 2px rgba($primary, 0.15);
+}
+
+/* =====================================================
+   FILTER ACTIONS
+===================================================== */
+
+.filter-actions {
+  @include inline($space-xxs);
+}
+
+/* =====================================================
+   MOBILE OPTIMIZATION
+===================================================== */
+
+@include down($bp-sm) {
+
+  .filter-form {
+    @include stack($space-xs);
+    align-items: stretch;
+  }
+
+  .filter-group {
+    @include stack($space-xs);
+  }
+
+  .filter-input,
+  .filter-select {
+    width: 100%;
+    height: 36px;
+    font-size: $font-sm;
+  }
+
+  .filter-actions {
+    justify-content: flex-end;
+  }
+}

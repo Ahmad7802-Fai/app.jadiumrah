@@ -1,0 +1,102 @@
+/* =====================================================
+   LEAD CARD — TYPOGRAPHY SYSTEM
+===================================================== */
+
+.lead-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===============================
+   HEADER
+=============================== */
+
+.lead-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lead-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+}
+
+/* ===============================
+   META
+=============================== */
+
+.lead-card-meta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ===============================
+   ALERT
+=============================== */
+
+.lead-card-alert {
+  font-size: 12px;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+/* ===============================
+   ACTION
+=============================== */
+
+.lead-card-action {
+  margin-top: 6px;
+}
+
+/* =====================================================
+   DESKTOP TUNING
+===================================================== */
+
+@media (min-width: 992px) {
+  .lead-card {
+    padding: 18px;
+  }
+
+  .lead-card-name {
+    font-size: 15px;
+  }
+
+  .lead-card-meta {
+    font-size: 13px;
+  }
+}
+
+/* =====================================================
+   MOBILE ULTRA COMPACT
+===================================================== */
+
+@media (max-width: 480px) {
+  .lead-card {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .lead-card-name {
+    font-size: 13.5px;
+  }
+
+  .lead-card-meta {
+    font-size: 11.5px;
+  }
+
+  .lead-card-alert {
+    font-size: 11.5px;
+  }
+
+  .lead-card-action .btn {
+    height: 40px;
+    font-size: 13px;
+    border-radius: 12px;
+  }
+}

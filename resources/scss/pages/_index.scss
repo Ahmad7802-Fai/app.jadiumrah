@@ -1,0 +1,104 @@
+/* ============================================================
+   UNIVERSAL INDEX PAGE STYLING — PREMIUM CLEAN DASHBOARD
+   Untuk semua halaman index agar seragam
+============================================================ */
+
+.page-index {
+    max-width: 1200px;
+    margin: auto;
+    padding-bottom: 50px;
+}
+
+/* ============================================================
+   HEADER TOP (Title + Subtitle + Button)
+============================================================ */
+.index-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+
+    h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    .subtitle {
+        color: #7d8896;
+        font-size: 14px;
+    }
+}
+
+/* ============================================================
+   SEARCH BAR GROUP
+============================================================ */
+.search-bar-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+
+    input, select {
+        border-radius: 10px;
+        height: 45px;
+        font-size: 15px;
+    }
+
+    button {
+        height: 45px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+}
+
+/* ============================================================
+   CARD WRAPPER TABLE
+============================================================ */
+.table-wrapper {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+.table-premium {
+    width: 100%;
+    font-size: 15px;
+
+    thead {
+        background: #F9FBFA;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+
+        th {
+            padding: 14px;
+        }
+    }
+
+    tbody tr td {
+        padding: 14px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    .page-index { padding: 10px; }
+
+    .index-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-bar-group {
+        flex-direction: column;
+    }
+}

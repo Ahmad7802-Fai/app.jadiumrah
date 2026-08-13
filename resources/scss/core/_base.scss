@@ -1,0 +1,16 @@
+html {
+  font-size: 14px; /* desktop ultra compact */
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 15px; /* mobile lebih lega */
+  }
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  line-height: 1.45;
+  color: #111827;
+  background: #f9fafb;
+}

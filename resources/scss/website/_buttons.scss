@@ -1,0 +1,24 @@
+/* ===============================
+   BUTTONS
+=============================== */
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $color-primary;
+    color: white;
+
+    padding: 14px 28px;
+    border-radius: $radius-md;
+    font-weight: 600;
+    font-size: 15px;
+
+    transition: all .2s ease;
+
+    &:hover {
+        background: $color-primary-dark;
+        transform: translateY(-1px);
+    }
+}

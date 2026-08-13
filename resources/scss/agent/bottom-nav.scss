@@ -1,0 +1,119 @@
+/* =====================================================
+   BOTTOM NAV — FINAL LOCKED
+   Ultra Compact • Mobile Only • Generic
+   SAFE • NO DUPLICATION • NO SIDE EFFECT
+===================================================== */
+
+/* =====================================================
+   BASE BOTTOM NAV (DESKTOP = HIDDEN)
+===================================================== */
+
+.bottom-nav {
+  display: none; /* ⛔ desktop hidden */
+
+  position: fixed;
+  inset: auto 0 0 0;
+
+  height: $bottom-nav-height;
+  padding-bottom: env(safe-area-inset-bottom);
+
+  background: $bg-card;
+  border-top: 1px solid $border-color;
+
+  z-index: $z-fixed;
+
+  align-items: center;
+  justify-content: space-around;
+
+  transition:
+    transform $transition-base,
+    opacity $transition-base;
+}
+
+/* =====================================================
+   MOBILE ONLY
+===================================================== */
+
+@include down($bp-md) {
+  .bottom-nav {
+    display: flex;
+  }
+
+  /* prevent content covered by bottom nav */
+  body[data-app] {
+    padding-bottom: calc(#{$bottom-nav-height} + env(safe-area-inset-bottom));
+  }
+}
+
+/* =====================================================
+   AUTO HIDE (KEYBOARD / INPUT FOCUS)
+===================================================== */
+
+body.hide-bottom-nav {
+  .bottom-nav {
+    display: none !important;
+  }
+
+  .page-content {
+    padding-bottom: $space-md !important;
+  }
+}
+
+/* =====================================================
+   NAV ITEM
+===================================================== */
+
+.bottom-nav a {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  text-decoration: none;
+  text-align: center;
+
+  font-size: $font-xs;
+  font-weight: 500;
+  line-height: 1;
+
+  color: $text-muted;
+
+  transition:
+    color $transition-fast,
+    transform $transition-fast,
+    opacity $transition-fast;
+}
+
+/* ICON */
+.bottom-nav a i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* TAP FEEDBACK */
+.bottom-nav a:active {
+  transform: translateY(1px);
+  opacity: .85;
+}
+
+/* =====================================================
+   ACTIVE STATE
+===================================================== */
+
+.bottom-nav a.is-active {
+  color: $primary;
+}
+
+/* DOT INDICATOR */
+.bottom-nav a.is-active::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  margin-top: 2px;
+
+  background: $primary;
+  border-radius: 999px;
+}

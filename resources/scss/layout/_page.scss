@@ -1,0 +1,18 @@
+.page-content {
+    flex: 1;
+    padding: 22px;
+    overflow-y: auto;
+    background: var(--bg-body);
+}
+.page-shell {
+    width: 100%;
+    max-width: none;      /* ⬅️ WAJIB */
+    margin: 0;            /* ⬅️ HAPUS CENTERING */
+    padding: 22px;
+}
+
+.page-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 16px;
+}

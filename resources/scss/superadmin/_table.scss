@@ -1,0 +1,45 @@
+.sa-table {
+  width: 100%;
+  font-size: 13px;
+
+  th {
+    padding: 10px 12px;
+    text-align: left;
+    color: #6b7280;
+    font-weight: 600;
+    background: #f9fafb;
+  }
+
+  td {
+    padding: 8px 12px;
+    vertical-align: middle;
+  }
+
+  tr:hover {
+    background: #f9fafb;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    th, td {
+      padding: 12px;
+    }
+  }
+}
+.sa-action {
+    display: inline-flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}

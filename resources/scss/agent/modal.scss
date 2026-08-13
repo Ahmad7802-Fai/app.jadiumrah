@@ -1,0 +1,116 @@
+/* =====================================================
+   MODAL SYSTEM — FINAL PRODUCTION
+   Simple • Predictable • Click Safe
+===================================================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+
+  z-index: 10000;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 24px;
+}
+
+.modal.is-hidden {
+  display: none;
+}
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* =====================================================
+   MODAL BOX
+===================================================== */
+
+.modal-box {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  max-width: 420px;
+  margin-top: 8vh;
+
+  background: $bg-card;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.modal-header {
+  padding: $space-sm $space-md;
+
+  display: flex;
+  justify-content: space-between;
+  gap: $space-sm;
+
+  border-bottom: 1px solid $border-color;
+
+  h3 {
+    margin: 0;
+    font-size: $font-lg;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 2px 0 0;
+    font-size: $font-xs;
+    color: $text-muted;
+  }
+}
+
+.modal-close {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  font-size: 18px;
+  color: $text-muted;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+.modal-body {
+  padding: $space-sm $space-md;
+  font-size: $font-sm;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.modal-footer {
+  padding: $space-sm $space-md;
+
+  display: flex;
+  gap: $space-xs;
+
+  border-top: 1px solid $border-color;
+
+  .btn {
+    flex: 1;
+  }
+}

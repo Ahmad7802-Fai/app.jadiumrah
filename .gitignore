@@ -1,0 +1,61 @@
+# ===============================
+# Laravel Core
+# ===============================
+/vendor
+/node_modules
+/public/build
+/public/hot
+
+# ===============================
+# Storage & Cache
+# ===============================
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# ===============================
+# Environment (WAJIB PRIVATE)
+# ===============================
+.env
+.env.*
+!.env.example
+
+# ===============================
+# Testing
+# ===============================
+.phpunit.cache
+.phpunit.result.cache
+
+# ===============================
+# Logs
+# ===============================
+npm-debug.log
+yarn-error.log
+
+# ===============================
+# IDE & Editor
+# ===============================
+/.vscode
+/.idea
+/.fleet
+
+# ===============================
+# OS Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Misc
+# ===============================
+auth.json
+Homestead.json
+Homestead.yaml
+
+/public/storage
+
+/public/uploads/
+
+/dump.sql

@@ -1,0 +1,129 @@
+/* =====================================================
+   CABANG — MODAL
+   Ultra Compact · Mobile First · Native
+===================================================== */
+
+/* ===============================
+   OVERLAY
+=============================== */
+.c-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(17, 24, 39, .55);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: $z-modal;
+}
+
+.c-modal.is-open {
+  display: flex;
+}
+
+/* ===============================
+   MODAL BOX
+=============================== */
+.c-modal__box {
+  width: 100%;
+  max-width: 420px;
+
+  background: $bg-card;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  box-shadow: $shadow-md;
+}
+
+/* ===============================
+   HEADER
+=============================== */
+.c-modal__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 14px;
+  border-bottom: 1px solid $border;
+}
+
+.c-modal__title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  color: $text;
+}
+
+/* CLOSE BUTTON */
+.c-modal__close {
+  margin-left: auto;
+
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-sm;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  color: $text-muted;
+  transition: background .12s ease, color .12s ease;
+}
+
+.c-modal__close:hover {
+  background: $bg-soft;
+  color: $text;
+}
+
+/* ===============================
+   BODY
+=============================== */
+.c-modal__body {
+  padding: 14px;
+  font-size: 13px;
+  color: $text;
+}
+
+/* ===============================
+   FOOTER
+=============================== */
+.c-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  padding: 12px 14px;
+  border-top: 1px solid $border;
+}
+
+/* ===============================
+   SIZE VARIANTS
+=============================== */
+.c-modal.sm .c-modal__box {
+  max-width: 360px;
+}
+
+.c-modal.lg .c-modal__box {
+  max-width: 520px;
+}
+
+/* =====================================================
+   MOBILE MODE
+===================================================== */
+@media (max-width: 768px) {
+
+  .c-modal__box {
+    max-width: 92%;
+    border-radius: $radius-md;
+  }
+
+  .c-modal__body {
+    font-size: 12.5px;
+  }
+}

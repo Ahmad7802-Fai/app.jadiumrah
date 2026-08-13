@@ -1,0 +1,85 @@
+/* =========================================
+   SUPERADMIN – PREMIUM BADGES
+========================================= */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 999px;
+
+    letter-spacing: .2px;
+    white-space: nowrap;
+}
+
+/* ===============================
+   STATUS BADGES
+=============================== */
+
+.badge-active {
+    background: rgba(16, 185, 129, 0.12);
+    color: #047857;
+}
+
+.badge-inactive {
+    background: rgba(107, 114, 128, 0.12);
+    color: #374151;
+}
+
+.badge-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #92400e;
+}
+
+.badge-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #991b1b;
+}
+
+/* ===============================
+   ROLE BADGES
+=============================== */
+
+.badge-superadmin {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: #ffffff;
+}
+
+.badge-operator {
+    background: rgba(79, 70, 229, 0.12);
+    color: #3730a3;
+}
+
+.badge-admin {
+    background: rgba(59, 130, 246, 0.12);
+    color: #1e3a8a;
+}
+
+.badge-sales {
+    background: rgba(16, 185, 129, 0.10);
+    color: #065f46;
+}
+
+/* ===============================
+   SOFT / MUTED
+=============================== */
+
+.badge-soft {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+/* ===============================
+   ICON SUPPORT
+=============================== */
+
+.badge i,
+.badge svg {
+    font-size: 12px;
+    opacity: 0.9;
+}

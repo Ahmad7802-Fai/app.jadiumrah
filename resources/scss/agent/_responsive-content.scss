@@ -1,0 +1,26 @@
+/* =====================================================
+   RESPONSIVE CONTENT SWITCH
+   SINGLE SOURCE OF TRUTH
+===================================================== */
+
+/* DESKTOP DEFAULT */
+.mobile-list {
+  display: none;
+}
+
+.table-wrapper {
+  display: block;
+}
+
+/* MOBILE & TABLET */
+@include down($bp-lg) {
+  .mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  .table-wrapper {
+    display: none;
+  }
+}

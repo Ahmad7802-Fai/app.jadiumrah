@@ -1,0 +1,27 @@
+.show-jamaah {
+
+    .profile-img {
+        width:160px; height:160px; object-fit:cover; border-radius:14px;
+    }
+
+    .section-title {
+        font-size:.8rem; color:#6c757d; font-weight:700; letter-spacing:.5px;
+        text-transform:uppercase; margin-bottom:.6rem;
+    }
+
+    .info-table {
+        width:100%; font-size:.85rem;
+        tr td:first-child { width:140px; color:#6c757d; font-weight:600; }
+        tr td:last-child { color:#111; font-weight:500; }
+        tr td { padding:4px 0; }
+    }
+
+    .info-table.bordered tr td {
+        border-bottom:1px solid #e6e6e6; padding:6px 0;
+    }
+
+    @media(max-width:576px) {
+        .profile-img { width:120px;height:120px; }
+        .info-table tr td:first-child { width:110px; }
+    }
+}

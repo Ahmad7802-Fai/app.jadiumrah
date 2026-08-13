@@ -1,0 +1,68 @@
+/* ============================================================
+   TRANSAKSI LAYANAN — CREATE F7 SUPER COMPACT
+   ============================================================ */
+
+:root {
+  --ju-green: #0E7A46;
+  --ju-green-dark: #0b6036;
+  --ju-gray: #6c757d;
+}
+
+.f4-card {
+  border-radius: 14px;
+  padding: 20px 26px;
+}
+
+.label-mini {
+  font-size: .76rem;
+  font-weight: 600;
+  color: var(--ju-gray);
+}
+
+.btn-ju {
+  background-color: var(--ju-green);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+}
+.btn-ju:hover {
+  background-color: var(--ju-green-dark) !important;
+  color: #fff;
+}
+
+.btn-ju-dark {
+  background: #222;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.btn-ju-dark:hover {
+  background: #111;
+}
+
+#itemsTable td,
+#itemsTable th {
+  vertical-align: middle;
+}
+
+@media(max-width: 768px){
+  .f4-card { padding: 16px; }
+  h4.fw-bold { font-size: 1.2rem; }
+  table.table td, table.table th { font-size: .78rem; }
+}
+/* Fix card width untuk tabel item di create transaksi */
+.card-transaksi-items {
+    padding: 0 !important;
+}
+
+.card-transaksi-items .table-responsive {
+    padding: 20px 26px;
+}
+
+@media(max-width: 768px){
+    .card-transaksi-items .table-responsive {
+        padding: 16px;
+    }
+}

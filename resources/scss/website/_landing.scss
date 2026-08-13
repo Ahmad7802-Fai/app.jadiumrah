@@ -1,0 +1,17 @@
+.hero-title {
+    color: $color-primary;
+}
+
+.btn-primary {
+    background-color: $color-primary;
+    color: #fff;
+
+    &:hover {
+        background-color: $color-primary-dark;
+    }
+}
+
+.badge-primary {
+    background-color: $color-primary-light;
+    color: $color-primary;
+}

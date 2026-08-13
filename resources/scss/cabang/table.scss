@@ -1,0 +1,187 @@
+/* =====================================================
+   CABANG — TABLE
+   Ultra Compact · Mobile First
+===================================================== */
+
+/* ===============================
+   WRAPPER
+=============================== */
+.c-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* ===============================
+   TABLE BASE
+=============================== */
+.c-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  font-size: 13px;
+  color: $text;
+  background: $bg-card;
+}
+
+/* ===============================
+   TABLE HEAD
+=============================== */
+.c-table thead th {
+  padding: 9px 12px;
+  text-align: left;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-muted;
+
+  background: $bg-soft;
+  border-bottom: 1px solid $border;
+  white-space: nowrap;
+}
+
+/* ROUND CORNER */
+.c-table thead th:first-child {
+  border-top-left-radius: $radius-md;
+}
+.c-table thead th:last-child {
+  border-top-right-radius: $radius-md;
+}
+
+/* ===============================
+   TABLE BODY
+=============================== */
+.c-table tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid $border-soft;
+
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* HOVER */
+.c-table tbody tr:hover {
+  background: $bg-soft;
+}
+
+/* ===============================
+   ACTION CELL
+=============================== */
+.c-table .cell-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ICON BUTTON */
+.c-table .c-btn-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-sm;
+
+  border: none;
+  background: transparent;
+  color: $text-muted;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+}
+
+.c-table .c-btn-icon:hover {
+  background: $bg-soft;
+  color: $text;
+}
+
+/* ===============================
+   STATUS BADGE
+=============================== */
+.c-table .c-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  padding: 3px 8px;
+  border-radius: 999px;
+
+  background: $border;
+  color: $text;
+}
+
+.c-table .c-status.success {
+  background: #ecfdf5;
+  color: $success;
+}
+
+.c-table .c-status.warning {
+  background: #fffbeb;
+  color: $warning;
+}
+
+.c-table .c-status.danger {
+  background: #fef2f2;
+  color: $danger;
+}
+
+/* ===============================
+   EMPTY STATE
+=============================== */
+.c-table-empty {
+  padding: 24px;
+  text-align: center;
+
+  font-size: 13px;
+  color: $text-muted;
+}
+
+/* ===============================
+   DENSE MODE
+=============================== */
+.c-table.is-dense thead th,
+.c-table.is-dense tbody td {
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+/* =====================================================
+   MOBILE — STACKED TABLE
+===================================================== */
+@media (max-width: 768px) {
+
+  .c-table thead {
+    display: none;
+  }
+
+  .c-table tbody tr {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px solid $border;
+  }
+
+  .c-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 6px 0;
+    border-bottom: none;
+    white-space: normal;
+  }
+
+  .c-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: $text-muted;
+    margin-right: 12px;
+  }
+
+  .c-table .cell-actions {
+    justify-content: flex-end;
+  }
+}

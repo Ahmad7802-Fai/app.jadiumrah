@@ -1,0 +1,133 @@
+.c-header {
+  background: #4a647f;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.c-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #fff;
+}
+
+/* LEFT */
+.c-navbar__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.c-navbar__logo {
+  height: 60px;
+}
+
+/* ===============================
+   NAVBAR TITLE (BRAND)
+=============================== */
+
+.c-navbar__title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+/* TITLE */
+.agent-brand-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;              /* PUTIH */
+}
+
+/* TAGLINE */
+.agent-brand-tagline {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255,255,255,.85); /* PUTIH SOFT */
+}
+
+/* RIGHT */
+.c-navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.c-icon-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.c-icon-btn:hover {
+  background: rgba(255,255,255,.15);
+  border-radius: 6px;
+}
+
+.c-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+/* =====================================================
+   CABANG — NAVBAR (MOBILE SUPPORT)
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .c-header {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .c-navbar {
+    gap: 8px;
+  }
+
+  /* ===============================
+     LEFT (LOGO + TITLE)
+  =============================== */
+  .c-navbar__left {
+    gap: 8px;
+  }
+
+  .c-navbar__logo {
+    height: 34px;              /* 🔥 kecilkan logo */
+  }
+
+  .c-navbar__title {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* OPSIONAL: sembunyikan title di layar kecil */
+  @media (max-width: 480px) {
+    .c-navbar__title {
+      display: none;
+    }
+  }
+
+  /* ===============================
+     RIGHT (ICON ONLY)
+  =============================== */
+  .c-navbar__right {
+    gap: 6px;
+  }
+
+  .c-user span {
+    display: none;             /* 🔥 nama user disembunyikan */
+  }
+
+  .c-icon-btn {
+    padding: 6px;
+  }
+}

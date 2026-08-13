@@ -1,0 +1,255 @@
+/* =====================================================
+   BUTTON SYSTEM — FINAL
+   Sync with _variables.scss & _mixins.scss
+===================================================== */
+
+/* =====================================================
+   BASE BUTTON
+===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  font-weight: $btn-font-weight;
+  font-family: $font-sans;
+  font-size: 12px;
+  line-height: 1.2;
+
+  padding: 6px 12px;
+  border-radius: $border-radius;
+  border: 1px solid transparent;
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  transition: $transition-fast;
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* =====================================================
+   COLOR VARIANTS
+===================================================== */
+
+.btn-primary {
+  background: $primary;
+  border-color: $primary;
+  color: $text-inverse;
+
+  &:hover {
+    background: darken($primary, 6%);
+    border-color: darken($primary, 6%);
+  }
+}
+
+.btn-secondary {
+  background: $gray-200;
+  border-color: $gray-300;
+  color: $text-primary;
+
+  &:hover {
+    background: $gray-300;
+  }
+}
+
+.btn-success {
+  background: $success;
+  border-color: $success;
+  color: #fff;
+
+  &:hover {
+    background: darken($success, 6%);
+  }
+}
+
+.btn-danger {
+  background: $danger;
+  border-color: $danger;
+  color: #fff;
+
+  &:hover {
+    background: darken($danger, 6%);
+  }
+}
+
+.btn-warning {
+  background: $warning;
+  border-color: $warning;
+  color: #fff;
+
+  &:hover {
+    background: darken($warning, 6%);
+  }
+}
+
+/* =====================================================
+   OUTLINE
+===================================================== */
+
+.btn-outline-primary {
+  background: transparent;
+  border-color: $primary;
+  color: $primary;
+
+  &:hover {
+    background: rgba($primary, 0.08);
+  }
+}
+
+.btn-outline-danger {
+  background: transparent;
+  border-color: $danger;
+  color: $danger;
+
+  &:hover {
+    background: rgba($danger, 0.08);
+  }
+}
+
+/* =====================================================
+   SIZE VARIANTS
+===================================================== */
+
+.btn-xs {
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: $border-radius-sm;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.btn-lg {
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: $border-radius-lg;
+}
+
+/* =====================================================
+   ICON BUTTON
+===================================================== */
+
+.btn-icon {
+  @include btn-icon;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.btn-icon-sm {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+/* =====================================================
+   SOFT BUTTON
+===================================================== */
+
+.btn-soft-primary {
+  background: rgba($primary, 0.12);
+  color: $primary;
+
+  &:hover {
+    background: rgba($primary, 0.2);
+  }
+}
+
+.btn-soft-danger {
+  background: rgba($danger, 0.12);
+  color: $danger;
+
+  &:hover {
+    background: rgba($danger, 0.2);
+  }
+}
+
+/* =====================================================
+   LAYOUT HELPERS
+===================================================== */
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-group {
+  @include inline(6px, nowrap);
+}
+
+/* =====================================================
+   MOBILE BEHAVIOR (REAL, NOT FAKE)
+===================================================== */
+
+@include down($bp-md) {
+
+  /* semua button jadi touch-friendly */
+  .btn {
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: $border-radius-lg;
+  }
+
+  /* ukuran disamakan */
+  .btn-sm {
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .btn-xs {
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .btn-lg {
+    min-height: 46px;
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  /* action utama */
+  .btn-mobile-block {
+    width: 100%;
+  }
+
+  /* group stack */
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  /* icon only */
+  .btn-mobile-icon-only {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+
+    span,
+    .btn-text {
+      display: none;
+    }
+  }
+
+  /* table / inline */
+  .btn-inline {
+    min-height: 34px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,252 @@
+/* =====================================================
+   FILTER WRAPPER
+===================================================== */
+
+.filter {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  padding: 10px 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* =====================================================
+   FILTER HEADER
+===================================================== */
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.filter-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.filter-toggle {
+  font-size: 12px;
+  font-weight: 600;
+  color: $primary;
+  cursor: pointer;
+}
+
+/* =====================================================
+   FILTER BODY
+===================================================== */
+
+.filter-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+/* =====================================================
+   FILTER ITEM
+===================================================== */
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    color: $text-muted;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}
+
+/* =====================================================
+   FILTER ACTIONS
+===================================================== */
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* =====================================================
+   INLINE FILTER (TABLE TOOLBAR)
+===================================================== */
+
+.filter-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+
+  .filter-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+
+    label {
+      display: none;
+    }
+
+    .form-control,
+    .form-select {
+      min-width: 120px;
+    }
+  }
+}
+
+/* =====================================================
+   COMPACT MODE
+===================================================== */
+
+.filter-compact {
+  padding: 8px;
+  gap: 8px;
+
+  .filter-body {
+    gap: 6px;
+  }
+}
+
+/* =====================================================
+   MOBILE COLLAPSIBLE MODE
+===================================================== */
+
+@include down($bp-md) {
+
+  .filter {
+    padding: 10px;
+  }
+
+  .filter-body {
+    display: none;
+  }
+
+  .filter.is-open .filter-body {
+    display: grid;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+/* =====================================================
+   MOBILE BOTTOM SHEET (OPTIONAL)
+===================================================== */
+
+.filter-sheet {
+  @include down($bp-md) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: $bg-card;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -10px 30px rgba(0,0,0,.15);
+
+    padding: 14px 12px;
+    z-index: $z-fixed;
+
+    transform: translateY(100%);
+    transition: transform $transition-base;
+  }
+}
+
+.filter-sheet.is-open {
+  @include down($bp-md) {
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   SAFE AREA (iOS)
+===================================================== */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .filter-sheet {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}
+.dashboard-filter {
+  margin-bottom: 24px;
+
+  .filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 16px;
+    align-items: end;
+
+    background: #fff;
+    padding: 16px 18px;
+    border-radius: 14px;
+    box-shadow: $shadow-soft;
+  }
+
+  .filter-col {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: $text-muted;
+      margin-bottom: 6px;
+    }
+
+    select {
+      border-radius: 10px;
+      height: 42px;
+    }
+  }
+
+  .filter-actions {
+    .btn-group {
+      display: flex;
+      gap: 10px;
+
+      .btn {
+        height: 42px;
+        padding: 0 18px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 768px) {
+  .dashboard-filter {
+    .filter-row {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-actions {
+      .btn-group {
+        width: 100%;
+
+        .btn {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

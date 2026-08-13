@@ -1,0 +1,60 @@
+/* =====================================================
+   BOOTSTRAP-LIKE DISPLAY UTILITIES (OFFICIAL)
+   Layer: Utility
+===================================================== */
+
+/* Base */
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+/* =====================================================
+   RESPONSIVE — LG (>= 1024px)
+===================================================== */
+
+@media (min-width: $bp-lg) {
+
+  .d-lg-none {
+    display: none !important;
+  }
+
+  .d-lg-block {
+    display: block !important;
+  }
+
+  .d-lg-inline-block {
+    display: inline-block !important;
+  }
+
+}
+/* =====================================================
+   RESPONSIVE VISIBILITY HELPERS (FINAL)
+===================================================== */
+
+/* Default: desktop */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: $bp-lg) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block !important;
+  }
+}
