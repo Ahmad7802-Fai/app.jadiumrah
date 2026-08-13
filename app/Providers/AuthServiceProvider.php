@@ -61,15 +61,11 @@ class AuthServiceProvider extends ServiceProvider
 
         /**
          * 🔑 GLOBAL OVERRIDE
-         * SUPERADMIN & OPERATOR PUSAT
+         * SUPERADMIN ONLY
          */
         Gate::before(function ($user, $ability) {
 
-            if (in_array($user->role, [
-                'SUPERADMIN',
-                'OPERATOR',
-                'KEUANGAN'
-            ])) {
+            if ($user->role === 'SUPERADMIN') {
                 return true;
             }
 

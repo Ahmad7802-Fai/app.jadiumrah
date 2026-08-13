@@ -34,7 +34,7 @@ class CheckRole
          * GLOBAL BYPASS (PUSAT)
          * =====================================================
          */
-        if (in_array($userRole, ['SUPERADMIN', 'OPERATOR'], true)) {
+        if ($userRole === 'SUPERADMIN') {
             return $next($request);
         }
 
