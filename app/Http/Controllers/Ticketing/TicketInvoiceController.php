@@ -13,6 +13,8 @@ class TicketInvoiceController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('viewAny', TicketInvoice::class);
+
         $clients = Client::orderBy('nama')->get();
 
         $invoices = TicketInvoice::with('pnr.client')
@@ -62,6 +64,8 @@ class TicketInvoiceController extends Controller
 
 public function show(TicketInvoice $invoice)
 {
+    $this->authorize('view', $invoice);
+
     $invoice->load([
         'pnr.client',
         'pnr.routes',
@@ -114,6 +118,8 @@ public function show(TicketInvoice $invoice)
         TicketPnr $pnr,
         TicketInvoiceService $service
     ) {
+        $this->authorize('create', TicketInvoice::class);
+
         $invoice = $service->createFromPnr($pnr->id);
 
         return redirect()

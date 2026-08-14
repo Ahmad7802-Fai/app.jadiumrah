@@ -11,6 +11,8 @@ class TicketInvoicePdfController extends Controller
 {
     public function show(TicketInvoice $invoice)
     {
+        $this->authorize('view', $invoice);
+
         $invoice->load([
             'pnr.routes',
             'items',

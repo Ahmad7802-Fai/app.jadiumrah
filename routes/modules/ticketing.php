@@ -105,13 +105,6 @@ Route::prefix('ticketing')
             [TicketInvoiceController::class, 'show']
         )->name('invoice.show');
 
-        Route::get('invoice/{invoice}/edit',
-            [TicketInvoiceController::class, 'edit']
-        )->name('invoice.edit');
-
-        Route::put('invoice/{invoice}',
-            [TicketInvoiceController::class, 'update']
-        )->name('invoice.update');
         /* =====================
         | INVOICE PDF
         ===================== */
