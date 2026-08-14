@@ -16,14 +16,12 @@ use App\Models\TicketInvoice;
 use App\Models\LeadActivity;
 use App\Models\LeadClosing;
 use App\Models\TicketPayment;
-use App\Models\TicketAllocation;
 /* ===============================
  | OBSERVERS
 =============================== */
 use App\Observers\TicketInvoiceObserver;
 use App\Observers\LeadActivityObserver;
 use App\Observers\LeadClosingObserver;
-use App\Observers\TicketAllocationObserver;
 use App\Observers\TicketPaymentObserver;
 use App\Models\Payments;
 use App\Observers\PaymentObserver;
@@ -89,7 +87,6 @@ class AppServiceProvider extends ServiceProvider
         // CRM Lead
         LeadActivity::observe(LeadActivityObserver::class);
         LeadClosing::observe(LeadClosingObserver::class);
-        TicketAllocation::observe(TicketAllocationObserver::class);
         Payments::observe(PaymentObserver::class);
 
     }
