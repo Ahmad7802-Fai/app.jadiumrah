@@ -190,13 +190,14 @@ class TicketPnrController extends Controller
 
         $data = $request->validate([
             'routes' => 'required|array|min:1',
+            'routes.*' => 'required|array:origin,destination,departure_date,flight_number,departure_time,arrival_time,arrival_day_offset',
             'routes.*.origin' => 'required|string|max:10',
             'routes.*.destination' => 'required|string|max:10',
             'routes.*.departure_date' => 'required|date',
             'routes.*.flight_number' => 'nullable|string|max:20',
-            'routes.*.departure_time' => 'nullable',
-            'routes.*.arrival_time' => 'nullable',
-            'routes.*.arrival_day_offset' => 'nullable|integer',
+            'routes.*.departure_time' => 'nullable|date_format:H:i',
+            'routes.*.arrival_time' => 'nullable|date_format:H:i',
+            'routes.*.arrival_day_offset' => 'nullable|integer|in:0,1',
         ]);
 
         // reset routes
