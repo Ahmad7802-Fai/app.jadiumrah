@@ -76,9 +76,9 @@ class TicketAllocationLegacyRuntimeContractTest extends TestCase
         );
     }
 
-    public function test_allocation_schema_remains_for_separate_cleanup_phase(): void
+    public function test_legacy_allocation_schema_is_not_present(): void
     {
-        $this->assertTrue(
+        $this->assertFalse(
             Schema::hasTable('ticket_allocations')
         );
     }

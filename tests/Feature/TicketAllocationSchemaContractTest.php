@@ -7,33 +7,17 @@ use Tests\TestCase;
 
 class TicketAllocationSchemaContractTest extends TestCase
 {
-    public function test_allocation_schema_has_no_legacy_invoice_column(): void
+    public function test_legacy_ticket_allocations_table_is_not_present(): void
     {
         $this->assertFalse(
-            Schema::hasColumn(
-                'ticket_allocations',
-                'ticket_invoice_id'
-            )
+            Schema::hasTable('ticket_allocations')
         );
     }
 
-    public function test_active_allocation_schema_keeps_pnr_column(): void
+    public function test_active_ticket_pnrs_table_remains_present(): void
     {
         $this->assertTrue(
-            Schema::hasColumn(
-                'ticket_allocations',
-                'pnr_id'
-            )
-        );
-    }
-
-    public function test_active_allocation_schema_keeps_amount_column(): void
-    {
-        $this->assertTrue(
-            Schema::hasColumn(
-                'ticket_allocations',
-                'allocated_amount'
-            )
+            Schema::hasTable('ticket_pnrs')
         );
     }
 }

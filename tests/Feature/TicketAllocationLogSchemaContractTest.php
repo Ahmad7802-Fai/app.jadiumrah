@@ -14,9 +14,9 @@ class TicketAllocationLogSchemaContractTest extends TestCase
         );
     }
 
-    public function test_active_ticket_allocations_table_remains_present(): void
+    public function test_legacy_ticket_allocations_table_is_not_present(): void
     {
-        $this->assertTrue(
+        $this->assertFalse(
             Schema::hasTable('ticket_allocations')
         );
     }
