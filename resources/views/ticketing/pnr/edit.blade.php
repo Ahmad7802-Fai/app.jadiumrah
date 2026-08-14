@@ -124,15 +124,6 @@
                                    value="{{ $pnr->fare_per_pax }}">
                         </div>
 
-                        {{-- <div class="form-group">
-                            <label class="form-label">Deposit / Pax *</label>
-                            <input type="number"
-                                   name="deposit_per_pax"
-                                   id="deposit"
-                                   class="form-input"
-                                   value="{{ $pnr->deposit_per_pax }}">
-                        </div> --}}
-
                         <div class="form-group">
                             <label class="form-label">Balance</label>
                             <input type="text"
@@ -191,30 +182,25 @@
 @push('scripts')
 <script>
 /* ===============================
- | CALCULATE BALANCE
+ | PRICING PREVIEW
  =============================== */
-function calculate() {
-    const pax     = Number(document.getElementById('pax')?.value || 0);
-    const fare    = Number(document.getElementById('fare')?.value || 0);
-    const deposit = Number(document.getElementById('deposit')?.value || 0);
+function calculatePricing() {
+    const pax = Number(document.getElementById('pax')?.value || 0);
+    const fare = Number(document.getElementById('fare')?.value || 0);
+    const balance = document.getElementById('balance');
 
-    const totalFare    = pax * fare;
-    const totalDeposit = pax * deposit;
-    const balance      = Math.max(0, totalFare - totalDeposit);
+    if (!balance) return;
 
-    const balanceInput = document.getElementById('balance');
-    if (balanceInput) {
-        balanceInput.value = balance.toLocaleString('id-ID');
-    }
+    balance.value = (pax * fare).toLocaleString('id-ID');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    ['pax', 'fare', 'deposit'].forEach(id => {
+    ['pax', 'fare'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.addEventListener('input', calculate);
+        if (el) el.addEventListener('input', calculatePricing);
     });
 
-    calculate(); // initial
+    calculatePricing();
 });
 </script>
 @endpush
