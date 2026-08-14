@@ -13,7 +13,6 @@ class TicketPaymentService
      |
      | RULES (FINAL):
      | - Payment = append only (tidak pernah update invoice langsung)
-     | - InvoiceObserver = single source of truth
      | - Tidak ada hitung ulang di service
      ====================================================== */
     public function pay(
@@ -73,11 +72,6 @@ class TicketPaymentService
                 $payment->toArray()
             );
 
-            /**
-             * ❗ PENTING:
-             * - JANGAN update invoice di sini
-             * - Observer akan otomatis jalan
-             */
         });
     }
 }
