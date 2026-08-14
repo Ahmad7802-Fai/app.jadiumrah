@@ -21,9 +21,4 @@ class TicketAllocation extends Model
         return $this->belongsTo(TicketPnr::class, 'pnr_id');
     }
 
-    public function logs()
-    {
-        return $this->hasMany(TicketAllocationLog::class, 'allocation_id');
-    }
-
 }
