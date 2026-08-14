@@ -128,14 +128,6 @@ class TicketInvoice extends Model
         return $this->status === 'REFUNDED';
     }
 
-    public function allocations()
-    {
-        return $this->hasMany(
-            TicketAllocation::class,
-            'ticket_invoice_id'
-        );
-    }
-
 }
 
 

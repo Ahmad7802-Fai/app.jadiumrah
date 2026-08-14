@@ -26,12 +26,4 @@ class TicketAllocation extends Model
         return $this->hasMany(TicketAllocationLog::class, 'allocation_id');
     }
 
-    public function invoice()
-    {
-        return $this->belongsTo(
-            TicketInvoice::class,
-            'ticket_invoice_id'
-        );
-    }
-
 }
