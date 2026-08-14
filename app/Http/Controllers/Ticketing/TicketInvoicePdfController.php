@@ -47,10 +47,14 @@ class TicketInvoicePdfController extends Controller
                         ? strtoupper($r->flight_number) . ' '
                         : '';
 
-                    // Route (CGK - JED => CGK → JED)
-                    $route = str_replace('-', '→', $r->origin);
-                    $route = preg_replace('/\s+→\s+/', ' → ', $route);
-                    $route = strtoupper($route);
+                    $origin = strtoupper(trim((string) $r->origin));
+                    $destination = strtoupper(trim((string) $r->destination));
+
+                    $route = $destination !== ''
+                        ? "{$origin} → {$destination}"
+                        : str_replace('-', '→', $origin);
+
+                    $route = preg_replace('/\s*→\s*/', ' → ', $route);
 
                     return "• {$flight}{$route} ({$date} | {$time}{$offset})";
                 })
