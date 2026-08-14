@@ -15,10 +15,6 @@
         <span class="badge badge-danger">REJECTED</span>
         @break
 
-    @case('EXECUTED')
-        <span class="badge badge-primary">EXECUTED</span>
-        @break
-
     @default
         <span class="badge badge-secondary">UNKNOWN</span>
 @endswitch

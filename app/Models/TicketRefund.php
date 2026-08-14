@@ -34,7 +34,7 @@ class TicketRefund extends Model
 
     public function requester()
     {
-        return $this->belongsTo(User::class, 'requested_by');
+        return $this->belongsTo(User::class, 'refunded_by');
     }
 
     public function approver()
