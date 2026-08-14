@@ -14,11 +14,13 @@ class TicketPaymentController extends Controller
         TicketInvoice $invoice,
         TicketPaymentService $service
     ) {
+        $this->authorize('pay', $invoice);
+
         $data = $request->validate([
-            'amount' => 'required|integer|min:1',
-            'method' => 'required|string',
-            'bank'   => 'nullable|string',
-            'receipt'=> 'nullable|file',
+            'amount'  => 'required|integer|min:1',
+            'method'  => 'required|in:TRANSFER,CASH,VA',
+            'bank'    => 'nullable|string|max:50',
+            'receipt' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
         $receiptPath = null;

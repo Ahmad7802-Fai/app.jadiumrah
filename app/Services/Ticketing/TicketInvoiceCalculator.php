@@ -33,7 +33,7 @@ class TicketInvoiceCalculator
             }
 
             $invoice->update([
-                'paid_amount'     => $netPaid,
+                'paid_amount'     => $paid,
                 'refunded_amount' => $refunded,
                 'status'          => $status,
             ]);
