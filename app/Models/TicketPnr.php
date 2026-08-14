@@ -132,13 +132,6 @@ class TicketPnr extends Model
         return 'PARTIAL';
     }
 
-public function allocations()
-{
-    return $this->hasMany(
-        \App\Models\TicketAllocation::class,
-        'pnr_id'
-    )->orderBy('allocation_date');
-}
 
 
 }

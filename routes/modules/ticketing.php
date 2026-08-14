@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Ticketing\{
     TicketPnrController,
-    TicketAllocationController,
     TicketInvoiceController,
     TicketPaymentController,
     TicketInvoicePdfController,
@@ -71,12 +70,6 @@ Route::prefix('ticketing')
             'pnr/{pnr}/confirm',
             [TicketPnrController::class, 'confirm']
         )->name('pnr.confirm');
-
-        /* =====================
-         | ALLOCATION
-         ===================== */
-        Route::post('pnr/{pnr}/allocate', [TicketAllocationController::class, 'store'])
-            ->name('allocation.store');
 
         /* =====================
         | INVOICE

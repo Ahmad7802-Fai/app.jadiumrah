@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class TicketAllocationLegacyObserverContractTest extends TestCase
@@ -31,10 +30,4 @@ class TicketAllocationLegacyObserverContractTest extends TestCase
         );
     }
 
-    public function test_pnr_allocation_route_remains_available(): void
-    {
-        $this->assertTrue(
-            Route::has('ticketing.allocation.store')
-        );
-    }
 }

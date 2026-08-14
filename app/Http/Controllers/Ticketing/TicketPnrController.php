@@ -74,7 +74,6 @@ class TicketPnrController extends Controller
             'agent',
             'invoices.payments',
             'invoices.refunds',
-            'allocations', // 🔥 INI YANG HILANG
         ]);
 
         return view('ticketing.pnr.show', compact('pnr'));

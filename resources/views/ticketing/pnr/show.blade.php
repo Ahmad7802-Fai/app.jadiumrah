@@ -198,42 +198,6 @@
 </div>
 
 {{-- ======================================================
-| ALLOCATION HISTORY
-====================================================== --}}
-@if($pnr->allocations->count())
-<div class="card mb-md">
-    <div class="card-header">
-        <div class="card-title">Allocation History</div>
-    </div>
-
-    <div class="card-body p-0">
-        <table class="table table-compact table-bordered">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th class="text-right">Amount</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($pnr->allocations as $alloc)
-                <tr>
-                    <td>{{ \Carbon\Carbon::parse($alloc->allocation_date)->format('d M Y') }}</td>
-                    <td class="text-right fw-semibold">
-                        <x-ticketing.money :value="$alloc->allocated_amount" />
-                    </td>
-                    <td>
-                        <span class="badge-success">{{ $alloc->status }}</span>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-@endif
-
-{{-- ======================================================
 | ACTIONS (PRIMARY FLOW)
 ====================================================== --}}
 @can('update', $pnr)
