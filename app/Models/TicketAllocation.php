@@ -10,7 +10,6 @@ class TicketAllocation extends Model
 
     protected $fillable = [
         'pnr_id',
-        'allocation_code',
         'allocated_amount',
         'allocation_date',
         'status',
