@@ -69,7 +69,7 @@ class TicketPnrService
                 $pnr->routes()->create([
                     'sector'              => $i + 1,
                     'origin'              => $route['origin'],
-                    // 'destination'         => $route['destination'],
+                    'destination'         => $route['destination'],
                     'departure_date'      => $route['departure_date'],
                     'departure_time'      => $route['departure_time'] ?? null,
                     'arrival_time'        => $route['arrival_time'] ?? null,

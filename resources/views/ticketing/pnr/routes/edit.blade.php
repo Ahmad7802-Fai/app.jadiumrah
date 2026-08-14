@@ -44,7 +44,17 @@
                                    name="routes[{{ $i }}][origin]"
                                    value="{{ $route->origin }}"
                                    class="form-input uppercase"
-                                   placeholder="CGK - JED"
+                                   placeholder="CGK"
+                                   required>
+                        </div>
+
+                        <div class="grid-1 gap-xs mb-sm">
+                            <label class="form-label">Destination (Airport)</label>
+                            <input type="text"
+                                   name="routes[{{ $i }}][destination]"
+                                   value="{{ $route->destination }}"
+                                   class="form-input uppercase"
+                                   placeholder="JED"
                                    required>
                         </div>
 
@@ -121,7 +131,16 @@ function addRoute() {
                     <input type="text"
                            name="routes[${routeIndex}][origin]"
                            class="form-input uppercase"
-                           placeholder="CGK - JED"
+                           placeholder="CGK"
+                           required>
+                </div>
+
+                <div class="grid-1 gap-xs mb-sm">
+                    <label class="form-label">Destination (Airport)</label>
+                    <input type="text"
+                           name="routes[${routeIndex}][destination]"
+                           class="form-input uppercase"
+                           placeholder="JED"
                            required>
                 </div>
 
@@ -178,7 +197,16 @@ function addRoute() {
                     <input type="text"
                            name="routes[${routeIndex}][origin]"
                            class="form-input uppercase"
-                           placeholder="CGK - JED"
+                           placeholder="CGK"
+                           required>
+                </div>
+
+                <div class="grid-1 gap-xs mb-sm">
+                    <label class="form-label">Destination (Airport)</label>
+                    <input type="text"
+                           name="routes[${routeIndex}][destination]"
+                           class="form-input uppercase"
+                           placeholder="JED"
                            required>
                 </div>
 

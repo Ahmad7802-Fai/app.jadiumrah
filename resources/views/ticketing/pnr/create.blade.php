@@ -174,7 +174,16 @@
                                 <input type="text"
                                        name="routes[0][origin]"
                                        class="form-control text-uppercase"
-                                       placeholder="CGK - JED"
+                                       placeholder="CGK"
+                                       required>
+                            </div>
+
+                            <div>
+                                <label class="form-label">Destination (Airport)</label>
+                                <input type="text"
+                                       name="routes[0][destination]"
+                                       class="form-control text-uppercase"
+                                       placeholder="JED"
                                        required>
                             </div>
 
@@ -337,7 +346,16 @@ function buildRouteCard(index) {
                     <input type="text"
                            name="routes[${index}][origin]"
                            class="form-control text-uppercase"
-                           placeholder="CGK - JED"
+                           placeholder="CGK"
+                           required>
+                </div>
+
+                <div>
+                    <label class="form-label">Destination (Airport)</label>
+                    <input type="text"
+                           name="routes[${index}][destination]"
+                           class="form-control text-uppercase"
+                           placeholder="JED"
                            required>
                 </div>
 
