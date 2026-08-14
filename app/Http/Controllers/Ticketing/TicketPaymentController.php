@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\TicketInvoice;
 use App\Services\Ticketing\TicketPaymentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class TicketPaymentController extends Controller
 {
@@ -17,9 +19,9 @@ class TicketPaymentController extends Controller
         $this->authorize('pay', $invoice);
 
         $data = $request->validate([
-            'amount'  => 'required|integer|min:1',
-            'method'  => 'required|in:TRANSFER,CASH,VA',
-            'bank'    => 'nullable|string|max:50',
+            'amount' => 'required|integer|min:1',
+            'method' => 'required|in:TRANSFER,CASH,VA',
+            'bank' => 'nullable|string|max:50',
             'receipt' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
@@ -29,19 +31,26 @@ class TicketPaymentController extends Controller
                 ->store('payments', 'public');
         }
 
-        $service->pay(
-            $invoice,
-            $data['amount'],
-            auth()->id(),
-            $data['method'],
-            $data['bank'] ?? null,
-            $receiptPath
-        );
+        try {
+            $service->pay(
+                $invoice,
+                $data['amount'],
+                auth()->id(),
+                $data['method'],
+                $data['bank'] ?? null,
+                $receiptPath
+            );
+        } catch (Throwable $exception) {
+            if ($receiptPath !== null) {
+                Storage::disk('public')->delete($receiptPath);
+            }
+
+            throw $exception;
+        }
 
         return back()->with('success', 'Pembayaran berhasil');
     }
 }
-
 
 // namespace App\Http\Controllers\Ticketing;
 
