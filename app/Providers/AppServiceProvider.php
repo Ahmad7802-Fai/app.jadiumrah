@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 =============================== */
 use App\Models\JamaahNotification;
 use App\Models\TicketInvoice;
-use App\Models\TicketRefund;
 use App\Models\LeadActivity;
 use App\Models\LeadClosing;
 use App\Models\TicketPayment;
@@ -22,7 +21,6 @@ use App\Models\TicketAllocation;
  | OBSERVERS
 =============================== */
 use App\Observers\TicketInvoiceObserver;
-use App\Observers\TicketRefundObserver;
 use App\Observers\LeadActivityObserver;
 use App\Observers\LeadClosingObserver;
 use App\Observers\TicketAllocationObserver;
@@ -86,7 +84,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Ticketing
         TicketInvoice::observe(TicketInvoiceObserver::class);
-        TicketRefund::observe(TicketRefundObserver::class);
         TicketPayment::observe(TicketPaymentObserver::class);
 
         // CRM Lead
