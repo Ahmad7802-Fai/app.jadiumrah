@@ -50,8 +50,28 @@ class TicketPnrController extends Controller
     ) {
         $this->authorize('create', TicketPnr::class);
 
+        $validated = $request->validate([
+            'pnr_code' => 'required|string|max:20|unique:ticket_pnrs,pnr_code',
+            'client_id' => 'required|integer|exists:clients,id',
+            'airline_code' => 'nullable|string|max:10',
+            'airline_name' => 'nullable|string|max:100',
+            'airline_class' => 'nullable|string|max:50',
+            'category' => 'nullable|string|max:50',
+            'pax' => 'required|integer|min:1',
+            'fare_per_pax' => 'required|integer|min:0',
+
+            'routes' => 'required|array|min:1',
+            'routes.*.origin' => 'required|string|max:10',
+            'routes.*.destination' => 'required|string|max:10',
+            'routes.*.departure_date' => 'required|date',
+            'routes.*.flight_number' => 'nullable|string|max:20',
+            'routes.*.departure_time' => 'nullable|date_format:H:i',
+            'routes.*.arrival_time' => 'nullable|date_format:H:i',
+            'routes.*.arrival_day_offset' => 'nullable|integer|in:0,1',
+        ]);
+
         $pnr = $service->create(
-            $request->all() + [
+            $validated + [
                 'created_by' => auth()->id(),
             ]
         );
