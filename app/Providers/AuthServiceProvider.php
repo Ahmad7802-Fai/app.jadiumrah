@@ -33,9 +33,11 @@ use App\Policies\LeadActivityPolicy;
 use App\Models\TicketPnr;
 use App\Models\TicketInvoice;
 use App\Models\TicketPayment;
+use App\Models\TicketRefund;
 use App\Policies\TicketPnrPolicy;
 use App\Policies\TicketInvoicePolicy;
 use App\Policies\TicketPaymentPolicy;
+use App\Policies\TicketRefundPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -56,6 +58,7 @@ class AuthServiceProvider extends ServiceProvider
         TicketPnr::class     => TicketPnrPolicy::class,
         TicketInvoice::class => TicketInvoicePolicy::class,
         TicketPayment::class => TicketPaymentPolicy::class,
+        TicketRefund::class  => TicketRefundPolicy::class,
     ];
 
     public function boot(): void

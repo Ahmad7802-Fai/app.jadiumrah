@@ -11,6 +11,8 @@ class TicketRefundApprovalController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', TicketRefund::class);
+
         $refunds = TicketRefund::with(['invoice.pnr'])
             ->where('approval_status', 'PENDING')
             ->orderBy('refunded_at', 'desc') // ✅ KOLOM REAL

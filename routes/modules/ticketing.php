@@ -126,10 +126,6 @@ Route::prefix('ticketing')
         Route::get('audit', [TicketAuditController::class, 'index'])
         ->name('audit.index');
 
-        Route::post('invoice/{invoice}/refund',
-            [TicketRefundController::class, 'store']
-        )->name('refund.store');
-        
         /* =====================
         | REPORT
         ===================== */
