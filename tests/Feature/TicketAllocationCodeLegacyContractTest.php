@@ -27,9 +27,9 @@ class TicketAllocationCodeLegacyContractTest extends TestCase
         $this->assertContains('status', $fillable);
     }
 
-    public function test_allocation_schema_still_has_legacy_code_column_for_now(): void
+    public function test_allocation_schema_has_no_legacy_code_column(): void
     {
-        $this->assertTrue(
+        $this->assertFalse(
             Schema::hasColumn(
                 'ticket_allocations',
                 'allocation_code'
