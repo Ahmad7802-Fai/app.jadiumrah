@@ -124,16 +124,22 @@ class TicketPnrController extends Controller
     ) {
         $this->authorize('update', $pnr);
 
-        $pnr->update($request->only([
-            'pnr_code',
-            'client_id',
-            'airline_code',
-            'airline_name',
-            'airline_class',
-            'category',
-            'pax',
-            'fare_per_pax',
-        ]));
+        $validated = $request->validate([
+            'client_id' => 'required|integer|exists:clients,id',
+            'airline_class' => 'required|string|in:ECONOMY,BUSINESS,FIRST',
+            'pax' => 'required|integer|min:1',
+            'fare_per_pax' => 'required|integer|min:0',
+        ]);
+
+        $pnr->update(array_merge(
+            $validated,
+            [
+                'total_fare' => (
+                    $validated['pax']
+                    * $validated['fare_per_pax']
+                ),
+            ]
+        ));
 
         return redirect()
             ->route('ticketing.pnr.show', $pnr)
