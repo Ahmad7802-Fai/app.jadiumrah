@@ -18,7 +18,6 @@ class TicketInvoiceService
      | - Invoice dibuat SETELAH PNR CONFIRMED
      | - Total invoice = total_fare PNR (STATIC SNAPSHOT)
      | - Payment & Refund TIDAK di-handle di sini
-     |   (Observer yang urus)
      ====================================================== */
     public function createFromPnr(int $pnrId): TicketInvoice
     {
@@ -63,27 +62,6 @@ class TicketInvoiceService
              | INVOICE ITEM
              | (SINGLE LINE – BASE FARE)
              ================================================== */
-            // $routeText = $pnr->routes
-            //     ->map(fn ($r) => $r->origin . '–' . $r->destination)
-            //     ->unique()
-            //     ->implode('–');
-
-            // /* ==================================================
-            // | INVOICE ITEM (SINGLE LINE, RICH DESCRIPTION)
-            // ================================================== */
-            // TicketInvoiceItem::create([
-            //     'ticket_invoice_id' => $invoice->id,
-            //     'description'       =>
-            //         'Tiket Pesawat – ' .
-            //         $pnr->airline_name . ' ' . $pnr->airline_code .
-            //         ' (' . $pnr->airline_class . ')' .
-            //         ($routeText ? ' | ' . $routeText : '') .
-            //         ' | ' . $pnr->pax . ' Pax',
-            //     'qty'               => $pnr->pax,
-            //     'unit_price'        => $pnr->fare_per_pax,
-            //     'subtotal'          => $pnr->total_fare,
-            // ]);
-
             TicketInvoiceItem::create([
                 'ticket_invoice_id' => $invoice->id,
                 'description'       => sprintf(
